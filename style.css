@@ -1,0 +1,119 @@
+:root{
+  --bg:#ffffff;
+  --text:#0f172a;
+  --card:#f1f5f9;
+  --primary:#2563eb;
+  --green:#22c55e;
+}
+
+body.dark{
+  --bg:#0f172a;
+  --text:#ffffff;
+  --card:#1e293b;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial;
+}
+
+/* NAVBAR HOVER GREEN BORDER */
+.navbar .nav-link{
+  border:1px solid transparent;
+  border-radius:10px;
+  transition:0.3s;
+}
+
+.navbar .nav-link:hover{
+  border:1px solid var(--green);
+  color:var(--green)!important;
+}
+
+/* HERO */
+.hero{
+  padding:120px 8% 60px;
+}
+
+.hero-box{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+}
+
+.hero-card{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+}
+
+/* SERVICES */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+  padding:20px;
+}
+
+.service-card{
+  height:220px;
+  border-radius:15px;
+  background-size:cover;
+  position:relative;
+  overflow:hidden;
+  transition:0.3s;
+}
+
+.service-card:hover{
+  transform:scale(1.05);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+}
+
+.content{
+  position:absolute;
+  bottom:10px;
+  width:100%;
+  text-align:center;
+  color:#fff;
+}
+
+/* COURSES */
+.course-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.course-box{
+  background:var(--card);
+  border-radius:15px;
+  overflow:hidden;
+}
+
+.course-image{
+  height:180px;
+  background-size:cover;
+}
+
+.course-content{
+  padding:15px;
+}
+
+/* SKILLS */
+.skills{
+  text-align:center;
+}
+
+.skill{
+  display:inline-block;
+  margin:5px;
+  padding:8px 14px;
+  background:var(--card);
+  border-radius:10px;
+}
