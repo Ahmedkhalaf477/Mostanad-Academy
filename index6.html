@@ -963,85 +963,6 @@ body.dark .timeline-card{
 
 }
 
-
-
-
-
-/* ===== CINEMATIC INTRO ===== */
-#intro{
-  position:fixed;
-  inset:0;
-  background:#0a0f1c;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-  flex-direction:column;
-  overflow:hidden;
-}
-
-/* خلفية cinematic glow */
-#intro::before{
-  content:"";
-  position:absolute;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle,#38bdf3 0%,transparent 60%);
-  animation:moveGlow 4s ease-in-out infinite;
-  opacity:0.2;
-}
-
-.intro-content{
-  text-align:center;
-  animation:zoomIn 1.2s ease;
-  position:relative;
-  z-index:2;
-}
-
-/* كتابة متحركة */
-.typing{
-  font-size:42px;
-  color:#38bdf3;
-  letter-spacing:3px;
-  overflow:hidden;
-  white-space:nowrap;
-  border-right:3px solid #38bdf3;
-  width:0;
-  animation:typing 2s steps(12) forwards, blink 0.7s infinite;
-}
-
-/* الصورة */
-.intro-image img{
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  margin-top:20px;
-  border:3px solid #38bdf3;
-  object-fit:cover;
-  opacity:0;
-  animation:fadeIn 1s ease forwards;
-  animation-delay:2.2s;
-}
-
-/* زر */
-.intro-btn{
-  display:inline-block;
-  margin-top:15px;
-  padding:10px 18px;
-  background:#2563eb;
-  color:#fff;
-  border-radius:10px;
-  text-decoration:none;
-  opacity:0;
-  animation:fadeIn 1s ease forwards;
-  animation-delay:2.6s;
-  transition:0.3s;
-}
-
-.intro-btn:hover{
-  transform:scale(1.05);
-}
-
 /* ===== ANIMATIONS ===== */
 @keyframes typing{
   from{width:0;}
@@ -1074,53 +995,10 @@ body.dark .footer-cv-btn{
 
 </style>
 
-
-
-
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  setTimeout(() => {
-    const intro = document.getElementById("intro");
-
-    intro.style.transition = "1s ease";
-    intro.style.opacity = "0";
-    intro.style.transform = "scale(1.1)";
-
-    setTimeout(() => {
-      intro.style.display = "none";
-    }, 1000);
-
-  }, 3000); // مدة السينمائي (4 ثواني)
-
-});
-</script>
-
-
-
 </head>
 
 <body class="">
- 
- <div id="intro">
 
-  <div class="intro-content">
-
-    <h1 class="typing">Khalaf_DC</h1>
-
-    <div class="intro-image">
-      <img src="1776864376129.jpg" alt="Profile">
-    </div>
-
-    <a href="https://www.linkedin.com/in/ahmed-khalaf-dc/" target="_blank" class="intro-btn">
-      LinkedIn Profile
-    </a>
-
-  </div>
-
-</div>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg px-3 shadow-sm">
@@ -1165,9 +1043,9 @@ document.addEventListener("DOMContentLoaded", function () {
         archiving systems, Aconex workflows, project coordination, and infrastructure documentation.
         Passionate about organization, process improvement, and digital transformation.
       </p>
-    
-  
-<a class="btn btn-success ms-3"  href="linkedin postes.html" target="_blank">LinkedIn Posts</a>
+      <a class="BRR btn btn-primary ms-3"  href="Linkedin Posts.html" target="_blank">LinkedIn Posts</a>
+      <a class="BRR btn btn-primary ms-3"  href="facebook posts.html" target="_blank">Facebook Posts</a>
+
 
     </div>
 
@@ -1203,7 +1081,6 @@ document.addEventListener("DOMContentLoaded", function () {
         I specialize in managing engineering documents, workflows, and project records.
         I focus on improving documentation processes and ensuring efficient communication between teams.
         </h3>
-
       </div>
 
     </div>
@@ -1734,6 +1611,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
