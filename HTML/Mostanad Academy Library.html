@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mostanad Academy Library</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .custom-navbar {
+
+            background: rgba(225, 230, 235, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #eedf06;
+            z-index: 999;
+            padding-top: 12px;
+            padding-bottom: 12px;
+
+        }
+
+        .custom-navbar .navbar-brand {
+
+            color: rgb(207, 11, 11) !important;
+
+        }
+
+        .brand-text h2 {
+
+            font-size: 24px;
+            font-weight: 700;
+            color: rgb(13, 12, 12);
+
+        }
+
+        .brand-text span {
+
+            color: #0c6ee6;
+            font-size: 14px;
+
+        }
+
+        .logo-img {
+
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2);
+
+        }
+
+        .custom-navbar .nav-link {
+
+            color: #020a13 !important;
+            font-weight: 500;
+            margin-left: 10px;
+            padding: 10px 18px !important;
+            border-radius: 12px;
+            transition: 0.3s;
+
+        }
+
+        .custom-navbar .nav-link:hover {
+
+            background: #e1de09;
+            color: #0d1b2a !important;
+ font-weight: bold;
+        }
+
+        .navbar-toggler {
+
+            border: none;
+            color: rgb(39, 3, 3);
+            font-size: 24px;
+
+        }
+
+        .navbar-toggler:focus {
+
+            box-shadow: none;
+
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            top: 85px;
+            left: 0;
+            background: #0d1b2a;
+            color: white;
+            padding: 30px 20px;
+            overflow-y: auto;
+
+        }
+
+        .logo {
+
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+
+        }
+
+        .sidebar h6 {
+
+            color: #9ca3af;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 13px;
+
+        }
+
+        .sidebar a {
+
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+            font-weight: 500;
+
+        }
+
+        .sidebar a:hover {
+
+            background: #1b263b;
+
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+
+            margin-left: 280px;
+            padding: 120px 30px 30px;
+
+        }
+
+        /* ================= HERO ================= */
+
+        .welcome {
+
+            background: linear-gradient(to right, #0d1b2a, #1b263b);
+            color: white;
+            padding: 60px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+
+        }
+
+        .welcome h1 {
+
+            font-size: 50px;
+            font-weight: bold;
+
+        }
+
+        .welcome p {
+
+            color: #d6d6d6;
+            margin-top: 20px;
+            max-width: 700px;
+
+        }
+
+        /* ================= TITLES ================= */
+
+        .section-title {
+
+            font-size: 35px;
+            font-weight: bold;
+            margin-bottom: 30px;
+
+        }
+
+        /* ================= FOLDER CARD ================= */
+
+        .folder-card {
+
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            transition: 0.3s;
+            height: 100%;
+
+        }
+
+        .folder-card:hover {
+
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+        }
+
+        .folder-icon {
+
+            width: 70px;
+            height: 70px;
+            background: #edf2ff;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+
+        }
+
+        /* ================= FILE CARD ================= */
+
+        .file-card {
+
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            transition: 0.3s;
+            height: 100%;
+
+        }
+
+        .file-card:hover {
+
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+        }
+
+        .file-type {
+
+            background: #edf2ff;
+            color: #0d1b2a;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .btn-dark-custom {
+
+            background: #0d1b2a;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+
+        }
+
+        .btn-outline-custom {
+
+            border: 2px solid #0d1b2a;
+            color: #0d1b2a;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            background: transparent;
+
+        }
+
+        /* ================= STATS ================= */
+
+        .stats-box {
+
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+
+        }
+
+        .stats-box h2 {
+
+            font-size: 40px;
+            font-weight: bold;
+
+        }
+
+        .stats-box p {
+
+            color: gray;
+
+        }
+
+        /* ================= FOOTER ================= */
+
+        .custom-footer {
+
+            background: #0d1b2a;
+            color: white;
+            padding: 70px 0 30px;
+            margin-left: 280px;
+
+        }
+
+        .custom-footer h3,
+        .custom-footer h5 {
+
+            font-weight: bold;
+            margin-bottom: 20px;
+
+        }
+
+        .custom-footer p {
+
+            color: #cbd5e1;
+            line-height: 1.8;
+
+        }
+
+        .footer-links {
+
+            list-style: none;
+            padding: 0;
+
+        }
+
+        .footer-links li {
+
+            margin-bottom: 12px;
+
+        }
+
+        .footer-links a {
+
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: 0.3s;
+
+        }
+
+        .footer-links a:hover {
+
+            color: white;
+            padding-left: 5px;
+
+        }
+
+        .custom-footer hr {
+
+            border-color: rgba(255,255,255,0.1);
+            margin: 40px 0 20px;
+
+        }
+
+        .footer-bottom {
+
+            text-align: center;
+            color: #94a3b8;
+
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:992px){
+
+            .sidebar {
+
+                display: none;
+
+            }
+
+            .main {
+
+                margin-left: 0;
+                padding-top: 120px;
+
+            }
+
+            .custom-footer {
+
+                margin-left: 0;
+                padding: 50px 20px;
+
+            }
+
+            .welcome {
+
+                padding: 30px;
+
+            }
+
+            .welcome h1 {
+
+                font-size: 35px;
+
+            }
+
+            .brand-text h2 {
+
+                font-size: 18px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg custom-navbar fixed-top px-4 shadow-sm">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand d-flex align-items-center" href="#">
+
+                <img src="../IMG/logo.png"
+                     alt="Logo"
+                     width="80"
+                     height="60"
+                     class="me-3 rounded-circle logo-img">
+
+                <div class="brand-text">
+
+                    <h2 class="m-0">
+                        Mostanad Academy |  مستند أكاديمي 
+                    </h2>
+
+                </div>
+
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#nav">
+
+                ☰
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="nav">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../index.html">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Library
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Template
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Courses
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            Mostanad Academy
+        </div>
+
+        <h6>Library</h6>
+
+       
+        <a href="#">📁 Document Acronyms</a>
+        <a href="#">📁 Format Documents</a>
+        <a href="#">📁 Logs & Registers</a>
+        <a href="#">📁 Templates Document</a>
+        <a href="#">📁 Documetn Control Plan</a>
+        
+        
+
+        <h6>Resources</h6>
+
+        <a href="#">📄 Document Procedures</a>
+        <a href="#">📄 Document Workflow</a>
+        <a href="#">📄 Numbering Systems</a>
+        <a href="#">📄 Filing Structure</a>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+        <!-- HERO -->
+
+        <div class="welcome">
+
+            <h1>
+                Mostanad Academy
+            </h1>
+
+            <p>
+                Professional digital library for Document Controllers.
+                Browse templates, procedures, logs, registers,
+                Aconex workflows, QA/QC forms,
+                infrastructure documents, and EDMS resources.
+            </p>
+
+        </div>
+
+        <!-- STATS -->
+
+        <div class="row g-4 mb-5">
+
+            <div class="col-md-3">
+
+                <div class="stats-box">
+
+                    <h2>50+</h2>
+
+                    <p>Templates</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="stats-box">
+
+                    <h2>100+</h2>
+
+                    <p>Procedures</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="stats-box">
+
+                    <h2>20+</h2>
+
+                    <p>Logs & Registers</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="stats-box">
+
+                    <h2>30+</h2>
+
+                    <p>format Document</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MAIN SECTIONS -->
+
+        <h2 class="section-title">
+            Main Library Sections
+        </h2>
+
+        <div class="row g-4 mb-5">
+
+            <div class="col-md-4">
+
+                <div class="folder-card">
+
+                    <div class="folder-icon">
+                        📥
+                    </div>
+
+                    <h4>
+                        Document Acronyms
+                      
+                    </h4>
+
+                    <p>
+                        Vendor documents, MIRs, RFIs,
+                        technical submittals, shop drawings,
+                        and method statements.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="folder-card">
+
+                    <div class="folder-icon">
+                        📤
+                    </div>
+
+                    <h4>  
+                          Format Documents
+                    </h4>
+
+                    <p>
+                        Transmittals, client submissions,
+                        consultant approvals, and official letters.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="folder-card">
+
+                    <div class="folder-icon">
+                        📊
+                    </div>
+
+                    <h4>
+                        Logs & Registers
+                    </h4>
+
+                    <p>
+                        MS, IR, MIR, NCR, 
+                        QS, SD, DS, SI, VO,
+                        RFI, RFA, RFP, 
+                        RFI Register, and drawing registers.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FEATURED FILES -->
+
+        <h2 class="section-title">
+            Featured Documents
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- FILE 1 -->
+
+            <div class="col-md-3">
+
+                <div class="file-card">
+
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <span class="file-type">
+                            XLSX
+                        </span>
+
+                        <small>
+                            Logs
+                        </small>
+
+                    </div>
+
+                    <h5>
+                        Master Document Register
+                    </h5>
+
+                    <p class="text-muted">
+                        Professional MDR tracking system
+                        for construction projects.
+                    </p>
+
+                    <div class="d-flex gap-2">
+
+                        <button class="btn-dark-custom w-100">
+                            Preview
+                        </button>
+
+                        <button class="btn-outline-custom w-100">
+                            Open
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FILE 2 -->
+
+            <div class="col-md-3">
+
+                <div class="file-card">
+
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <span class="file-type">
+                            DOCX
+                        </span>
+
+                        <small>
+                            Template
+                        </small>
+
+                    </div>
+
+                    <h5>
+                        MIR Template
+                    </h5>
+
+                    <p class="text-muted">
+                        Material Inspection Request template
+                        for infrastructure projects.
+                    </p>
+
+                    <div class="d-flex gap-2">
+
+                        <button class="btn-dark-custom w-100">
+                            Preview
+                        </button>
+
+                        <button class="btn-outline-custom w-100">
+                            Open
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FILE 3 -->
+
+            <div class="col-md-3">
+
+                <div class="file-card">
+
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <span class="file-type">
+                            PDF
+                        </span>
+
+                        <small>
+                            Aconex
+                        </small>
+
+                    </div>
+
+                    <h5>
+                        Aconex Workflow Guide
+                    </h5>
+
+                    <p class="text-muted">
+                        Learn mail packages,
+                        workflows, and review cycles.
+                    </p>
+
+                    <div class="d-flex gap-2">
+
+                        <button class="btn-dark-custom w-100">
+                            Preview
+                        </button>
+
+                        <button class="btn-outline-custom w-100">
+                            Open
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FILE 4 -->
+
+            <div class="col-md-3">
+
+                <div class="file-card">
+
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <span class="file-type">
+                            DOCX
+                        </span>
+
+                        <small>
+                            Procedure
+                        </small>
+
+                    </div>
+
+                    <h5>
+                        Document Control Procedure
+                    </h5>
+
+                    <p class="text-muted">
+                        Complete document control
+                        workflow and filing system.
+                    </p>
+
+                    <div class="d-flex gap-2">
+
+                        <button class="btn-dark-custom w-100">
+                            Preview
+                        </button>
+
+                        <button class="btn-outline-custom w-100">
+                            Open
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer class="custom-footer mt-5">
+
+        <div class="container">
+
+            <div class="row g-5">
+
+                <div class="col-lg-4">
+
+                    <h3>
+                        Mostanad Academy
+                    </h3>
+
+                    <p>
+                        Professional digital library and learning platform
+                        for Document Controllers, Aconex users,
+                        QA/QC engineers, and infrastructure teams.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <h5>
+                        Quick Links
+                    </h5>
+
+                    <ul class="footer-links">
+
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li><a href="#">Templates</a></li>
+                        <li><a href="#">Courses</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <h5>
+                        Resources
+                    </h5>
+
+                    <ul class="footer-links">
+
+                        <li><a href="#">Document Procedures</a></li>
+                        <li><a href="#">Aconex Guides</a></li>
+                        <li><a href="#">Logs & Registers</a></li>
+                        <li><a href="#">EDMS Systems</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <h5>
+                        Contact
+                    </h5>
+
+                    <p>
+                        Email: info@mostanadacademy.com
+                    </p>
+
+                    <p>
+                        LinkedIn: khalaf_DC
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="footer-bottom">
+
+                © 2026 Mostanad Academy — All Rights Reserved
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

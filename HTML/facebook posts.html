@@ -2,12 +2,11 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>
-    Mostanad Academy | مستند أكاديمي
+  <title>  Mostanad Academy |  مستند أكاديمي 
+
   </title>
 
   <!-- Bootstrap -->
@@ -25,20 +24,18 @@
 
 /* ================= ROOT ================= */
 
-/* الوضع الافتراضي DARK */
-
 :root{
-  --bg:#0f172a;
-  --text:#ffffff;
-  --card:#1e293b;
-}
-
-/* ================= LIGHT MODE ================= */
-
-body.light{
   --bg:#ffffff;
   --text:#000000;
   --card:#f1f5f9;
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark{
+  --bg:#0f172a;
+  --text:#ffffff;
+  --card:#1e293b;
 }
 
 /* ================= BODY ================= */
@@ -59,13 +56,13 @@ body{
   top:0;
   width:100%;
   z-index:999;
-  background:rgba(15,23,42,0.95);
+  background:rgba(255,255,255,0.9);
   backdrop-filter:blur(10px);
   transition:0.4s;
 }
 
-body.light .navbar{
-  background:rgba(255,255,255,0.9);
+body.dark .navbar{
+  background:rgba(15,23,42,0.95);
 }
 
 /* ================= LOGO ================= */
@@ -84,12 +81,12 @@ body.light .navbar{
 .navbar h2{
   font-size:28px;
   margin:0;
-  color:#38bdf3;
+  color:#0f172a;
   transition:0.4s;
 }
 
-body.light .navbar h2{
-  color:#0f172a;
+body.dark .navbar h2{
+  color:#38bdf3;
 }
 
 /* ================= NAV LINKS ================= */
@@ -98,24 +95,18 @@ body.light .navbar h2{
   padding:10px 14px;
   border-radius:10px;
   transition:0.3s;
-  color:#ffffff;
+  color:#0f172a;
   margin-left:5px;
   font-weight:500;
 }
 
-body.light .navbar .nav-link{
-  color:#0f172a;
+body.dark .navbar .nav-link{
+  color:#ffffff;
 }
 
 .navbar .nav-link:hover{
   border:1px solid #38bdf3;
   color:#38bdf3 !important;
-}
-
-/* ================= LINKEDIN POSTS ================= */
-
-.linkedin-section{
-  padding:40px 20px;
 }
 
 /* ================= CONTACT SECTION ================= */
@@ -125,19 +116,10 @@ body.light .navbar .nav-link{
   padding:80px 20px;
 }
 
-/* ================= CONTACT TITLE ================= */
-
 .contact-section h2{
   font-size:40px;
   margin-bottom:20px;
-  color:#38bdf3;
 }
-
-body.light .contact-section h2{
-  color:#0f172a;
-}
-
-/* ================= CONTACT TEXT ================= */
 
 .contact-section p{
   max-width:700px;
@@ -166,15 +148,15 @@ body.light .contact-section h2{
   text-decoration:none;
   font-size:24px;
   transition:0.4s;
-  background:#111827;
-  color:#38bdf3;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-body.light .social-icons a{
   background:#ffffff;
   color:#2563eb;
   border:1px solid rgba(0,0,0,0.08);
+}
+
+body.dark .social-icons a{
+  background:#111827;
+  color:#38bdf3;
+  border:1px solid rgba(255,255,255,0.08);
 }
 
 .social-icons a:hover{
@@ -182,19 +164,6 @@ body.light .social-icons a{
   background:#38bdf3 !important;
   color:#0f172a !important;
   box-shadow:0 10px 30px rgba(56,189,243,0.35);
-}
-
-/* ================= FOOTER ================= */
-
-.footer-section{
-  background:linear-gradient(180deg,#0f172a,#020617);
-  padding:30px 20px;
-  text-align:center;
-  transition:0.4s;
-}
-
-body.light .footer-section{
-  background:linear-gradient(180deg,#f8fafc,#e2e8f0);
 }
 
 /* ================= FOOTER LINE ================= */
@@ -210,12 +179,13 @@ body.light .footer-section{
 /* ================= COPYRIGHT ================= */
 
 .copyright{
+  text-align:center;
+  padding-bottom:30px;
   font-size:17px;
-  color:#cbd5e1;
 }
 
-body.light .copyright{
-  color:#334155;
+body.dark .copyright{
+  color:#cbd5e1;
 }
 
 /* ================= MOBILE ================= */
@@ -250,7 +220,7 @@ body.light .copyright{
   <!-- LOGO -->
   <a class="navbar-brand d-flex align-items-center" href="#">
 
-    <img src="logo.png"
+    <img src="../IMG/logo.png"
          alt="Logo"
          width="90"
          height="70"
@@ -266,7 +236,7 @@ body.light .copyright{
   </a>
 
   <!-- MOBILE BUTTON -->
-  <button class="navbar-toggler bg-light"
+  <button class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#nav">
@@ -281,7 +251,7 @@ body.light .copyright{
     <ul class="navbar-nav ms-auto align-items-center">
 
       <li class="nav-item">
-        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="../index.html">Home</a>
       </li>
 
       <li class="nav-item">
@@ -311,7 +281,7 @@ body.light .copyright{
            href="#"
            onclick="toggleTheme(this)">
 
-          Light Mode
+          Dark Mode
 
         </a>
 
@@ -323,36 +293,24 @@ body.light .copyright{
 
 </nav>
 
-<!-- ================= LINKEDIN POSTS ================= -->
 
-<section class="linkedin-section">
 
-  <div class="sk-ww-linkedin-profile-post"
-       data-embed-id="25684033">
-  </div>
+<div class="sk-ww-facebook-page-posts" data-embed-id="25684034"></div><script src="https://widgets.sociablekit.com/facebook-page-posts/widget.js" defer></script>
 
-</section>
-
-<script src="https://widgets.sociablekit.com/linkedin-profile-posts/widget.js" defer></script>
 
 <!-- ================= CONTACT SECTION ================= -->
- 
 
 <section class="contact-section" id="contact">
 
-
   <h2>Contact Me</h2>
-
 
   <p>
     Feel free to contact me for Document Control,
     Aconex Support, Archiving Systems, and Training Courses.
   </p>
 
-
   <!-- SOCIAL ICONS -->
   <div class="social-icons">
-
 
     <!-- CV -->
     <a href="Ahmed khalaf.pdf"
@@ -360,122 +318,88 @@ body.light .copyright{
        class="footer-cv-btn"
        target="_blank">
 
-
       <i class="bi bi-download"></i>
 
-
     </a>
-
 
     <!-- Facebook -->
     <a href="https://web.facebook.com/ahmedkhkh477"
        target="_blank">
 
-
       <i class="fab fa-facebook-f"></i>
 
-
     </a>
-
 
     <!-- WhatsApp -->
     <a href="https://wa.me/201156286464"
        target="_blank">
 
-
       <i class="fab fa-whatsapp"></i>
 
-
     </a>
-
 
     <!-- Gmail -->
     <a href="mailto:aragad477@gmail.com"
        target="_blank">
 
-
       <i class="fas fa-envelope"></i>
 
-
     </a>
-
 
     <!-- LinkedIn -->
     <a href="https://www.linkedin.com/in/ahmed-khalaf-dc/"
        target="_blank">
 
-
       <i class="fab fa-linkedin-in"></i>
-
 
     </a>
 
-
   </div>
-
 
   <div class="footer-line"></div>
    <div class="copyright">
    Ahmed Khalaf © Khalaf_DC | Mostanad Academy
  </div>
 
-
 </section>
-
 
 <script>
 
-
 function toggleTheme(btn){
-
 
   document.body.classList.toggle("dark");
 
-
   if(document.body.classList.contains("dark")){
-
 
     btn.innerText = "Light Mode";
     localStorage.setItem("theme","dark");
 
-
   }else{
-
 
     btn.innerText = "Dark Mode";
     localStorage.setItem("theme","light");
   }
 }
 
-
 /* LOAD SAVED THEME */
-
 
 window.onload = function(){
 
-
   const btn = document.querySelector(".theme-btn");
-
 
   const savedTheme = localStorage.getItem("theme");
 
-
   if(savedTheme === "dark"){
 
-
     document.body.classList.add("dark");
-
 
     if(btn){
       btn.innerText = "Light Mode";
     }
 
-
   }else{
 
-
     document.body.classList.remove("dark");
-
 
     if(btn){
       btn.innerText = "Dark Mode";
@@ -483,15 +407,16 @@ window.onload = function(){
   }
 }
 
-
 </script>
-
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
 </body>
+
+
+
+
 
 
 </html>
