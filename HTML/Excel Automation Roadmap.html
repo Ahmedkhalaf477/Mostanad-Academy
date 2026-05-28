@@ -1,536 +1,591 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<<<<<<< HEAD
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmed Khalaf | Document Controller</title>
 
-  <title>Mostanad Academy | Excel Automation Roadmap</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap"
-    rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <style>
+<!-- CSS FILE -->
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="PSDRWMP.css">
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Cairo',sans-serif;
-    }
 
-    body{
-      background:#f4f7fb;
-      color:#222;
-      line-height:1.8;
-    }
 
-    /* NAVBAR */
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    .navbar{
-      width:100%;
-      background:#07111f;
-      padding:16px 8%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      border-bottom:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 2px 10px rgba(0,0,0,0.25);
-    }
 
-    .logo-area{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    .logo-area img{
-      width:55px;
-      height:55px;
-      border-radius:50%;
-      border:2px solid #00b4d8;
-      object-fit:cover;
-    }
+<style>
 
-    .logo-text h2{
-      color:#fff;
-      font-size:24px;
-    }
+/* ===== THEME ===== */
+:root{
+  --bg:#ffffff;
+  --text:#0f172a;
+  --card:#f1f5f9;
+  --primary:#2563eb;
+  --green:#22c55e;
+}
 
-    .logo-text span{
-      color:#00b4d8;
-      font-size:14px;
-    }
+body.dark{
+  --bg:#0f172a;
+  --text:#ffffff;
+  --card:#1e293b;
+}
 
-    .nav-links{
-      display:flex;
-      gap:22px;
-    }
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:0.4s;
+}
 
-    .nav-links a{
-      color:#fff;
-      text-decoration:none;
-      position:relative;
-      transition:0.3s;
-    }
+/* ===== DARK TEXT FIX ===== */
+body.dark p,
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark li,
+body.dark a{
+  color:#fff !important;
+ 
+}
 
-    .nav-links a:hover{
-      color:#00b4d8;
-    }
+/* ===== NAVBAR ===== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:999;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  transition:0.3s;
+}
 
-    .nav-links a::after{
-      content:'';
-      position:absolute;
-      width:0%;
-      height:2px;
-      background:#00b4d8;
-      left:0;
-      bottom:-6px;
-      transition:0.3s;
-    }
+body.dark .navbar{
+  background:rgba(15,23,42,0.9);
+}
 
-    .nav-links a:hover::after{
-      width:100%;
-    }
+/* ===== NAV HOVER GREEN BORDER ===== */
+.navbar .nav-link{
+  padding:8px 12px;
+  border-radius:10px;
+  transition:0.3s;
+  border:1px solid transparent;
+}
+/* NAVBAR HOVER COLOR */
 
-    /* HERO */
+.navbar .nav-link:hover{
+  border:1px solid #00e1ffe8; /* اللون الجديد */
+  color:#00d9fff8 !important;
+}
 
-    .hero{
-      width:100%;
-      min-height:45vh;
 
-      background:
-      linear-gradient(rgba(7,17,31,0.88),rgba(7,17,31,0.88)),
-      url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1400&auto=format&fit=crop');
+/* ===== HERO ===== */
+.hero{
+  padding:120px 8% 60px;
+}
 
-      background-size:cover;
-      background-position:center;
+.hero-box{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  align-items:center;
+  justify-content:space-between;
+}
 
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
+.hero-text{
+  flex:1;
+  min-width:280px;
+}
 
-      color:#fff;
-      padding:40px;
-    }
+.hero-text h1{
+  font-size:48px;
+  font-weight:700;
+}
 
-    .hero-content h1{
-      font-size:55px;
-      margin-bottom:15px;
-    }
+.hero-text span{
+  color:var(--primary);
+}
 
-    .hero-content p{
-      font-size:20px;
-      max-width:850px;
-      margin:auto;
-      color:#ddd;
-    }
+.hero-card{
+  flex:1;
+  min-width:280px;
+  background:var(--card);
+  padding:25px;
+  border-radius:15px;
+}
 
-    /* CONTAINER */
 
-    .container{
-      width:90%;
-      max-width:1200px;
-      margin:60px auto;
-    }
+/* FIX TEXT IN DARK MODE */
 
-    .main-title{
-      text-align:center;
-      margin-bottom:50px;
-    }
 
-    .main-title h2{
-      font-size:40px;
-      color:#07111f;
-    }
+body.dark .card p,
+body.dark .card h3,
+body.dark .card li,
+body.dark .hero-card p,
+body.dark .hero-card h3,
+body.dark .hero-card li{
+  color:#ffffff !important;
+}
+/* TITLES COLOR IN DARK MODE ONLY */
 
-    .main-title p{
-      color:#666;
-      margin-top:10px;
-    }
+body.dark h1 span,
+body.dark h2,
+body.dark h3,
+body.dark h1
 
-    /* GRID */
+{
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:25px;
-    }
 
-    /* CARD */
+  color:#38bdf3 !important;
+}
 
-    .card{
-      background:#fff;
-      padding:25px;
-      border-radius:18px;
-      box-shadow:0 4px 15px rgba(0,0,0,0.08);
-      transition:0.3s;
-    }
 
-    .card:hover{
-      transform:translateY(-5px);
-    }
 
-    .card h3{
-      color:#0077b6;
-      margin-bottom:15px;
-      padding-bottom:10px;
-      border-bottom:2px solid #eee;
-      font-size:24px;
-    }
+/* ===== FLOAT BUTTONS ===== */
+.contact-float{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
 
-    .card ul{
-      padding-left:18px;
-    }
+.contact-btn{
+  padding:12px 14px;
+  border-radius:12px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:13px;
+}
 
-    .card li{
-      margin-bottom:10px;
-      color:#444;
-    }
 
-    .level{
-      display:inline-block;
-      background:#00b4d8;
-      color:#fff;
-      padding:6px 14px;
-      border-radius:8px;
-      font-size:14px;
-      margin-bottom:15px;
-    }
 
-    /* FOOTER */
+/* ===== FOOTER LIGHT MODE ===== */
 
-    .footer{
-      margin-top:70px;
-      background:#07111f;
-      padding:50px 20px;
-      text-align:center;
-      color:#fff;
-    }
 
-    .footer-content h2{
-      font-size:32px;
-      margin-bottom:10px;
-    }
+.modern-footer{
+  background:linear-gradient(180deg,#f8fafc,#e2e8f0);
+  transition:0.4s;
+}
 
-    .footer-content p{
-      color:#bbb;
-      margin:10px 0;
-    }
+.footer-content h2{
+  color:#0f172a;
+}
 
-    .footer-links{
-      margin:25px 0;
-    }
 
-    .footer-links a{
-      color:#fff;
-      text-decoration:none;
-      margin:0 12px;
-      transition:0.3s;
-    }
+.footer-content p,
+.footer-content span{
+  color:#334155;
+}
 
-    .footer-links a:hover{
-      color:#00b4d8;
-    }
 
-    .footer hr{
-      margin:25px auto;
-      width:70%;
-      border-color:rgba(255,255,255,0.1);
-    }
+.social-icons a{
+  background:#ffffff;
+  color:#2563eb;
+  border:1px solid rgba(0,0,0,0.08);
+}
 
-    .copyright span{
-      color:#00b4d8;
-      font-weight:bold;
-    }
 
-    /* MOBILE */
 
-    @media(max-width:768px){
 
-      .navbar{
-        flex-direction:column;
-        gap:15px;
-      }
+body.dark .modern-footer{
+  background:linear-gradient(180deg,#0f172a,#020617);
+}
 
-      .nav-links{
-        flex-wrap:wrap;
-        justify-content:center;
-      }
 
-      .hero-content h1{
-        font-size:38px;
-      }
+body.dark .footer-content h2{
+  color:#38bdf3;
+}
 
-      .hero-content p{
-        font-size:17px;
-      }
 
-    }
+body.dark .footer-content p,
+body.dark .footer-content span{
+  color:#cbd5e1;
+}
 
-  </style>
 
+body.dark .social-icons a{
+  background:#111827;
+  color:#38bdf3;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+
+
+
+/* LIGHT MODE */
+
+
+body:not(.dark) .review-card{
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.08);
+}
+
+
+body:not(.dark) .review-card p{
+  color:#334155;
+}
+
+
+body:not(.dark) .review-top span{
+  color:#64748b;
+}
+
+
+
+
+/* LIGHT MODE */
+
+
+body:not(.dark) .review-card{
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.08);
+}
+
+
+body:not(.dark) .review-card p{
+  color:#334155;
+}
+
+
+body:not(.dark) .review-top span{
+  color:#64748b;
+}
+
+  
+
+
+body.dark h1 span,
+body.dark h2,
+body.dark h3
+{
+  color:#38bdf3 !important;
+  }
+body.dark  {
+  background-color:#011e22;
+}
+body.dark .card {
+  background-color:#011e22;
+}
+body.dark .card {
+  color:#effbfc !important;
+}
+body.dark .card  li{
+  color:#e2f2f4;
+}
+
+
+
+
+
+</style>
 </head>
 
-<body>
-
-  <!-- NAVBAR -->
-
-  <nav class="navbar">
-
-    <div class="logo-area">
-
-      <img src="../IMG/logo.png" alt="Mostanad Academy Logo">
-
-      <div class="logo-text">
-        <h2>
-        Mostanad Academy | مستند أكاديمي  
-        </h2>
-      </div>
-
-    </div>
-
-    <div class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="#">Excel</a>
-      <a href="#">Automation</a>
-      <a href="#">VBA</a>
-      <a href="#">Dashboards</a>
-    </div>
-
-  </nav>
+<body class="">
 
   <!-- HERO -->
 
+
   <section class="hero">
+
 
     <div class="hero-content">
 
+
       <h1>Excel Automation Roadmap</h1>
+
 
       <p>
         Smart dashboards, logs & VBA automation for document workflows.
         Learn Excel step-by-step from basics to professional automation.
       </p>
 
+
     </div>
+
 
   </section>
 
-  <!-- MAIN -->
+ <!-- MAIN -->
+ <div class="container">
+   <div class="main-title">
+     <h2>Excel Learning Plan</h2>
+     <p>
+       Complete roadmap for mastering Excel & VBA automation
+     </p>
+   </div>
+   <div class="grid">
+     <!-- LEVEL 1 -->
+     <div class="card">
+       <span class="level">Level 1 - Beginner</span>
+       <h3>Excel Basics</h3>
+       <ul>
+         <li>Understanding Excel Interface</li>
+         <li>Rows, Columns & Worksheets</li>
+         <li>Data Entry & Formatting</li>
+         <li>Fonts, Colors & Borders</li>
+         <li>Cell Alignment & Merge</li>
+         <li>Basic Formulas</li>
+         <li>Save & Print Files</li>
+       </ul>
+     </div>
+          <!-- LEVEL 2 -->
+     <div class="card">
+       <span class="level">Level 2 - Intermediate</span>
+       <h3>Functions & Data Handling</h3>
+       <ul>
+         <li>SUM / AVERAGE / COUNT</li>
+         <li>IF Statements</li>
+         <li>VLOOKUP & XLOOKUP</li>
+         <li>Conditional Formatting</li>
+         <li>Data Validation</li>
+         <li>Sorting & Filtering</li>
+         <li>Freeze Panes</li>
+       </ul>
+     </div>
+     <!-- LEVEL 3 -->
+     <div class="card">
+       <span class="level">Level 3 - Advanced</span>
+       <h3>Advanced Excel Skills</h3>
+       <ul>
+         <li>Pivot Tables</li>
+         <li>Pivot Charts</li>
+         <li>Dynamic Dashboards</li>
+         <li>Advanced Lookup Functions</li>
+         <li>INDEX & MATCH</li>
+         <li>Data Analysis Tools</li>
+         <li>Excel Shortcuts</li>
+       </ul>
+     </div>
+     <!-- LEVEL 4 -->
+     <div class="card">
+       <span class="level">Level 4 - Professional</span>
+       <h3>Document Control Logs</h3>
+       <ul>
+         <li>Incoming Log</li>
+         <li>Outgoing Log</li>
+         <li>Submittal Log</li>
+         <li>Drawing Register</li>
+         <li>RFI Tracking</li>
+         <li>IR Tracking</li>
+         <li>Revision Monitoring</li>
+       </ul>
+     </div>
+     <!-- LEVEL 5 -->
+     <div class="card">
+       <span class="level">Level 5 - Dashboards</span>
+       <h3>Dashboard Development</h3>
+       <ul>
+         <li>KPI Dashboards</li>
+         <li>Progress Charts</li>
+         <li>Interactive Reports</li>
+         <li>Project Tracking</li>
+         <li>Status Monitoring</li>
+         <li>Executive Reports</li>
+         <li>Automation Metrics</li>
+       </ul>
+     </div>
+     <!-- LEVEL 6 -->
+     <div class="card">
+       <span class="level">Level 6 - VBA Basics</span>
+       <h3>Introduction to VBA</h3>
+       <ul>
+       </ul>
+     </div>
+     <!-- LEVEL 7 -->
+     <div class="card">
+       <span class="level">Level 7 - VBA Advanced</span>
+       <h3>Advanced VBA Automation</h3>
+       <ul>
+         <li>Automated Logs</li>
+         <li>Email Notifications</li>
+         <li>Auto PDF Export</li>
+         <li>User Forms</li>
+         <li>Dynamic Reports</li>
+         <li>Data Import Automation</li>
+         <li>Project Workflow Systems</li>
+       </ul>
+     </div>
+     <!-- LEVEL 8 -->
+     <div class="card">
+       <span class="level">Level 8 - Expert</span>
+       <h3>Professional Systems</h3>
+       <ul>
+         <li>Full DC Automation System</li>
+         <li>Smart Archiving Systems</li>
+         <li>Aconex Tracking Tools</li>
+         <li>Integrated Dashboards</li>
+         <li>Multi-User Systems</li>
+         <li>Cloud Reporting</li>
+         <li>Professional Portfolio Projects</li>
+       </ul>
+     </div>
+   </div>
+ </div>
 
-  <div class="container">
 
-    <div class="main-title">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg px-3 shadow-sm">
+  <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="../IMG/logo.png" 
+                 alt="Logo"
+                 width="75"
+                 height="55"
+                 class="me-2 rounded-circle">
 
-      <h2>Excel Learning Plan</h2>
+            
+        </a>
 
-      <p>
-        Complete roadmap for mastering Excel & VBA automation
-      </p>
+  <a class="navbar-brand fw-bold">
+   <h2>
+    Mostanad Academy |  مستند أكاديمي 
+  </h2>
+  </a>
 
-    </div>
+  <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+    ☰
+  </button>
 
-    <div class="grid">
+  <div class="collapse navbar-collapse" id="nav">
 
-      <!-- LEVEL 1 -->
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+      <li class="nav-item"><a class="nav-link" href="#Services">Services</a></li>
+      <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+      <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+      <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
 
-      <div class="card">
-
-        <span class="level">Level 1 - Beginner</span>
-
-        <h3>Excel Basics</h3>
-
-        <ul>
-          <li>Understanding Excel Interface</li>
-          <li>Rows, Columns & Worksheets</li>
-          <li>Data Entry & Formatting</li>
-          <li>Fonts, Colors & Borders</li>
-          <li>Cell Alignment & Merge</li>
-          <li>Basic Formulas</li>
-          <li>Save & Print Files</li>
-        </ul>
-
-      </div>
-
-      <!-- LEVEL 2 -->
-
-      <div class="card">
-
-        <span class="level">Level 2 - Intermediate</span>
-
-        <h3>Functions & Data Handling</h3>
-
-        <ul>
-          <li>SUM / AVERAGE / COUNT</li>
-          <li>IF Statements</li>
-          <li>VLOOKUP & XLOOKUP</li>
-          <li>Conditional Formatting</li>
-          <li>Data Validation</li>
-          <li>Sorting & Filtering</li>
-          <li>Freeze Panes</li>
-        </ul>
-
-      </div>
-
-      <!-- LEVEL 3 -->
-
-      <div class="card">
-
-        <span class="level">Level 3 - Advanced</span>
-
-        <h3>Advanced Excel Skills</h3>
-
-        <ul>
-          <li>Pivot Tables</li>
-          <li>Pivot Charts</li>
-          <li>Dynamic Dashboards</li>
-          <li>Advanced Lookup Functions</li>
-          <li>INDEX & MATCH</li>
-          <li>Data Analysis Tools</li>
-          <li>Excel Shortcuts</li>
-        </ul>
-
-      </div>
-
-      <!-- LEVEL 4 -->
-
-      <div class="card">
-
-        <span class="level">Level 4 - Professional</span>
-
-        <h3>Document Control Logs</h3>
-
-        <ul>
-          <li>Incoming Log</li>
-          <li>Outgoing Log</li>
-          <li>Submittal Log</li>
-          <li>Drawing Register</li>
-          <li>RFI Tracking</li>
-          <li>IR Tracking</li>
-          <li>Revision Monitoring</li>
-        </ul>
-
-      </div>
-
-      <!-- LEVEL 5 -->
-
-      <div class="card">
-
-        <span class="level">Level 5 - Dashboards</span>
-
-        <h3>Dashboard Development</h3>
-
-        <ul>
-          <li>KPI Dashboards</li>
-          <li>Progress Charts</li>
-          <li>Interactive Reports</li>
-          <li>Project Tracking</li>
-          <li>Status Monitoring</li>
-          <li>Executive Reports</li>
-          <li>Automation Metrics</li>
-        </ul>
-
-      </div>
-
-      <!-- LEVEL 6 -->
-
-      <div class="card">
-
-        <span class="level">Level 6 - VBA Basics</span>
-
-        <h3>Introduction to VBA</h3>
-
-        <ul>
-          <li>Enable Developer Tab</li>
-          <li>Macro Recording</li>
-          <li>VBA Editor Basics</li>
-          <li>Variables & Loops</li>
-          <li>Message Boxes</li>
-          <li>Buttons & Forms</li>
-          <li>Basic Automation Scripts</li>
-        </ul>
-
-      </div>
-
-      <!-- LEVEL 7 -->
-
-      <div class="card">
-
-        <span class="level">Level 7 - VBA Advanced</span>
-
-        <h3>Advanced VBA Automation</h3>
-
-        <ul>
-          <li>Automated Logs</li>
-          <li>Email Notifications</li>
-          <li>Auto PDF Export</li>
-          <li>User Forms</li>
-          <li>Dynamic Reports</li>
-          <li>Data Import Automation</li>
-          <li>Project Workflow Systems</li>
-        </ul>
-
-      </div>
-
-      <!-- LEVEL 8 -->
-
-      <div class="card">
-
-        <span class="level">Level 8 - Expert</span>
-
-        <h3>Professional Systems</h3>
-
-        <ul>
-          <li>Full DC Automation System</li>
-          <li>Smart Archiving Systems</li>
-          <li>Aconex Tracking Tools</li>
-          <li>Integrated Dashboards</li>
-          <li>Multi-User Systems</li>
-          <li>Cloud Reporting</li>
-          <li>Professional Portfolio Projects</li>
-        </ul>
-
-      </div>
-
-    </div>
+<li class="nav-item">
+  <a class="nav-link" href="#" onclick="toggleTheme(this)">Dark Mode</a>
+</li>
 
   </div>
 
-  <!-- FOOTER -->
+</nav>
 
-  <footer class="footer">
 
-    <div class="footer-content">
+</body>
+ 
 
-      <h2>Mostanad Academy</h2>
 
-      <p>
-        Smart dashboards, logs & VBA automation for document workflows.
-      </p>
 
-      <div class="footer-links">
-        <a href="#">Dashboard </a>
-        <a href="#">Excel</a>
-        <a href="#">Automation</a>
-        <a href="#">VBA</a>
-      </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--
+<script>
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+}
+</script>
+-->
+<script>
+function toggleTheme(btn){
 
-      <hr>
 
-      <p class="copyright">
-        © 2026 Mostanad Academy | Prepared by
-        <span>Khalaf_DC</span>
-      </p>
+  document.body.classList.toggle("dark");
+
+
+  // لو في دارك مود
+  if(document.body.classList.contains("dark")){
+    btn.innerText = "Light Mode";
+    localStorage.setItem("theme","dark");
+  } 
+  else {
+    btn.innerText = "Dark Mode";
+    localStorage.setItem("theme","light");
+  }
+}
+
+
+// تشغيل الحالة عند فتح الصفحة + تحديث النص
+window.onload = function(){
+
+
+  const btn = document.querySelector(".nav-link[onclick]");
+
+
+  if(localStorage.getItem("theme") === "dark"){
+    document.body.classList.add("dark");
+    if(btn) btn.innerText = "Light Mode";
+  } 
+  else {
+    if(btn) btn.innerText = "Dark Mode";
+  }
+}
+</script>
+
+
+<footer class="modern-footer" id="contact">
+</a>
+  
+
+
+  <div class="footer-content  ">
+
+
+    <h2>Contact Me</h2>
+
+
+    <p>
+      Feel free to contact me for Document Control,
+      Aconex Support, Archiving Systems, and Training Courses.
+    </p>
+
+
+    <!-- SOCIAL ICONS -->
+    <div class="social-icons">
+
+
+      <!-- Facebook -->
+      <a href="https://web.facebook.com/ahmedkhkh477" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/201156286464" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+
+
+      <!-- Gmail -->
+      <a href="mailto:aragad477@gmail.com"target="_blank" >
+        <i class="fas fa-envelope"></i>
+      </a>
+
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/ahmed-khalaf-dc/" target="_blank">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+
 
     </div>
 
-  </footer>
 
-</body>
+    <div class="footer-line"></div>
 
+
+    <span>
+      Ahmed Khalaf © Khalaf_DC | Mostanad Academy
+    </span>
+
+
+  </div>
+
+
+</footer shadow" style="max-height:350px; object-fit:cover;">
 </html>
+
