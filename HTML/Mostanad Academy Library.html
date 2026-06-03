@@ -722,22 +722,24 @@ body.dark h1
 <nav class="navbar navbar-expand-lg px-3 shadow-sm">
   
   <a class="navbar-brand d-flex align-items-center" href="#">
-    <img src="../IMG/logo.png" width="85" height="65" class="me-2 rounded-circ
-  </a>
-
-
-
+   <a class="navbar-brand d-flex align-items-center" href="#"
+           <img src="../IMG/logo.png" 
+                alt="Logo"
+                width="90"
+                height="85"
+                class="me-2 rounded-circle">
+           
+       </a>
 
   <a class="navbar-brand fw-bold">
-    <h2>Mostanad Academy | مستند أكاديمي</h2>
+    <h2>
+        Mostanad Academy | مستند أكاديمي
+
+    </h2>
   </a>
-
-
-  <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-    ☰
-  </button>
-
-
+ <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+   ☰
+ </button>
 
   <div class="collapse navbar-collapse" id="nav">
     <ul class="navbar-nav ms-auto">
@@ -1252,7 +1254,7 @@ body.dark h1
 
 
                 <p>
-                    يستخدم لطلب فحص الأعمال المنفذة من الاستشاري أو فريق الجودة.
+                 يستخدم لطلب فحص الأعمال المنفذة من الاستشاري 
                 </p>
 
 
@@ -1320,7 +1322,7 @@ body.dark h1
 
                   <h4>Material Inspection Request</h4>
                     <p>
-                     MS يستخدم لطلب فحص مواد تقديم ماده بعد اعتماد العينه في مستند .
+                     MS يستخدم في تقديم توريد المواد بعد اعتماد العينه في مستند .
                     </p>
                 <!-- PDF -->
                     <Iframe src="iframe/14 - Materials Inspection Request (M.I.R)/MIR.pdf" width="100%" height="500" >
@@ -1750,57 +1752,38 @@ body.dark h1
 
 
 
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
 function toggleTheme(btn){
   document.body.classList.toggle("dark");
-
+  // لو في دارك مود
   if(document.body.classList.contains("dark")){
     btn.innerText = "Light Mode";
     localStorage.setItem("theme","dark");
-  } else {
+  } 
+  else {
     btn.innerText = "Dark Mode";
     localStorage.setItem("theme","light");
   }
 }
 
+// تشغيل الحالة عند فتح الصفحة + تحديث النص
 window.onload = function(){
-  const btn = document.querySelector(".nav-link[onclick]");
-
+    const btn = document.querySelector(".nav-link[onclick]");
   if(localStorage.getItem("theme") === "dark"){
     document.body.classList.add("dark");
     if(btn) btn.innerText = "Light Mode";
+  } 
+  else {
+    if(btn) btn.innerText = "Dark Mode";
   }
 }
 </script>
-<script>
-const buttons = document.querySelectorAll(".dropdown-btn");
-
-// اقفال افتراضي
-document.querySelectorAll(".dropdown-content").forEach(container => {
-  container.style.display = "none";
-});
-
-buttons.forEach(btn => {
-  btn.addEventListener("click", function () {
-
-    const container = this.nextElementSibling;
-
-    if (container.style.display === "block") {
-      container.style.display = "none";
-    } else {
-      container.style.display = "block";
-    }
-
-  });
-});
-
-
-</script>
-
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- ===== FOOTER ===== -->
 <footer class="modern-footer" id="contact">
