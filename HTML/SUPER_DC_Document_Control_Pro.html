@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SUPER DC</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2d;--line:#243a55;--text:#eef5ff;--muted:#9fb1c8;--blue:#28a9ff;--gold:#f5c451;--green:#32d583;--red:#ff5d73;--purple:#a98bff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,#12345a,#07111f 42%,#050b14 100%);color:var(--text);font-family:Arial,Tahoma,sans-serif}.app{max-width:1150px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{font-weight:900;letter-spacing:.5px}.brand small{display:block;color:var(--gold);font-size:11px;margin-top:3px}.stats{display:flex;gap:8px;flex-wrap:wrap}.pill{background:#0d1b2d;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-weight:700}.gold{color:var(--gold)}.screen{background:rgba(13,27,45,.95);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 18px 50px #0006}.hero{text-align:center;padding:45px 20px}.logo{font-size:60px}.hero h1{font-size:clamp(30px,6vw,62px);margin:8px 0}.hero p{color:var(--muted);max-width:720px;margin:12px auto 25px;line-height:1.8;white-space:pre-line}.primary{background:linear-gradient(135deg,#1598f5,#356cff);color:white;padding:14px 22px;border-radius:12px;font-weight:900;box-shadow:0 8px 25px #168ff044;border:0;cursor:pointer}.secondary{background:#152940;color:white;border:1px solid var(--line);padding:12px 18px;border-radius:12px;font-weight:800;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}.level{position:relative;background:linear-gradient(145deg,#10243a,#0b1727);border:1px solid var(--line);border-radius:17px;padding:18px;min-height:185px;transition:.2s;cursor:pointer}.level:hover{transform:translateY(-3px);border-color:#3977a8}.level.locked{opacity:.48;filter:saturate(.4);cursor:not-allowed}.level .num{font-size:12px;color:var(--muted)}.level h3{margin:8px 0}.level p{font-size:13px;color:var(--muted);min-height:35px}.unlock{color:var(--gold);font-size:12px}.bar{height:8px;background:#07111f;border-radius:9px;overflow:hidden;margin:12px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:9px}.gamehead{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.tag{display:inline-block;padding:5px 9px;border-radius:999px;background:#183552;color:#7ecaff;font-size:11px;font-weight:900}.scenario{background:#091625;border:1px solid #1d3650;border-right:4px solid var(--blue);border-radius:15px;padding:20px;margin:20px 0;line-height:1.8}.answers{display:grid;gap:10px}.answer{background:#10243a;border:1px solid #2a4664;color:white;text-align:right;padding:15px;border-radius:12px;font-weight:700;transition:.15s;cursor:pointer;min-height:62px;line-height:1.55}.answer:hover{background:#17314e;transform:translateX(-2px)}.answer.correct{border-color:var(--green);background:#103b2a}.answer.wrong{border-color:var(--red);background:#401b27}.answer.disabled{pointer-events:none}.feedback{margin-top:16px;padding:17px;border-radius:14px;line-height:1.7}.feedback.good{background:#0d3325;border:1px solid #1e8c5b}.feedback.bad{background:#381923;border:1px solid #a83e52}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.timer{font-size:20px;font-weight:900}.timer.low{color:var(--red)}.progress{height:7px;background:#06101c;border-radius:8px;margin:15px 0}.progress span{display:block;height:100%;background:var(--gold);border-radius:8px}.center{text-align:center}.big{font-size:44px}.muted{color:var(--muted)}.achievement{background:#10243a;border:1px solid var(--line);border-radius:14px;padding:15px}.achievement.unlocked{border-color:var(--gold)}.shopitem{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#10243a;padding:14px;border-radius:13px;margin:9px 0}.hidden{display:none!important}.nameInput{width:min(100%,500px);padding:15px;border-radius:12px;border:1px solid var(--line);background:#071525;color:#fff;font-size:18px;text-align:center}.certificate{background:#f7f2df;color:#15202b;border:12px double #b9973e;border-radius:8px;padding:38px 28px;text-align:center;max-width:850px;margin:auto;box-shadow:0 20px 50px #0008}.certificate .seal{font-size:55px}.certificate h1{font-family:Georgia,serif;font-size:42px;margin:8px}.certificate .certname{font-size:38px;font-weight:900;color:#173b62;margin:22px 0}.certificate .id{font-family:monospace;font-weight:bold;letter-spacing:2px}.certificate small{color:#52606d}.cert-actions{justify-content:center}/* ===== 15 LEVEL THEMES ===== */
+body{transition:background .35s ease}
+.scenario{background:var(--qbg,#091625)!important;border-color:var(--qline,#1d3650)!important;border-right-color:var(--accent,var(--blue))!important;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.answer{background:var(--abg,#10243a)!important;border-color:var(--aline,#2a4664)!important}
+.answer:hover{background:var(--ahover,#17314e)!important}
+.level-theme-badge{display:inline-block;margin-top:7px;padding:5px 9px;border-radius:999px;background:var(--qbg,#091625);border:1px solid var(--qline,#1d3650);color:var(--accent,var(--blue));font-size:11px;font-weight:900}
+@media(max-width:650px){.app{padding:10px}.screen{padding:17px}.top{align-items:flex-start;flex-direction:column}.hero{padding:30px 10px}.logo{font-size:48px}.certificate h1{font-size:30px}.certificate .certname{font-size:28px}}
+@media print{body{background:white!important;color:#111!important}.top,.actions{display:none!important}.screen{border:0!important;box-shadow:none!important;background:white!important}.certificate{box-shadow:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand">📁 DOCUMENT CONTROLLER<small>MOSTANAD ACADEMY</small></div><div class="stats"><div class="pill">🪙 <span id="coins">0</span></div><div class="pill">❤️ <span id="lives">5</span></div><div class="pill">🏆 <span id="rank">DC Trainee</span></div></div></header>
+<main id="app"></main>
+</div>
+<script>
+/* =========================================================
+   DOCUMENT CONTROL: THE PROJECT — FIXED EDITION
+   أهم الإصلاحات:
+   1) لا يمكن فتح Level قبل إكمال المستوى السابق.
+   2) لا يمكن تخطي أي سؤال؛ يجب الإجابة على جميع أسئلة المستوى.
+   3) بعد إنهاء Level 15 يظهر نموذج الاسم ثم الشهادة.
+   4) Certificate ID ثابت لكل لاعب بعد الإصدار.
+   5) تم حذف تكرار دوال الشهادة الذي كان يمنع إصدارها.
+   6) ترتيب الإجابات عشوائي في كل سؤال مع الحفاظ على الإجابة الصحيحة.
+   7) الإجابة الصحيحة ليست مرتبطة بحرف B أو بمكان ثابت.
+   8) إعادة تحميل الصفحة لا تفتح مستويات غير مكتملة.
+========================================================= */
+
+const levels=[
+["DC Rookie","أساسيات Document Control","👶",0],
+["Document Hunter","اكتشاف الأخطاء والمستندات","🔎",100],
+["Drawing Controller","الرسومات والحالات","📐",250],
+["RFI Master","RFI وطلبات المعلومات","❓",450],
+["Transmittal War","الإرسال والتوزيع والتتبع","📨",700],
+["Revision Crisis","Revision & Superseded","🔄",1000],
+["Site Emergency","قرارات الموقع تحت الضغط","🚨",1400],
+["Audit Day","Document Trail & Audit","🔍",1900],
+["Project Handover","Closeout & Handover","🏗️",2500],
+["DC Master","إدارة مشروع كامل","👑",3200],
+["Truth Protocol","اختبر معلوماتك: True / False","✅",3700],
+["Document Puzzle","رتّب دورة المستند بشكل صحيح","🧩",4200],
+["Match Master","طابق المصطلح مع تعريفه","🔗",4700],
+["Speed DC","قرارات Document Control تحت الوقت","⚡",5200],
+["Final Boss","المشروع النهائي — قرار الـDC","👑",5800]
+];
+
+/* بنك الأسئلة الأصلي من النسخة السابقة. */
+const raw=[
+[0,"Workflow","وصلتك Drawing على WhatsApp ويطلب منك مهندس الموقع رفعها فورًا. ما التصرف الأفضل؟",["أرفعها فورًا","أطلب القناة الرسمية وأتحقق من Revision وStatus","أغير الاسم وأرفعها","أحذفها"],1,25,"القناة الرسمية والـworkflow أهم من سرعة إرسال ملف غير متحقق منه."],
+[0,"Basics","ما الهدف الأساسي من Document Register؟",["تصميم الرسومات","تتبع تفاصيل وحالات وإصدارات المستندات","حساب الخرسانة","إدارة الرواتب"],1,20,"السجل المركزي يربط رقم المستند ووصفه وإصداره وحالته وتواريخه."],
+[0,"Basics","وجدت نفس Document Number بإصدارات مختلفة. ما أول شيء تتحقق منه؟",["حجم الملف","Status وIssue/Approval history","لون الملف","اسم مرسل WhatsApp"],1,25,"Revision وحدها لا تكفي؛ الحالة والتاريخ والـworkflow حاسمة."],
+[0,"Basics","ما معنى Superseded؟",["لم يبدأ","استُبدل بإصدار أحدث وفق النظام","سري","محذوف نهائيًا"],1,20,"النسخة القديمة أصبحت مستبدلة ويجب منع استخدامها حسب الإجراء."],
+[0,"Basics","أي عنصر يجب أن يكون فريدًا قدر الإمكان في نظام الترقيم؟",["لون الملف","Document Number","حجم PDF","اسم الكمبيوتر"],1,20,"الرقم الفريد يمنع الالتباس ويساعد في البحث والتتبع."],
+[0,"Metadata","لماذا نهتم بالـMetadata؟",["لتجميل الشاشة","لتصنيف المستند والبحث عنه وربطه بالـworkflow","لتقليل جودة الملف","لإخفاء المستند"],1,25,"الـMetadata الصحيحة تجعل السجل قابلًا للبحث والتحليل والتتبع."],
+[0,"Filing","أفضل قاعدة لاسم الملف؟",["أي اسم شخصي","اسم متوافق مع Project Coding/Document Number/Revision حسب الإجراء","اسم قصير جدًا دائمًا","اسم الهاتف"],1,25,"اتبع Naming Convention المعتمد ولا تخترع صيغة خاصة بك."],
+[0,"Security","وجدت مستندًا سريًا في مجلد عام. ماذا تفعل؟",["أنشره","أبلغ المسؤول وأصحح صلاحيات الوصول وفق الإجراء","أرسله لنفسي","أعيد تسميته فقط"],1,30,"التحكم في الوصول جزء من سلامة المعلومات."],
+[0,"Workflow","من الأفضل أن يحدد صلاحيات إصدار المستند؟",["أي موظف","إجراء المشروع وRoles/Authorities المعتمدة","عامل الموقع","الـWhatsApp Group"],1,25,"الصلاحيات يجب أن تكون واضحة ومعتمدة مسبقًا."],
+[0,"Audit","ما أقوى دليل على أن مستندًا مر بإجراء رسمي؟",["ذاكرة الموظف","سجل النظام/التبادل الرسمي والتاريخ والحالة","لقطة شاشة مجهولة","اسم الملف فقط"],1,30,"الدليل القابل للتتبع أقوى من الذاكرة أو المحادثات غير الرسمية."],
+
+[1,"Detective","الـRegister يظهر Rev03 بينما الملف المتداول Rev02. ماذا تفعل؟",["أستخدم Rev02","أتحقق من Rev03 وحالتها وأوقف التداول غير الصحيح","أعيد تسمية Rev02","أطبعها"],1,30,"لا تعالج تعارض الإصدارات بإعادة التسمية."],
+[1,"Detective","PM طلب آخر Structural Drawing ولديك Rev01 Approved وRev02 Submitted. ماذا ترسل؟",["Rev02 لأنها أعلى","Rev01 إذا كانت آخر نسخة صالحة للغرض","الاثنتين دائمًا","أي واحدة"],1,35,"أعلى Revision ليست بالضرورة صالحة للاستخدام."],
+[1,"Duplicate","اكتشفت Duplicate Document. ما التصرف الأفضل؟",["أتركه","أتحقق من Metadata والسجل وأعالج التكرار حسب الإجراء","أحذف الاثنين","أغير الرقم"],1,30,"التكرار يحتاج تحققًا قبل الحذف أو الأرشفة."],
+[1,"Tracking","لم تستجب الجهة المستلمة لمستند. أي بيانات تفيدك؟",["لون المجلد","Transmittal وrecipient وdate وresponse status","حجم الشاشة","اسم الجهاز"],1,25,"هذه البيانات تبني document trail واضحًا."],
+[1,"Missing Data","وجدت Register Record بلا Discipline. ماذا تفعل؟",["أخمنها","أرجع للمصدر وأكمل البيانات وفق الإجراء","أحذف السجل","أضع Civil دائمًا"],1,30,"لا تخمن Metadata؛ استخدم المصدر الرسمي."],
+[1,"Control","ملف PDF ونسخة Excel لهما نفس الرقم لكن وصف مختلف. ما أول إجراء؟",["أختار الأحدث في الاسم","أقارن المصدر والـMetadata والـRevision والـStatus","أحذف Excel","أحذف PDF"],1,35,"التعارض بين السجلات يحتاج reconciliation قبل اتخاذ قرار."],
+[1,"Search","ما الذي يجعل البحث عن 5000 مستند أسهل؟",["أسماء عشوائية","Metadata وCoding وFilters واضحة","مجلد واحد لكل شيء","حذف القديم"],1,30,"التصنيف الجيد يقلل زمن الاسترجاع."],
+[1,"Archive","هل كل نسخة قديمة يجب حذفها؟",["نعم","لا؛ الاحتفاظ بها يعتمد على retention وcontract/project procedure","نعم بعد شهر","نعم إذا PDF"],1,30,"النسخ التاريخية قد تكون أدلة تدقيق ويجب التعامل معها حسب سياسة الاحتفاظ."],
+[1,"Control","وصلتك نسخة غير قابلة للفتح من مصدر رسمي. ماذا تفعل؟",["أرسلها كما هي","تطلب إعادة الإرسال/التحقق وتحافظ على أثر المشكلة","تحولها لصورة","تخمن المحتوى"],1,25,"لا تصدر ملفًا تالفًا دون تحقق."],
+[1,"Audit","كيف تثبت أن سجلًا تم تحديثه؟",["تقول إنك فعلت","Audit trail/version history أو سجل التعديل المعتمد","تغير لون الخلية","تكتب ملاحظة شخصية"],1,35,"سجل التعديل الرسمي هو الدليل الأفضل."],
+
+[2,"Drawings","Drawing Status = Approved تعني ماذا؟",["As-Built تلقائيًا","اجتازت مرحلة الاعتماد المحددة بهذا الـStatus","سرية","أحدث نسخة دائمًا"],1,25,"المعنى مرتبط بالـworkflow ولا يجعلها As-Built تلقائيًا."],
+[2,"Drawings","أي عبارة أدق عن As-Built؟",["أول Drawing","توثيق لما نُفذ فعليًا وفق متطلبات المشروع","Rev00","نسخة BOQ"],1,30,"As-Built توثق الحالة المنفذة فعليًا ومتطلبات التسليم."],
+[2,"Drawings","الموقع يستخدم Drawing قديمة وظهرت نسخة أحدث صادرة رسميًا. ماذا تفعل؟",["أتجاهل","أبلغ الأطراف وأسيطر على النسخة القديمة وأوثق الإجراء","أعدلها يدويًا","أحذف MDR"],1,35,"الهدف منع الاستخدام غير المقصود للنسخ القديمة."],
+[2,"Revision","هل Rev05 تعني دائمًا أحدث نسخة صالحة؟",["نعم","لا، تحقق من Status وIssue purpose","نعم في PDF","نعم إذا الاسم طويل"],1,30,"رقم Revision وحده لا يحدد صلاحية الاستخدام."],
+[2,"Drawing Register","ما فائدة Drawing Register؟",["تسجيل حضور العمال","تتبع الرسومات وإصداراتها وحالاتها وتواريخها","حساب الكميات","إدارة الرواتب"],1,25,"السجل يعطي رؤية كاملة لدورة حياة الرسومات."],
+[2,"Issued For","ما أهمية معرفة Issue Purpose؟",["لا أهمية","لأن نفس الرسم قد يختلف استخدامه حسب الغرض والحالة","لتغيير اللون","لتقليل الحجم"],1,35,"الغرض من الإصدار يحدد كيف وأين يمكن استخدام المستند."],
+[2,"Field Copy","وجدت نسخة مطبوعة بالموقع بلا Stamp/Status واضح. ماذا تفعل؟",["أعتبرها Approved","أتحقق من المصدر والنسخة الرسمية قبل استخدامها","أكتب Approved بيدي","أصورها"],1,35,"النسخة الورقية غير الواضحة تحتاج تحققًا رسميًا."],
+[2,"Drawing Number","مستند Architectural يحمل كود Structural بالخطأ. ماذا تفعل؟",["أتجاهل","أرجع للجهة المسؤولة وأصحح Metadata وفق إجراء التصحيح","أغيره وحدي","أحذفه"],1,35,"لا تغيّر Coding جوهريًا دون صلاحية وإجراء."],
+[2,"Superseded","كيف تقلل خطر استخدام Drawing Superseded؟",["تخفيها بلا سجل","تضعها في حالة/مجلد مناسب وتتحكم بالتوزيع حسب النظام","تحذف MDR","ترسلها للجميع"],1,35,"التحكم بالتوزيع والحالة يقلل الاستخدام الخاطئ."],
+[2,"Audit","Auditor سأل عن تاريخ إصدار Drawing. أين تبدأ؟",["ذاكرتك","Register/EDMS/Transmittal الرسمي","WhatsApp","اسم الملف فقط"],1,30,"ابدأ بالمصدر الرسمي القابل للتتبع."],
+
+[3,"RFI","ما الوظيفة الأساسية لـRFI؟",["طلب إجازة","تسجيل طلب توضيح رسمي ومتابعة الرد","إصدار راتب","تسمية الملفات"],1,20,"RFI يربط السؤال والرد والجهات والتواريخ."],
+[3,"RFI","لديك 47 RFI متأخر. أول خطوة؟",["حذفها","قائمة بالأرقام والحالة والمسؤول والتاريخ والـaging","إغلاقها كلها","إعادة ترقيمها"],1,35,"ابدأ ببيانات التأخير والمسؤوليات ثم المتابعة والتصعيد."],
+[3,"RFI","RFI تم الرد عليه لكنه غير مغلق. ماذا تفعل؟",["أعتبره مغلقًا","أتحقق من متطلبات الإغلاق وأحدث السجل وفق workflow","أحذف الرد","أغير الرقم"],1,30,"وجود رد لا يعني اكتمال إجراءات الإغلاق."],
+[3,"RFI","ما أهم عنصر لمتابعة RFI متأخر؟",["لون الخلية","Due date وresponsible party وstatus","حجم PDF","اسم الكمبيوتر"],1,30,"هذه العناصر تسمح بمتابعة عملية وقابلة للقياس."],
+[3,"RFI","وصل رد RFI عبر مكالمة هاتفية فقط. ما التصرف الأفضل؟",["أغلقه فورًا","أطلب توثيق الرد بالقناة الرسمية المعتمدة","أكتبه من الذاكرة وأعتمد","أتجاهله دائمًا"],1,35,"القرار الفني يحتاج أثرًا رسميًا قابلًا للتتبع."],
+[3,"RFI","RFI يؤثر على أعمال الموقع اليوم. ماذا تفعل؟",["أنتظر الموعد دون تصعيد","توضح الأولوية وتتابع المسؤولين وتوثق التصعيد وفق الإجراء","تحذف الـRFI","تغير تاريخ الإنشاء"],1,40,"الأولوية والتصعيد الموثق مهمان عند وجود أثر على التنفيذ."],
+[3,"RFI","ما معنى RFI Aging؟",["حجم الملف","مدة بقاء RFI مفتوحًا/متأخرًا حسب تاريخ مرجعي","عدد الصفحات","رقم المشروع"],1,30,"Aging يقيس عمر الحالة لدعم الأولويات."],
+[3,"RFI","كيف تمنع Duplicate RFI؟",["تسمح بأي رقم","تحقق من register/search قبل الإنشاء واتبع numbering system","تحذف القديم","تستخدم WhatsApp"],1,30,"البحث والترقيم المنضبط يقللان التكرار."],
+[3,"RFI","من الأفضل أن يملك صلاحية إغلاق RFI؟",["أي شخص","الدور المحدد في workflow/contract","Document Controller وحده دائمًا","الحارس"],1,35,"صلاحية الإغلاق يجب أن تتبع النظام التعاقدي وإجراءات المشروع."],
+[3,"RFI","ما أفضل تقرير أسبوعي للـRFI؟",["عدد الملفات فقط","Open/Closed/Overdue + aging + responsible + priority","صور المكتب","عدد الموظفين"],1,35,"التقرير يجب أن يساعد الإدارة على اتخاذ قرار."],
+
+[4,"Transmittal","ما فائدة Transmittal؟",["تغيير الألوان","توثيق إرسال مجموعة مستندات إلى جهة مع بيانات الإرسال","ضغط الملفات فقط","Backup فقط"],1,25,"يسجل ماذا أُرسل ولمن ومتى ولماذا حسب النظام."],
+[4,"Transmittal","اكتشفت أن Transmittal أُرسل وبداخله Revision قديمة. ماذا تفعل؟",["أتجاهل","أتبع إجراء التصحيح وأوثق الأثر","أحذف السجل","أخفي الملف"],1,40,"التصحيح يجب أن يكون traceable ولا يمحو التاريخ."],
+[4,"Distribution","لماذا نتأكد من Recipient List؟",["زيادة الحجم","ضمان وصول المستند للأطراف المقصودة وتوثيق التوزيع","إطالة الاسم","لا أهمية"],1,25,"التوزيع جزء من التحكم في المستندات."],
+[4,"Transmittal","ما أهم شيء عند إعداد Transmittal؟",["اختيار لون","مطابقة Document Number/Revision/Description مع السجل","كتابة رسالة طويلة","حذف التاريخ"],1,35,"مطابقة البيانات تمنع إرسال مستند خاطئ."],
+[4,"Receipt","كيف تعرف أن الجهة استلمت الإرسال؟",["التخمين","Receipt/acknowledgement أو سجل النظام المعتمد","حجم الملف","اسم الموظف"],1,35,"دليل الاستلام جزء من document trail."],
+[4,"Distribution","تم تغيير Recipient بعد الإرسال. ماذا تفعل؟",["أغير التاريخ","أتبع إجراء التعديل/إعادة الإرسال وأحافظ على السجل السابق","أحذف Transmittal","أتجاهل"],1,40,"أي تغيير بعد الإرسال يحتاج أثرًا واضحًا."],
+[4,"Bulk Issue","لديك 80 ملفًا في Transmittal. ما أفضل فحص قبل الإرسال؟",["فتح ملف واحد فقط","Validation للعدد والـmetadata والـrevision والـrecipient حسب checklist","عدم الفحص","تغيير كل الأسماء"],1,40,"الفحص المنهجي أفضل من الاعتماد على عينة عشوائية فقط."],
+[4,"Tracking","ما الذي يساعد في قياس زمن الاستجابة؟",["تاريخ الإرسال والاستلام/الرد","لون البريد","اسم المجلد","عدد الصفحات"],0,30,"تواريخ الأحداث هي أساس قياس turnaround time."],
+[4,"Correction","إذا أرسلت مستندًا خاطئًا، هل تحذف أثر الإرسال؟",["نعم","لا؛ تصحح رسميًا وتحتفظ بالأثر","نعم بعد يوم","حسب المزاج"],1,40,"حذف الأثر يضر بالـtraceability."],
+[4,"Audit","Auditor طلب قائمة بكل ما أرسلته جهة معينة خلال شهر. أين تبحث؟",["ذاكرتك","Transmittal/Issue logs وfilters بالتاريخ والجهة","WhatsApp فقط","سطح المكتب"],1,35,"السجلات المنظمة تسمح بتجميع الأدلة بسرعة."],
+
+[5,"Revision","هل أعلى Revision Number تعني دائمًا النسخة المستخدمة؟",["نعم","لا؛ تحقق من Status والworkflow والغرض","نعم إذا PDF","نعم إذا الاسم طويل"],1,35,"الرقم لا يغني عن الحالة والغرض."],
+[5,"Approval","Rev04 وصلت لكنها لم تمر Approval. الموقع يريد نسخة صالحة. ماذا تفعل؟",["أصدر Rev04","أتحقق من آخر نسخة صالحة حسب workflow","أغير Status","أحذف Rev03"],1,45,"لا تحول نسخة غير معتمدة إلى إصدار صالح بمجرد طلب شفهي."],
+[5,"History","لماذا Revision History مهمة؟",["زيادة الصفحات","إظهار تسلسل التعديلات ودعم traceability","منع كل تعديل","إخفاء القديم"],1,30,"التاريخ يوضح ماذا تغير ومتى."],
+[5,"Superseded","ماذا تفعل بنسخة Superseded؟",["أرسلها كCurrent","أحافظ عليها وفق retention وأمنع استخدامها كنسخة حالية","أغير رقمها","أحذف كل السجل"],1,35,"احتفظ بالتاريخ دون السماح باستخدامه خطأ."],
+[5,"Revision","من غير الصحيح تغيير Revision يدويًا لأن؟",["الاسم يصبح طويلًا","قد يفسد التاريخ والربط بين السجل والإصدار","PDF لا يسمح","الكمبيوتر يتعطل"],1,40,"Revision جزء من هوية المستند ويجب التحكم بها رسميًا."],
+[5,"Workflow","Rev06 Approved لكن Rev07 Submitted. أيهما Current for construction إذا كان العقد يشترط Approved؟",["Rev07","Rev06 ما لم ينص workflow على غير ذلك","الاثنتان","لا واحدة"],1,40,"الغرض والحالة التعاقدية يحددان النسخة الصالحة."],
+[5,"Change","كيف تتأكد أن التعديل في Rev05 موثق؟",["من شكل الصفحة فقط","Revision description/change note + history حسب الإجراء","من اسم المصمم","من حجم الملف"],1,35,"سجل التعديل يعطي سياقًا للتغيير."],
+[5,"Register","وجدت Revision في الملف لا تطابق Register. ما الخطر؟",["لا خطر","فقدان السيطرة واحتمال استخدام نسخة غير صحيحة","توفير مساحة","تحسين البحث"],1,40,"عدم التطابق قد يؤدي لقرار أو تنفيذ على إصدار خاطئ."],
+[5,"Version","ما أفضل ممارسة عند إصدار Revision جديدة؟",["استبدال القديم دون أثر","إنشاء إصدار مضبوط وتحديث metadata/status والتوزيع حسب workflow","حذف history","إرسال للجميع بلا قائمة"],1,40,"الإصدار الجديد يجب أن يمر بالدورة الرسمية كاملة."],
+[5,"Control","ما الذي يجب أن يمنع المستخدم من اعتبار Draft نسخة تنفيذ؟",["اسم جذاب","Status/permission/workflow واضح","لون الملف","حجم PDF"],1,35,"التحكم في الحالة والصلاحيات يمنع سوء الاستخدام."],
+
+[6,"Emergency","أثناء صب الخرسانة اكتشفت أن النسخة بالموقع ليست آخر نسخة صالحة. الأولوية؟",["تكملة الصب","التنبيه فورًا والتحقق من النسخة الصالحة واتباع إجراء الموقع وتوثيق القرار","إعادة التسمية","إغلاق MDR"],1,50,"في موقف حساس: السلامة الفنية والتحقق والتصعيد أولًا."],
+[6,"Emergency","PM يطلب شفهيًا تغيير Submitted إلى Approved. ماذا تفعل؟",["أغيره فورًا","لا أغيره دون اعتماد/صلاحية رسمية وأوثق الطلب","أطلب من زميل","أحذف السجل"],1,50,"Status ليس خانة تجميلية."],
+[6,"Emergency","وصل طلب عاجل لملف ببيانات ناقصة. ماذا تفعل؟",["أرسل أي ملف","أحدد البيانات الناقصة وأتحقق قبل الإصدار","أخمن Revision","أرسل Screenshot"],1,35,"السرعة لا تبرر إصدار مستند غير متحقق منه."],
+[6,"Emergency","حدث اختلاف بين Engineering وQA حول حالة مستند. ماذا تفعل؟",["تختار طرفًا","ترجع للمصدر الرسمي والworkflow وتوثق التصعيد","تحذف الملف","تستخدم رأيك"],1,45,"الحسم يجب أن يكون مبنيًا على النظام والأدلة."],
+[6,"Emergency","النظام متوقف والموقع يحتاج مستندًا فورًا. ما التصرف الأفضل؟",["استخدام نسخة عشوائية","اتباع Business Continuity/Emergency procedure والتحقق ثم توثيق ما تم","إرسال ملف شخصي","تغيير التاريخ"],1,45,"الإجراءات البديلة يجب أن تكون معتمدة وقابلة للتتبع."],
+[6,"Emergency","وجدت Contractor يستخدم نسخة غير صالحة. ماذا تفعل؟",["تتجاهل","تنبهه وتبلغ المسؤول وتتحقق من النسخة الصحيحة وتوثق الإجراء","تحذف نسخته بنفسك","تعدلها"],1,45,"التحكم في النسخ يحتاج إجراء وتصعيد موثق."],
+[6,"Emergency","في اجتماع، طُلب منك إصدار مستند لم يكتمل توقيعه. ماذا تفعل؟",["أصدره كApproved","توضح أنه غير مكتمل وتصدر فقط وفق status المسموح","تضيف توقيعًا","تغير التاريخ"],1,45,"لا يجوز تزوير أو تجاوز مراحل الاعتماد."],
+[6,"Emergency","تم فقدان Hard Copy أصلية. ما أول خطوة؟",["إخفاء الأمر","الإبلاغ والتحقق من النسخة الإلكترونية/السجل واتباع incident procedure","حذف Register","طباعة أي نسخة"],1,40,"الفقدان يجب أن يعالج كواقعة موثقة مع البحث عن المصدر البديل."],
+[6,"Emergency","طلب منك مدير الموقع حذف سجل خطأ بدل تصحيحه. ماذا تفعل؟",["أحذفه","أشرح أهمية traceability وأستخدم إجراء correction المعتمد","أغير الاسم","أتجاهل السجل"],1,50,"التصحيح الرسمي يحافظ على سلامة التاريخ."],
+[6,"Emergency","ما أفضل تصرف عند تعارض تعليمات شفوية مع إجراء المشروع؟",["الشفهي دائمًا","تطلب توضيحًا رسميًا وتتبع الإجراء والصلاحيات المعتمدة","تختار الأسرع","تستخدم WhatsApp"],1,50,"الإجراء الرسمي هو نقطة التحكم ما لم يصدر استثناء معتمد."],
+
+[7,"Audit","Auditor طلب إثبات أن Drawing أُرسلت للConsultant. ما أفضل دليل؟",["قول موظف","Transmittal/Issue record يوضح المستند والمستلم والتاريخ","WhatsApp","اسم الملف"],1,40,"الـaudit يحتاج evidence قابلًا للتتبع."],
+[7,"Audit","ما المقصود بـDocument Trail؟",["مكان حفظ الأوراق","التسلسل القابل للتتبع للمستند من الاستلام حتى الإرسال والمراجعة والإغلاق/الأرشفة","اسم المشروع","جدول الحضور"],1,40,"يجيب ماذا حدث ومتى ومن قام بالإجراء."],
+[7,"Audit","وجدت سجلًا بلا تاريخ إصدار. ماذا تفعل؟",["تخمن","تتحقق من المصدر وتكمل/تصحح وفق الإجراء مع الحفاظ على traceability","تحذف","تضع تاريخ اليوم"],1,35,"لا تخمن بيانات تاريخية."],
+[7,"Audit","Auditor طلب قائمة بكل المستندات المتأخرة. ما أفضل مصدر؟",["قائمة شخصية","Register/EDMS report مبني على status وdue dates","ذاكرة الفريق","WhatsApp"],1,40,"التقارير من السجل الرسمي أكثر موثوقية."],
+[7,"Audit","ما الفرق بين Record وWorking Document بشكل عام؟",["لا فرق","Record دليل محفوظ لنشاط/قرار، بينما working document قد يكون قيد التطوير حسب النظام","Record دائمًا PDF","Working document دائمًا سري"],1,45,"التصنيف يعتمد على سياسة إدارة السجلات بالمشروع."],
+[7,"Audit","لماذا Audit Trail مهم؟",["لزيادة الملفات","لإثبات من فعل ماذا ومتى ودعم التحقيق والتدقيق","لإخفاء التعديلات","لتقليل السرعة"],1,40,"التتبع الزمني والمسؤوليات أساس التدقيق."],
+[7,"Audit","وجدت Metadata ناقصة أثناء Audit. ماذا تفعل؟",["تملأها بالتخمين","تتحقق من المصدر وتوثق التصحيح حسب الإجراء","تحذف السجل","تخفي النقص"],1,40,"التصحيح يجب أن يكون مبنيًا على دليل."],
+[7,"Audit","Auditor يطلب evidence لقرار شفهي قديم. ماذا تفعل؟",["تخترع مستندًا","تبحث عن السجلات/المراسلات الرسمية المرتبطة وتوضح إن لم يوجد دليل","تضع توقيعًا","تحذف الموضوع"],1,45,"لا تُنشئ دليلًا بأثر رجعي غير حقيقي."],
+[7,"Audit","ما أفضل مؤشر لجودة Document Control؟",["عدد الملفات","Status accuracy وmissing metadata وoverdue وretrieval time","عدد رسائل البريد","حجم السيرفر"],1,40,"المؤشرات يجب أن تقيس الدقة والسرعة والسيطرة."],
+[7,"Audit","كيف تستعد لـAudit قبل الموعد؟",["تجمع كل شيء عشوائيًا","تراجع registers وopen actions وevidence وpermissions والـcloseout gaps","تحذف القديم","تغير التواريخ"],1,45,"الاستعداد المنظم يقلل المفاجآت ويحسن جودة الأدلة."],
+
+[8,"Handover","أي مجموعة أقرب لمتطلبات Project Handover؟",["As-Built + O&M + Test Records + approvals/closeout حسب العقد","صور شخصية","Emails شخصية","مسودة BOQ فقط"],0,40,"متطلبات التسليم تختلف حسب العقد لكنها عادة تشمل سجلات التنفيذ والتشغيل والاختبارات والاعتمادات."],
+[8,"Handover","المشروع أمامه 7 أيام وهناك Open NCRs وMissing As-Built. ماذا تفعل؟",["تنتظر آخر يوم","Closeout tracker للمسؤوليات والأولويات والمواعيد والمتابعة اليومية","تحذف NCRs","تغير التواريخ"],1,45,"التسليم يحتاج خطة إغلاق لا تجميعًا في آخر يوم."],
+[8,"Handover","لماذا نعمل Document Closeout؟",["تقليل الملفات","ضمان اكتمال السجلات المطلوبة وتسليمها وأرشفتها وفق العقد","إعادة تسمية كل الملفات","إلغاء MDR"],1,35,"Closeout يثبت اكتمال دورة الوثائق."],
+[8,"Handover","ما أهم شيء قبل تسليم Final MDR؟",["أن يكون شكله جميلًا","مراجعته مقابل متطلبات العقد وحالة المستندات والبيانات الناقصة","حذف Drafts كلها","تغيير أرقام المستندات"],1,45,"MDR النهائي يجب أن يعكس الحقيقة ومتطلبات التسليم."],
+[8,"Handover","O&M manuals موجودة لكن بدون approvals المطلوبة. ماذا تفعل؟",["أسلمها كما هي","تحدد gap وتتابع الاعتماد/التصحيح وفق closeout procedure","تضيف Approval بنفسك","تحذفها"],1,40,"الاكتمال لا يعني مجرد وجود الملف."],
+[8,"Handover","ما فائدة Handover Checklist؟",["لزيادة الورق","لضمان تغطية deliverables المطلوبة وعدم نسيان عناصر الإغلاق","لإلغاء العقد","لتغيير status عشوائيًا"],1,35,"Checklist تحول التسليم إلى عملية قابلة للقياس."],
+[8,"Handover","وجدت As-Built باسم صحيح لكن Revision غير موجود في register. ماذا تفعل؟",["أسلمه","أتحقق من السجل والمصدر والحالة قبل اعتماده ضمن handover","أضيف Rev01 من عندي","أحذفه"],1,45,"لا تضف Metadata تاريخية بالتخمين."],
+[8,"Handover","ما الذي يجب فعله بالOutstanding Documents؟",["إخفاؤها","إدراجها في tracker وتحديد owner/due date والتصعيد حسب الإجراء","حذفها","إرسالها بلا متابعة"],1,40,"العناصر المفتوحة يجب أن تكون مرئية ومملوكة."],
+[8,"Handover","بعد التسليم، أين تذهب سجلات المشروع؟",["أي USB","إلى archive/EDMS المعتمد وفق retention وaccess rules","WhatsApp","جهاز DC الشخصي"],1,40,"الأرشفة الرسمية تحافظ على السجل بعد انتهاء التنفيذ."],
+[8,"Handover","كيف تعرف أن المشروع جاهز وثائقيًا للتسليم؟",["مدير المشروع قال ذلك","Checklist/contract deliverables مكتملة ومراجعة gaps وإغلاق/قبول المطلوب","كل الملفات PDF","لا توجد رسائل"],1,50,"الجاهزية يجب أن تستند إلى أدلة ومتطلبات محددة."],
+
+[9,"Manager","أنت DC Manager وعندك Contractor وConsultant وQA/QC وEngineering. ما أهم شيء قبل توزيع العمل؟",["تحديد workflow والأدوار والصلاحيات وقواعد الترقيم والتوزيع","إعطاء الجميع نفس الصلاحيات","إلغاء Register","WhatsApp فقط"],0,50,"وضوح المسؤوليات والصلاحيات يمنع الفوضى."],
+[9,"Manager","Engineering تقول Rev05 أحدث والRegister يظهر Rev04 Approved وRev05 Submitted. كيف تحسم؟",["تصويت","المصدر الرسمي والworkflow والStatus والغرض المطلوب","الرقم الأكبر","رأي المدير"],1,55,"الحسم بالأدلة وليس بالرأي أو رقم Revision وحده."],
+[9,"KPI","ما أفضل KPI بسيط للـDocument Control؟",["عدد الملفات فقط","Overdue responses وturnaround time وmissing metadata وstatus accuracy","عدد WhatsApp","حجم القرص"],1,45,"المؤشرات يجب أن تقيس الأداء الحقيقي."],
+[9,"Manager","لديك 3 أنظمة EDMS في المشروع. ما الأولوية؟",["استخدامها عشوائيًا","تحديد system of record وinterface/workflow واضح بين الأنظمة","نسخ كل شيء يدويًا يوميًا","إلغاء السجلات"],1,55,"يجب معرفة أين يوجد المصدر الرسمي لكل نوع من السجلات."],
+[9,"Manager","ما أخطر خطأ في Dashboard للـDocument Control؟",["لون غير جميل","بيانات غير متزامنة أو KPI مبني على status خاطئ","كثرة الرسوم","عنوان طويل"],1,50,"Dashboard ممتاز ببيانات خاطئة أخطر من عدم وجود Dashboard."],
+[9,"Manager","كيف تدير backlog كبير من overdue documents؟",["ترتيب عشوائي","تجزئة حسب priority/owner/aging ثم خطة recovery وتصعيد","حذف المتأخر","إغلاقها جماعيًا"],1,50,"التقسيم حسب المخاطر والمسؤولية يجعل التعافي قابلًا للتنفيذ."],
+[9,"Manager","ما المقصود بـSystem of Record؟",["مكان نسخ احتياطي فقط","المصدر الرسمي المعتمد الذي تُرجع إليه لحقيقة السجل","أي جهاز","WhatsApp"],1,50,"تحديد المصدر الرسمي يمنع تعدد الحقائق."],
+[9,"Manager","كيف تختبر أن Workflow جديد يعمل؟",["تطبقه على كل المشروع فورًا","Pilot/Test cases + approval + مراجعة النتائج قبل التعميم","تخبر الفريق شفهيًا","تغير الألوان"],1,55,"الاختبار قبل التعميم يقلل المخاطر."],
+[9,"Manager","ما أهم مخرج في نهاية مشروعك كـDC Manager؟",["مجلدات كثيرة","سجل موثوق + closeout/archive مكتمل + lessons learned حسب النظام","عدد كبير من Emails","USB شخصي"],1,55,"قيمة DC في السجل الموثوق والقابل للاسترجاع بعد المشروع."],
+[9,"Manager","لو اكتشفت أن 20% من Statuses في Register خاطئة، ما القرار الأفضل؟",["تجاهلها","Root-cause analysis + data cleanup مضبوط + validation controls","تغييرها كلها يدويًا بلا دليل","حذف Register"],1,60,"عالج السبب والنظام، لا العرض فقط."]
+];
+
+/* إنشاء نسخة عشوائية من ترتيب الإجابات لكل سؤال. لا يوجد أي اعتماد على موضع ثابت. */
+function smartAnswer(text,isCorrect){
+ const base=String(text).trim();
+ const correctTail=' مع الالتزام بإجراء المشروع، والتحقق من الحالة والبيانات المرتبطة بالمستند قبل تنفيذ القرار وتوثيق الإجراء في السجل الرسمي.';
+ const wrongTails=[
+  ' لأن الهدف في هذه الحالة هو إنهاء الطلب بسرعة قدر الإمكان، ويمكن استكمال التحقق أو التوثيق لاحقًا إذا ظهرت مشكلة أثناء التنفيذ.',
+  ' لأن تقليل الخطوات قد يكون أكثر عملية تحت ضغط الموقع، مع الاعتماد على المعلومات المتاحة في اللحظة الحالية بدل إيقاف العمل للتحقق الكامل.',
+  ' لأن البيانات الموجودة أمامك تكفي لاتخاذ قرار مبدئي، ويمكن اعتبار الإجراء مقبولًا ما دام المستند يبدو مطابقًا من حيث الشكل أو الاسم.',
+  ' لأن الحفاظ على سير العمل أهم من الرجوع في كل مرة إلى السجلات الرسمية، خصوصًا عندما يكون المطلوب عاجلًا ويحتاج الفريق إلى نتيجة سريعة.'
+ ];
+ let out=base+(isCorrect?correctTail:wrongTails[Math.floor(Math.random()*wrongTails.length)]);
+ if(out.length<120) out+=' ويمكن التعامل مع أي تفاصيل إضافية أثناء المتابعة اليومية دون الحاجة إلى تعطيل القرار الحالي.';
+ return out;
+}
+const questions=raw.map((r,idx)=>{let arr=r[3].map((text,i)=>({text:smartAnswer(text,i===r[4]),correct:i===r[4]}));for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return{l:r[0],t:r[1],q:r[2],a:arr.map(x=>x.text),c:arr.findIndex(x=>x.correct),e:r[5],x:r[6],id:idx}});
+
+const defaultState={coins:0,lives:5,level:0,q:0,correct:0,answered:0,streak:0,ach:[],inventory:{hint:0,time:0,second:0},completedLevels:[],started:false,playerName:"",certificateId:""};
+let state=JSON.parse(localStorage.getItem("dcGameStateV6")||"null")||structuredClone(defaultState);
+state.completedLevels=Array.isArray(state.completedLevels)?state.completedLevels:[];
+state.ach=Array.isArray(state.ach)?state.ach:[];
+state.inventory=Object.assign({hint:0,time:0,second:0},state.inventory||{});
+state.playerName=state.playerName||"";state.certificateId=state.certificateId||"";
+let current=null,timer=null,timeLeft=30,usedSecond=false;const app=document.getElementById("app");
+
+function save(){localStorage.setItem("dcGameStateV6",JSON.stringify(state));updateTop()}
+function updateTop(){document.getElementById("coins").textContent=state.coins;document.getElementById("lives").textContent=state.lives;let r=state.coins>=5000?"Document Control Master":state.coins>=3500?"DC Manager":state.coins>=2500?"DC Supervisor":state.coins>=1600?"Lead DC":state.coins>=900?"Senior DC":state.coins>=450?"Document Controller":state.coins>=150?"Junior DC":"DC Trainee";document.getElementById("rank").textContent=r}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function stopTimer(){if(timer){clearInterval(timer);timer=null}}
+function setLevelBackground(i){let bg=["radial-gradient(circle at 20% 10%,#163b63,#07111f 55%)","radial-gradient(circle at 80% 10%,#3b245c,#07111f 55%)","radial-gradient(circle at 20% 80%,#114b52,#07111f 55%)","radial-gradient(circle at 80% 30%,#4a3a12,#07111f 55%)","radial-gradient(circle at 10% 20%,#4b1932,#07111f 55%)","radial-gradient(circle at 70% 70%,#233d63,#07111f 55%)","radial-gradient(circle at 50% 0%,#551d27,#07111f 55%)","radial-gradient(circle at 20% 60%,#263e27,#07111f 55%)","radial-gradient(circle at 80% 70%,#4c3517,#07111f 55%)","radial-gradient(circle at 50% 50%,#38235d,#050812 60%)"];document.body.style.background=bg[i]||bg[0]}
+
+function home(){stopTimer();document.body.style.background="radial-gradient(circle at 20% 0%,#12345a,#07111f 42%,#050b14 100%)";app.innerHTML=`<section class="screen hero"><div class="logo">📁</div><h1>DOCUMENT CONTROL<br><span style="color:var(--blue)">THE PROJECT</span></h1><p>لعبة تحفيزية صُممت لتنمية مهاراتك كمنسق مستندات، وتطوير قدرتك على اتخاذ القرار والتعامل مع المستندات والـWorkflows والـRevisions والـTransmittals باحترافية.
+
+طوّر مستواك العلمي والمهني، اختبر قدراتك، واجعل كل تحدٍ خطوة جديدة في طريقك نحو الاحتراف في مجال Document Control.
+
+مقدمة إليكم من أكاديمية مستند أكاديمي 🎓</p><button class="primary" onclick="map()">🎮 ابدأ المغامرة</button><div class="actions" style="justify-content:center"><button class="secondary" onclick="how()">ℹ️ كيف تلعب؟</button><button class="secondary" onclick="shop()">🛒 Store</button><button class="secondary" onclick="resetGame()">♻️ Reset</button></div></section>`}
+function how(){app.innerHTML=`<section class="screen"><h2>🎯 كيف تلعب؟</h2><p class="muted">كل Level يحتوي على 10 أسئلة. ترتيب الإجابات يتغير عشوائيًا في كل مرة، ولا يوجد حرف ثابت للإجابة الصحيحة. يجب إكمال جميع أسئلة المستوى حتى يتم فتح المستوى التالي.</p><div class="grid"><div class="achievement">🪙 <b>Coins</b><br><span class="muted">تُستخدم للمكافآت وشراء الأدوات.</span></div><div class="achievement">❤️ <b>Lives</b><br><span class="muted">الخطأ يخصم حياة إلا إذا استخدمت Second Chance.</span></div><div class="achievement">⚡ <b>Timer</b><br><span class="muted">30 ثانية لكل سؤال.</span></div><div class="achievement">🏆 <b>Final Certificate</b><br><span class="muted">بعد إنهاء الـ10 Levels و100 سؤال، اكتب اسمك واحصل على شهادة برقم Certificate ID.</span></div></div><div class="actions"><button class="primary" onclick="map()">🗺️ خريطة الـLevels</button></div></section>`}
+
+function map(){
+ app.innerHTML=`<section class="screen"><div class="gamehead"><div><h2>🗺️ PROJECT MAP</h2><p class="muted">يجب اجتياز كل Level بالكامل لفتح المستوى التالي. لا يمكن تخطي أي مستوى.</p></div><button class="secondary" onclick="shop()">🛒 Store</button></div><div class="grid">${levels.map((x,i)=>{let qs=questions.filter(q=>q.l===i).length;let completed=state.completedLevels.includes(i);let open=i===0||state.completedLevels.includes(i-1);let done=completed?qs:(state.level===i?Math.min(qs,state.q):0);return `<div class="level ${open?'':'locked'}" onclick="${open?'startLevel('+i+')':'lockedMsg('+i+')'}"><div class="num">LEVEL ${i+1}</div><h3>${x[2]} ${x[0]}</h3><p>${x[1]}</p><div class="bar"><span style="width:${Math.min(100,done/Math.max(1,qs)*100)}%"></span></div><div class="unlock">${completed?'🏆 COMPLETED':open?'▶ OPEN • '+qs+' Challenges':'🔒 أكمل Level '+i+' أولًا'}</div></div>`}).join("")}</div><div class="actions"><button class="secondary" onclick="achievements()">🏆 Achievements</button><button class="secondary" onclick="home()">⌂ Home</button></div></section>`;
+}
+function lockedMsg(i){alert("🔒 هذا المستوى مقفول. يجب اجتياز Level "+i+" بالكامل أولًا.")}
+function startLevel(i){if(i>0&&!state.completedLevels.includes(i-1)){lockedMsg(i);return}state.level=i;state.q=0;state.lives=5;state.streak=0;state.started=true;save();showQuestion()}
+function getQs(){return questions.filter(q=>q.l===state.level)}
+
+function showQuestion(){stopTimer();setLevelBackground(state.level);let qs=getQs();if(state.q>=qs.length){levelComplete();return}current=qs[state.q];timeLeft=30;usedSecond=false;app.innerHTML=`<section class="screen"><div class="gamehead"><div><span class="tag">LEVEL ${state.level+1} • ${current.t}</span><h2>${levels[state.level][2]} ${levels[state.level][0]}</h2></div><div class="timer" id="timer">⏱️ 30</div></div><div class="progress"><span style="width:${state.q/qs.length*100}%"></span></div><div class="scenario"><b>🚨 PROJECT SCENARIO</b><br><br>${current.q}</div><div class="answers">${current.a.map((a,i)=>`<button class="answer" id="ans${i}" onclick="answer(${i})">${String.fromCharCode(65+i)}) ${a}</button>`).join("")}</div><div id="feedback"></div><div class="actions"><button class="secondary" onclick="useHint()">💡 Hint (${state.inventory.hint})</button><button class="secondary" onclick="useTime()">⏱️ Extra Time (${state.inventory.time})</button><button class="secondary" onclick="useSecond()">🛡️ Second Chance (${state.inventory.second})</button><button class="secondary" onclick="map()">🗺️ Exit</button></div></section>`;timer=setInterval(()=>{timeLeft--;let el=document.getElementById("timer");if(el){el.textContent="⏱️ "+timeLeft;el.classList.toggle("low",timeLeft<=8)}if(timeLeft<=0){stopTimer();answer(-1)}},1000)}
+function tone(type){try{let C=window.AudioContext||window.webkitAudioContext;if(!C)return;let c=new C(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);let now=c.currentTime;if(type==='good'){o.type='sine';o.frequency.setValueAtTime(660,now);o.frequency.exponentialRampToValueAtTime(990,now+.18)}else{o.type='sawtooth';o.frequency.setValueAtTime(220,now);o.frequency.exponentialRampToValueAtTime(110,now+.28)}g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(.12,now+.02);g.gain.exponentialRampToValueAtTime(.0001,now+(type==='good'?.28:.4));o.start(now);o.stop(now+(type==='good'?.3:.42))}catch(e){}}
+
+function answer(i){
+ if(document.querySelector('.answer.disabled'))return;
+ stopTimer();
+ let good=i===current.c;
+ if(i>=0){let el=document.getElementById('ans'+i);if(el)el.classList.add(good?'correct':'wrong')}
+ let correctEl=document.getElementById('ans'+current.c);if(correctEl)correctEl.classList.add('correct');
+ document.querySelectorAll('.answer').forEach(x=>x.classList.add('disabled'));
+ let bonus=good?current.e:0;
+ if(good){tone('good');state.coins+=bonus;state.correct++;state.streak++;state.answered++;if(state.streak>=3){state.coins+=15;bonus+=15}}else{tone('bad');if(usedSecond){usedSecond=false}else{state.lives--}state.streak=0;state.answered++}
+ let msg=good?`<div class="feedback good">✅ <b>Correct!</b><br>+${bonus} 🪙 DC Coins<br><br><b>لماذا؟</b> ${current.x}</div>`:`<div class="feedback bad">❌ <b>Not the best decision.</b><br><br><b>الإجابة الصحيحة:</b> ${current.a[current.c]}<br><br><b>التعلم:</b> ${current.x}</div>`;
+ document.getElementById('feedback').innerHTML=msg+`<div class="actions"><button class="primary" onclick="nextQ()">التالي →</button></div>`;
+ if(state.correct>=1&&!state.ach.includes('first'))state.ach.push('first');if(state.streak>=5&&!state.ach.includes('streak'))state.ach.push('streak');if(state.coins>=5000&&!state.ach.includes('rich'))state.ach.push('rich');save()
+}
+function nextQ(){if(state.lives<=0){gameOver();return}state.q++;save();showQuestion()}
+
+function levelComplete(){
+ let reward=100+(state.level*40);state.coins+=reward;if(!state.completedLevels.includes(state.level))state.completedLevels.push(state.level);if(!state.ach.includes('level'+state.level))state.ach.push('level'+state.level);state.q=0;save();
+ if(state.completedLevels.length===levels.length){showNameForCertificate();return}
+ let next=state.level+1;app.innerHTML=`<section class="screen center hero"><div class="big">🏆</div><h1>LEVEL COMPLETE!</h1><p>أنهيت <b>${levels[state.level][0]}</b> وحصلت على <span class="gold">+${reward} 🪙</span>.</p><p class="muted">تم فتح Level ${next+1}. يجب إكماله بالكامل قبل الانتقال لما بعده.</p><div class="actions" style="justify-content:center"><button class="primary" onclick="startLevel(${next})">🚀 Level ${next+1}</button><button class="secondary" onclick="map()">🗺️ Project Map</button><button class="secondary" onclick="shop()">🛒 Store</button></div></section>`;
+}
+
+function generateCertificateId(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<5;i++)s+=c[Math.floor(Math.random()*c.length)];return 'MST-DC-2026-'+s}
+function showNameForCertificate(){stopTimer();setGbg(14);if(!state.certificateId)state.certificateId=generateCertificateId();save();app.innerHTML=`<section class="screen center hero"><div class="big">🎓</div><h1>CONGRATULATIONS!</h1><p>لقد أتممت جميع مستويات اللعبة بنجاح وأجبت على جميع التحديات.</p><p class="muted">اكتب اسمك كما تريد أن يظهر على شهادة الإتمام:</p><input id="certificateName" class="nameInput" maxlength="80" autocomplete="name" placeholder="اكتب اسمك الكامل" value="${escapeHtml(state.playerName)}"><div class="actions" style="justify-content:center"><button class="primary" onclick="issueCertificate()">🎓 إصدار الشهادة</button></div></section>`}
+function issueCertificate(){let input=document.getElementById('certificateName');let n=(input?.value||'').trim();if(!n){alert('من فضلك اكتب اسمك أولًا.');input?.focus();return}state.playerName=n;if(!state.certificateId)state.certificateId=generateCertificateId();if(!state.ach.includes('master'))state.ach.push('master');save();showCertificate()}
+function showCertificate(){stopTimer();app.innerHTML=`<section class="screen"><div class="certificate" id="certificate"><div class="seal">🏆</div><small>MOSTANAD ACADEMY • KHALAF-DC</small><h1>CERTIFICATE OF ACHIEVEMENT</h1><p>This certificate is proudly presented to</p><div class="certname">${escapeHtml(state.playerName)}</div><p>for successfully completing</p><h2>DOCUMENT CONTROL: THE PROJECT</h2><p>All 15 Levels • 150 Challenges • Final Project</p><p><b>Achievement:</b> Document Controller</p><p class="id">Certificate ID: ${escapeHtml(state.certificateId)}</p><p><small>Issued: ${new Date().toLocaleDateString('en-GB')}</small></p><p style="margin-top:30px"><b>Designed by Khalaf-DC</b><br><small>Mostanad Academy</small></p></div><div class="actions cert-actions"><button class="primary" onclick="printCertificate()">🖨️ Print / Save PDF</button><button class="secondary" onclick="map()">🗺️ Map</button></div></section>`}
+function printCertificate(){
+ const el=document.getElementById('certificate');
+ if(!el)return;
+ const w=window.open('','_blank');
+ if(!w){alert('المتصفح منع نافذة الطباعة. اسمح بالنوافذ المنبثقة ثم حاول مرة أخرى.');return;}
+ w.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>Certificate - ${escapeHtml(state.playerName)}</title><style>body{margin:0;background:white;font-family:Arial,Tahoma,sans-serif;text-align:center;padding:30px}.certificate{border:12px double #b9973e;padding:50px;color:#15202b;max-width:900px;margin:auto}.certname{font-size:42px;font-weight:900;color:#173b62;margin:25px}.id{font-family:monospace;font-weight:bold;letter-spacing:2px}</style></head><body>${el.outerHTML}</body></html>`);
+ w.document.close();
+ w.focus();
+ setTimeout(()=>w.print(),500);
+}
+
+</script>
+
+<script>
+/* =========================================================
+   MOSTANAD ACADEMY - GAMEPLAY EXPANSION V4
+   15 Levels x 10 Challenges - varied gameplay
+   ========================================================= */
+const extraLevels=[
+ ["Truth Protocol","صح أم خطأ","✅",3600,"TRUE / FALSE"],
+ ["Document Puzzle","ركّب المستند","🧩",4100,"PUZZLE"],
+ ["Document Match","طابق المستند","🔗",4600,"MATCH"],
+ ["Speed DC","تحدي السرعة","⚡",5100,"SPEED"],
+ ["Final Project","المشروع النهائي","👑",5600,"BOSS"]
+];
+levels.splice(10,levels.length-10,...extraLevels.map((x,i)=>[x[0],x[1],x[2],x[3]]));
+const tf=[
+["الـRevision الأعلى تعني دائمًا أن المستند صالح للتنفيذ.",false,"الحالة والـworkflow والغرض من الإصدار أهم من رقم Revision وحده."],
+["Document Register يساعد في تتبع المستندات وحالاتها وإصداراتها.",true,"السجل المنظم هو أساس التتبع والتحكم."],
+["يمكن حذف سجل إرسال خاطئ حتى لا يظهر الخطأ في الـAudit.",false,"التصحيح يجب أن يحافظ على الـtraceability."],
+["Superseded تعني أن هناك إصدارًا أحدث حل محل الإصدار السابق حسب النظام.",true,"هذه هي فكرة النسخة المستبدلة."],
+["يمكن تغيير Status من Submitted إلى Approved بمجرد طلب شفهي.",false,"تغيير الحالة يحتاج صلاحية واعتمادًا رسميًا."],
+["RFI يستخدم لتوثيق طلب توضيح ومتابعة الرد.",true,"RFI جزء من workflow الرسمي للمعلومات."],
+["وجود PDF يعني تلقائيًا أن المستند معتمد.",false,"صيغة الملف لا تحدد حالته."],
+["Audit Trail يساعد في معرفة من قام بالإجراء ومتى.",true,"هذه من أهم وظائف التتبع."],
+["يجب تخمين Metadata الناقصة إذا كان الوقت ضيقًا.",false,"البيانات التاريخية يجب أن تأتي من مصدر موثوق."],
+["System of Record هو المصدر الرسمي المعتمد لحقيقة السجل.",true,"تحديد المصدر الرسمي يمنع تعدد الحقائق."]
+];
+const puzzles=[
+["رتّب دورة المستند من البداية للنهاية",["Draft","Review","Approval","Issued"],"المسار النموذجي يبدأ بالمسودة ثم المراجعة والاعتماد ثم الإصدار."],
+["رتّب الإصدارات من الأقدم إلى الأحدث",["Rev01","Rev02","Rev03","Rev04"],"ترتيب Revision الصحيح يسهل فهم تاريخ المستند."],
+["رتّب خطوات إصدار Transmittal",["Select Documents","Validate Metadata","Select Recipient","Issue Transmittal"],"التحقق قبل الإرسال يمنع أخطاء التوزيع."],
+["رتّب خطوات معالجة مستند ناقص",["Identify Gap","Check Source","Correct Metadata","Record Correction"],"لا تبدأ بالتصحيح قبل معرفة مصدر البيانات."],
+["رتّب مسار RFI",["Create","Review","Respond","Close"],"الإغلاق يأتي بعد الرد واستكمال متطلبات الـworkflow."],
+["رتّب مسار Drawing",["Draft","Review","Approval","For Construction"],"الغرض من الإصدار والحالة يحددان صلاحية الاستخدام."],
+["رتّب خطوات الـAudit",["Define Evidence","Search Records","Verify Data","Present Evidence"],"التدقيق الجيد يبدأ بتحديد المطلوب ثم التحقق."],
+["رتّب خطوات Closeout",["Collect Deliverables","Check Gaps","Close Actions","Archive"],"الأرشفة تأتي بعد مراجعة وإغلاق المتطلبات."],
+["رتّب عملية تصحيح إصدار خاطئ",["Detect Error","Notify Stakeholders","Issue Correction","Update Record"],"التصحيح يجب أن يكون موثقًا ولا يمحو الأثر السابق."],
+["رتّب إعداد Dashboard",["Define KPIs","Validate Data","Build Report","Review Results"],"جودة البيانات تسبق عرضها في Dashboard."]
+];
+const matches=[
+["RFI","طلب معلومات أو توضيح رسمي"],["NCR","تسجيل عدم مطابقة"],["MIR","طلب/سجل فحص المواد حسب إجراء المشروع"],["Transmittal","توثيق إرسال مجموعة مستندات"],["As-Built","توثيق ما تم تنفيذه فعليًا"],["MDR","السجل الرئيسي للمستندات"],["Revision","تحديد إصدار المستند"],["Superseded","نسخة استبدلها إصدار أحدث"],["Audit Trail","تتبع الإجراءات والتعديلات"],["Closeout","إغلاق المتطلبات وتجهيز السجلات للتسليم"]
+];
+const speed=[
+["أي مستند صالح إذا كان العقد يشترط Approved؟",["Rev05 - Submitted","Rev04 - Approved","Rev03 - Superseded"],1],
+["أين تبحث عن إثبات الإرسال؟",["Transmittal Log","WhatsApp","اسم الملف"],0],
+["أي مشكلة يجب تصعيدها أولًا؟",["خطأ إملائي بسيط","نسخة غير صالحة أثناء التنفيذ","لون مجلد مختلف"],1],
+["ما أفضل مصدر لحالة المستند؟",["System of Record","ذاكرة الموظف","صورة قديمة"],0],
+["ما الذي يقيس Aging؟",["مدة بقاء الحالة مفتوحة","حجم PDF","عدد الصفحات"],0],
+["ما الذي يمنع Draft من أن تصبح نسخة تنفيذ؟",["Status/Permissions","لون الملف","اسم الكمبيوتر"],0],
+["ماذا تفعل عند Duplicate RFI؟",["تحقق من السجل قبل الإنشاء/المعالجة","تحذف الاثنين","تغير الرقم عشوائيًا"],0],
+["ما أفضل دليل على الاستلام؟",["Acknowledgement/Receipt","التخمين","اسم المرسل فقط"],0],
+["ما الخطر الأكبر في Dashboard؟",["بيانات Status خاطئة","عنوان طويل","عدد الرسوم"],0],
+["ما أول خطوة في Closeout؟",["تحديد المتطلبات والـgaps","حذف الملفات","إرسال كل شيء عشوائيًا"],0]
+];
+const boss=[
+["الموقع يستخدم Rev02 بينما Rev03 Approved. ما قرارك؟",["أوقف الاستخدام الخاطئ وأصدر Rev03 حسب الإجراء","أتركهم","أغير اسم Rev02"],0,"التحكم في النسخة أهم من السرعة."],
+["PM طلب تغيير Submitted إلى Approved شفهيًا.",["أطلب اعتمادًا رسميًا ولا أغير الحالة من نفسي","أغيرها فورًا","أحذف السجل"],0,"الحالة جزء من الـworkflow وليست قرارًا شفهيًا."],
+["Auditor طلب إثبات إرسال Drawing.",["Transmittal/Issue Record","ذاكرة DC","WhatsApp فقط"],0,"الدليل الرسمي القابل للتتبع هو الأقوى."],
+["وجدت Metadata ناقصة في MDR النهائي.",["أرجع للمصدر وأصحح وفق الإجراء","أخمنها","أحذف السجل"],0,"لا تضف بيانات تاريخية بلا دليل."],
+["لديك 30 مستندًا Overdue.",["تصنيف حسب Aging/Priority/Owner ثم Recovery Plan","إغلاقها جماعيًا","حذفها"],0,"الإدارة الجيدة تبدأ بتحديد الأولوية والمسؤولية."],
+["ثلاثة EDMS موجودة في المشروع.",["تحديد System of Record والـinterfaces","نسخ كل شيء عشوائيًا","اختيار جهاز شخصي"],0,"المصدر الرسمي يمنع تعدد الحقائق."],
+["Drawing بلا Status واضح في الموقع.",["التحقق من المصدر الرسمي قبل الاستخدام","اعتبارها Approved","تعديلها يدويًا"],0,"لا تستخدم نسخة غير واضحة الحالة."],
+["Transmittal يحتوي Revision خاطئة.",["تصحيح رسمي مع الحفاظ على أثر الإرسال","حذف السجل","تجاهل الخطأ"],0,"التصحيح يجب أن يبقى قابلًا للتتبع."],
+["Project Handover بعد أسبوع وهناك Missing As-Built.",["Closeout Tracker + Owner + Due Date + متابعة","الانتظار","حذف الـgap"],0,"التسليم يحتاج إدارة gaps ومواعيد."],
+["20% من Statuses في Register خاطئة.",["Root Cause + Controlled Cleanup + Validation","تجاهلها","تغييرها بلا دليل"],0,"عالج السبب وضع ضوابط تمنع تكرار المشكلة."]
+];
+let G=JSON.parse(localStorage.getItem('dcGameStateV6')||'null')||{coins:0,lives:5,level:0,q:0,correct:0,answered:0,streak:0,ach:[],inventory:{hint:0,time:0,second:0},completedLevels:[],started:false,playerName:'',certId:'',developer:false};
+G.developer=Boolean(G.developer);
+function gsave(){localStorage.setItem('dcGameStateV6',JSON.stringify(G));document.getElementById('coins').textContent=G.coins;document.getElementById('lives').textContent=G.lives;document.getElementById('rank').textContent=G.coins>=5000?'Document Control Master':G.coins>=3500?'DC Manager':G.coins>=2500?'DC Supervisor':G.coins>=1600?'Lead DC':G.coins>=900?'Senior DC':G.coins>=450?'Document Controller':G.coins>=150?'Junior DC':'DC Trainee'}
+function stopGTimer(){if(window.gameTimer){clearInterval(window.gameTimer);window.gameTimer=null}}
+function gTone(ok){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),gain=c.createGain();o.connect(gain);gain.connect(c.destination);o.type=ok?'sine':'square';o.frequency.value=ok?720:180;gain.gain.value=.08;o.start();o.stop(c.currentTime+(ok?.22:.32))}catch(e){}}
+function levelMode(i){return i<10?'quiz':['tf','puzzle','match','speed','boss'][i-10]}
+const levelThemes=[
+{bg:'radial-gradient(circle at 20% 10%,#163b63,#07111f 55%)',qbg:'#0b2239',qline:'#2c6d9e',abg:'#102c46',ahover:'#174363',accent:'#4cc2ff'},
+{bg:'radial-gradient(circle at 80% 10%,#3b245c,#07111f 55%)',qbg:'#24163a',qline:'#7544a8',abg:'#2a1d42',ahover:'#3b285b',accent:'#c09cff'},
+{bg:'radial-gradient(circle at 20% 80%,#114b52,#07111f 55%)',qbg:'#0b3035',qline:'#2d7f86',abg:'#103d42',ahover:'#18555a',accent:'#57e0d5'},
+{bg:'radial-gradient(circle at 80% 30%,#4a3a12,#07111f 55%)',qbg:'#30270d',qline:'#9a7c27',abg:'#3a2e10',ahover:'#504016',accent:'#f5cf5b'},
+{bg:'radial-gradient(circle at 10% 20%,#4b1932,#07111f 55%)',qbg:'#351226',qline:'#9a3e67',abg:'#40162d',ahover:'#5a1e3d',accent:'#ff77a2'},
+{bg:'radial-gradient(circle at 70% 70%,#233d63,#07111f 55%)',qbg:'#172d4b',qline:'#416fa6',abg:'#1b3557',ahover:'#25466f',accent:'#73a9ff'},
+{bg:'radial-gradient(circle at 50% 0%,#551d27,#07111f 55%)',qbg:'#3c1720',qline:'#a94754',abg:'#451b27',ahover:'#612331',accent:'#ff6e7f'},
+{bg:'radial-gradient(circle at 20% 60%,#263e27,#07111f 55%)',qbg:'#192c1c',qline:'#4f7d52',abg:'#1e3621',ahover:'#2a4a2d',accent:'#79d47d'},
+{bg:'radial-gradient(circle at 80% 70%,#4c3517,#07111f 55%)',qbg:'#35250f',qline:'#9c7130',abg:'#3d2a10',ahover:'#554019',accent:'#ffc75e'},
+{bg:'radial-gradient(circle at 50% 50%,#38235d,#050812 60%)',qbg:'#25163f',qline:'#7547a9',abg:'#2d1d49',ahover:'#412a63',accent:'#c59cff'},
+{bg:'radial-gradient(circle at 15% 35%,#0d4b43,#061c20 60%)',qbg:'#0b302c',qline:'#2d8c7d',abg:'#103d38',ahover:'#18564d',accent:'#5ce6cf'},
+{bg:'radial-gradient(circle at 85% 20%,#153e54,#07111f 58%)',qbg:'#102c3d',qline:'#3b86a9',abg:'#15394d',ahover:'#20536c',accent:'#67cfff'},
+{bg:'radial-gradient(circle at 30% 75%,#47205b,#10071a 60%)',qbg:'#2b1640',qline:'#8d55a9',abg:'#351c4d',ahover:'#4b2968',accent:'#d49aff'},
+{bg:'radial-gradient(circle at 75% 55%,#55400b,#171005 62%)',qbg:'#392d0c',qline:'#a5822a',abg:'#453611',ahover:'#5e4818',accent:'#ffd75e'},
+{bg:'radial-gradient(circle at 50% 30%,#4a143f,#13051a 62%)',qbg:'#32102d',qline:'#a34b91',abg:'#421638',ahover:'#5d2050',accent:'#ff8fe5'}
+];
+function setGbg(i){
+ const t=levelThemes[i]||levelThemes[0];
+ document.body.style.background=t.bg;
+ document.documentElement.style.setProperty('--qbg',t.qbg);
+ document.documentElement.style.setProperty('--qline',t.qline);
+ document.documentElement.style.setProperty('--abg',t.abg);
+ document.documentElement.style.setProperty('--ahover',t.ahover);
+ document.documentElement.style.setProperty('--accent',t.accent);
+}
+function gMap(){stopGTimer();setGbg(G.level);app.innerHTML=`<section class="screen"><div class="gamehead"><div><h2>🗺️ PROJECT MAP</h2><p class="muted">كل مرحلة تحتوي 10 تحديات. يجب إكمال المرحلة الحالية بالكامل لفتح التالية.</p></div><button class="secondary" onclick="gHome()">⌂ Home</button></div><div class="grid">${levels.map((x,i)=>{const open=G.developer||(i===0||G.completedLevels.includes(i-1)),done=G.completedLevels.includes(i);return `<div class="level ${open?'':'locked'}" onclick="${open?'gStart('+i+')':'gLock('+i+')'}"><div class="num">LEVEL ${i+1}</div><h3>${x[2]} ${x[0]}</h3><p>${x[1]}</p><div class="bar"><span style="width:${done?100:(G.level===i?G.q*10:0)}%"></span></div><div class="unlock">${done?'🏆 COMPLETED':open?'▶ 10 CHALLENGES':'🔒 LOCKED'}</div></div>`}).join('')}</div><div class="actions"><button class="secondary" onclick="gShop()">🛒 Store</button><button class="secondary" onclick="gAchievements()">🏆 Achievements</button></div></section>`}
+function gHome(){stopGTimer();setGbg(0);app.innerHTML=`<section class="screen hero"><div class="logo">📁</div><h1>DOCUMENT CONTROL<br><span style="color:var(--blue)">THE PROJECT</span></h1><p>لعبة تحفيزية صُممت لتنمية مهاراتك كمنسق مستندات، ورفع مستواك العلمي والمهني من خلال تحديات تفاعلية تحاكي مواقف العمل الحقيقية.<br><br>تعلّم، قرر، اختبر نفسك، وتقدّم خطوة بخطوة نحو الاحتراف في Document Control.<br><br><b style="color:var(--gold)">مقدمة إليكم من أكاديمية مستند أكاديمي 🎓</b></p><button class="primary" onclick="gMap()">🎮 ابدأ المغامرة</button><div class="actions" style="justify-content:center"><button class="secondary" onclick="gHow()">ℹ️ كيف تلعب؟</button><button class="secondary" onclick="developerLogin()">🛠️ وضع المطور</button></div>${G.developer?'<div class="dev-panel" style="margin-top:16px"><span class="dev-badge">DEVELOPER MODE ACTIVE</span><p class="muted">جميع المستويات الـ15 مفتوحة للمراجعة والاختبار فقط.</p><button class="secondary" onclick="toggleDeveloper(false)">إيقاف وضع المطور</button></div>':''}</section>`}
+function gHow(){app.innerHTML=`<section class="screen"><h2>🎮 أنماط اللعب</h2><div class="grid"><div class="achievement">📝 <b>Levels 1–10</b><br><span class="muted">اختيارات متعددة بمواقف عملية.</span></div><div class="achievement">✅ <b>Level 11</b><br><span class="muted">True / False.</span></div><div class="achievement">🧩 <b>Level 12</b><br><span class="muted">رتّب عناصر المستند.</span></div><div class="achievement">🔗 <b>Level 13</b><br><span class="muted">Matching.</span></div><div class="achievement">⚡ <b>Level 14</b><br><span class="muted">تحديات سريعة بوقت.</span></div><div class="achievement">👑 <b>Level 15</b><br><span class="muted">Final Boss Project.</span></div></div><div class="actions"><button class="primary" onclick="gMap()">🗺️ Project Map</button></div></section>`}
+function gLock(i){alert('🔒 أكمل Level '+i+' بالكامل لفتح Level '+(i+1)+'.')}
+function gStart(i){if(!G.developer&&i>0&&!G.completedLevels.includes(i-1)){gLock(i);return}G.level=i;G.q=0;G.lives=5;G.started=true;G.streak=0;gsave();gQuestion()}
+function developerLogin(){if(G.developer){toggleDeveloper(false);return;}const pass=prompt('🔐 Developer Mode\nأدخل كلمة مرور المطور:');if(pass==='MST-DC-DEV-2026'){toggleDeveloper(true);alert('🛠️ تم تفعيل وضع المطور. جميع المستويات الـ15 أصبحت مفتوحة للمراجعة والاختبار.');}else if(pass!==null){alert('❌ كلمة المرور غير صحيحة.');}}
+function toggleDeveloper(on){G.developer=Boolean(on);gsave();gHome()}
+function gQuestion(){stopGTimer();setGbg(G.level);if(G.q>=10){gComplete();return}const m=levelMode(G.level);if(m==='quiz')return gQuiz();if(m==='tf')return gTF();if(m==='puzzle')return gPuzzle();if(m==='match')return gMatch();if(m==='speed')return gSpeed();return gBoss()}
+function gNav(){return `<div class="actions"><button class="secondary" onclick="gMap()">🗺️ Exit</button><button class="secondary" onclick="gShop()">🛒 Store</button></div>`}
+function gQuiz(){const qs=questions.filter(q=>q.l===G.level),cur=qs[G.q];app.innerHTML=`<section class="screen"><div class="gamehead"><div><span class="tag">LEVEL ${G.level+1} • ${G.q+1}/10</span><h2>${levels[G.level][2]} ${levels[G.level][0]}</h2></div><div class="timer" id="gt">30</div></div><div class="progress"><span style="width:${G.q*10}%"></span></div><div class="scenario"><b>🎯 PROJECT SCENARIO</b><br><br>${cur.q}</div><div class="answers">${cur.a.map((a,i)=>`<button class="answer" onclick="gQuizAnswer(${i})">${String.fromCharCode(65+i)}) ${a}</button>`).join('')}</div><div id="gf"></div>${gNav()}</section>`;let t=30;window.gameTimer=setInterval(()=>{t--;const e=document.getElementById('gt');if(e)e.textContent='⏱️ '+t;if(t<=0){stopGTimer();gQuizAnswer(-1)}},1000)}
+function gQuizAnswer(i){stopGTimer();const qs=questions.filter(q=>q.l===G.level),cur=qs[G.q],good=i===cur.c;document.querySelectorAll('.answer').forEach((b,j)=>{b.disabled=true;b.classList.add(j===cur.c?'correct':'disabled');if(j===i&&!good)b.classList.add('wrong')});gResolve(good,good?cur.e:0,good?'Correct!':'Not the best decision.',good?cur.x:`الإجابة الصحيحة: ${cur.a[cur.c]}<br><br>${cur.x}`)}
+function gTF(){const d=tf[G.q];app.innerHTML=`<section class="screen center"><span class="tag">LEVEL 11 • TRUE / FALSE • ${G.q+1}/10</span><h1 style="color:var(--gold)">TRUTH PROTOCOL</h1><div class="scenario" style="font-size:24px">${d[0]}</div><p class="muted">اختر إجابتك ثم ستظهر فورًا نتيجة الاختيار: صحيحة أم خاطئة.</p><div class="actions" style="justify-content:center"><button id="tfTrue" class="primary" style="font-size:22px;min-width:180px" onclick="gTFAnswer(true)">🟢 TRUE</button><button id="tfFalse" class="secondary" style="font-size:22px;min-width:180px" onclick="gTFAnswer(false)">🔴 FALSE</button></div><div id="gf"></div>${gNav()}</section>`}
+function gTFAnswer(v){const d=tf[G.q],good=v===d[1];const chosen=v?'TRUE':'FALSE',correct=d[1]?'TRUE':'FALSE';document.getElementById('tfTrue').disabled=true;document.getElementById('tfFalse').disabled=true;const selected=document.getElementById(v?'tfTrue':'tfFalse');const other=document.getElementById(v?'tfFalse':'tfTrue');selected.classList.add(good?'correct':'wrong');other.classList.add('disabled');gResolve(good,good?35:0,good?'✅ إجابة صحيحة':'❌ إجابة خاطئة',`إجابتك: <b>${chosen}</b><br>الإجابة الصحيحة: <b>${correct}</b><br><br>${d[2]}`)}
+function gPuzzle(){const d=puzzles[G.q],items=[...d[1]].sort(()=>Math.random()-.5);app.innerHTML=`<section class="screen"><span class="tag">LEVEL 12 • PUZZLE • ${G.q+1}/10</span><h2>🧩 ${d[0]}</h2><p class="muted">اضغط على العناصر بالترتيب الصحيح. كل اختيار ينتقل إلى الخانة التالية.</p><div id="pSlots" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:18px 0">${d[1].map((_,i)=>`<div class="achievement" id="ps${i}">⬜ ${i+1}</div>`).join('')}</div><div id="pBtns" class="answers">${items.map(x=>`<button class="answer" onclick="gPickPuzzle(this,'${x.replace(/'/g,"\\'")}')">${x}</button>`).join('')}</div><div id="gf"></div>${gNav()}</section>`;window.pChosen=[];window.pTarget=d[1]}
+function gPickPuzzle(btn,x){const target=window.pTarget[window.pChosen.length];if(x!==target){btn.classList.add('wrong');gTone(false);setTimeout(()=>btn.classList.remove('wrong'),350);G.lives--;gsave();if(G.lives<=0)return gGameOver();return}btn.disabled=true;btn.classList.add('correct');window.pChosen.push(x);document.getElementById('ps'+(window.pChosen.length-1)).innerHTML='✅ '+x;if(window.pChosen.length===window.pTarget.length)gResolve(true,45,'Puzzle Complete!','أحسنت. '+puzzles[G.q][2])}
+function gMatch(){const pair=matches[G.q],left=[pair[0]],rights=matches.map(x=>x[1]).sort(()=>Math.random()-.5);app.innerHTML=`<section class="screen center"><span class="tag">LEVEL 13 • MATCH • ${G.q+1}/10</span><h1>🔗 MATCH IT!</h1><div class="scenario"><b>${pair[0]}</b><br><br>اختر التعريف المطابق:</div><div class="answers">${rights.map((r,i)=>`<button class="answer" onclick="gMatchAnswer(${i})">${r}</button>`).join('')}</div>${gNav()}</section>`;window.matchRight=pair[1];window.matchRights=rights}
+function gMatchAnswer(i){const good=window.matchRights[i]===window.matchRight;gResolve(good,good?40:0,good?'Perfect Match!':'Wrong Match.',good?window.matchRight:'ابحث عن التعريف الذي يصف '+matches[G.q][0]+' بدقة.')}
+function gSpeed(){const d=speed[G.q];app.innerHTML=`<section class="screen center"><span class="tag">LEVEL 14 • SPEED • ${G.q+1}/15</span><div class="big">⚡</div><h1>SPEED DC</h1><div class="timer" id="st" style="font-size:34px">10</div><div class="scenario">${d[0]}</div><div class="answers">${d[1].map((x,i)=>`<button class="answer" onclick="gSpeedAnswer(${i})">${x}</button>`).join('')}</div><div class="actions"><button class="secondary" onclick="gMap()">🗺️ Exit</button><button class="secondary" onclick="gShop()">🛒 Store</button></div></section>`;let t=10;window.gameTimer=setInterval(()=>{t--;document.getElementById('st').textContent='⏱️ '+t;if(t<=0){stopGTimer();gSpeedAnswer(-1)}},1000)}
+function gSpeedAnswer(i){stopGTimer();const d=speed[G.q];gResolve(i===d[2],i===d[2]?50:0,i===d[2]?'Lightning Fast!':'Time/Decision Failed.','الإجابة الأفضل: '+d[1][d[2]])}
+function gBoss(){const d=boss[G.q];app.innerHTML=`<section class="screen"><div class="gamehead"><div><span class="tag" style="background:#4b1d6b">LEVEL 15 • FINAL BOSS • ${G.q+1}/10</span><h2>👑 FINAL PROJECT</h2></div><div class="timer" id="bt">20</div></div><div class="scenario" style="border-right-color:var(--gold)"><b>🚨 MANAGEMENT DECISION</b><br><br>${d[0]}</div><div class="answers">${d[1].map((x,i)=>`<button class="answer" onclick="gBossAnswer(${i})">${String.fromCharCode(65+i)}) ${x}</button>`).join('')}</div>${gNav()}</section>`;let t=20;window.gameTimer=setInterval(()=>{t--;document.getElementById('bt').textContent='⏱️ '+t;if(t<=0){stopGTimer();gBossAnswer(-1)}},1000)}
+function gBossAnswer(i){stopGTimer();const d=boss[G.q];gResolve(i===d[2],i===d[2]?70:0,i===d[2]?'BOSS DECISION APPROVED':'PROJECT RISK',d[3]+'<br><br>الإجابة الصحيحة: '+d[1][d[2]])}
+function gResolve(good,reward,title,explain){if(G.level>=4)reward=10;gTone(good);if(good){G.coins+=reward;G.correct++;G.streak++;if(G.streak>=3)G.coins+=10}else{G.lives--;G.streak=0}G.answered++;gsave();const f=document.getElementById('gf');if(f){f.innerHTML=`<div class="feedback ${good?'good':'bad'}"><b>${good?'✅':'❌'} ${title}</b><br>${good?'+'+reward+' 🪙':'Life lost ❤️'}<br><br>${explain}<div class="actions"><button class="primary" onclick="gNext()">التالي →</button></div></div>`}else setTimeout(gNext,700);if(G.lives<=0&&!good){} }
+function gNext(){if(G.lives<=0)return gGameOver();G.q++;gsave();gQuestion()}
+function gComplete(){stopGTimer();const reward=G.level<4?[100,180,230,280][G.level]:0;G.coins+=reward;if(!G.completedLevels.includes(G.level))G.completedLevels.push(G.level);G.q=10;G.streak=0;gsave();if(G.level===14)return gName();app.innerHTML=`<section class="screen center hero"><div class="big">🏆</div><h1>LEVEL ${G.level+1} COMPLETE!</h1><p>أنهيت <b>${levels[G.level][0]}</b> بنجاح.</p><p class="gold">+${reward} 🪙</p><p class="muted">تم فتح المرحلة التالية.</p><div class="actions" style="justify-content:center"><button class="primary" onclick="gStart(${G.level+1})">🚀 LEVEL ${G.level+2}</button><button class="secondary" onclick="gMap()">🗺️ MAP</button></div></section>`}
+function gGameOver(){stopGTimer();app.innerHTML=`<section class="screen center hero"><div class="big">💥</div><h1>PROJECT CRISIS</h1><p>انتهت الـLives.</p><button class="primary" onclick="gMap()">🗺️ العودة للخريطة</button></section>`}
+function gName(){stopGTimer();G.certId=G.certId||makeCert();gsave();app.innerHTML=`<section class="screen center hero"><div class="big">🎓</div><h1>FINAL CHALLENGE COMPLETE!</h1><p>لقد اجتزت جميع الـ15 Levels وجميع التحديات.</p><p class="muted">اكتب اسمك كما تريد أن يظهر في شهادة الإتمام:</p><input id="finalName" class="nameInput" maxlength="80" value="${escapeHtml(G.playerName||'')}" placeholder="اكتب اسمك الكامل"><div class="actions" style="justify-content:center"><button class="primary" onclick="gIssue()">🎓 إصدار الشهادة</button></div></section>`}
+function makeCert(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<5;i++)s+=c[Math.floor(Math.random()*c.length)];return 'MST-DC-2026-'+s}
+function gIssue(){const n=(document.getElementById('finalName')?.value||'').trim();if(!n)return alert('من فضلك اكتب اسمك أولًا.');G.playerName=n;G.certId=G.certId||makeCert();G.ach=[...new Set([...(G.ach||[]),'master'])];gsave();gCertificate()}
+function gCertificate(){app.innerHTML=`<section class="screen"><div class="certificate" id="finalCertificate"><div class="seal">🏆</div><small>MOSTANAD ACADEMY • KHALAF-DC</small><h1>CERTIFICATE OF COMPLETION</h1><p>This certificate is proudly presented to</p><div class="certname">${escapeHtml(G.playerName)}</div><p>for successfully completing the complete interactive journey</p><h2>DOCUMENT CONTROL: THE PROJECT</h2><p>15 Levels • 150 Challenges • Final Boss Project</p><p><b>Achievement:</b> Document Controller</p><p class="id">Certificate ID: ${G.certId}</p><p><small>Issued: ${new Date().toLocaleDateString('en-GB')}</small></p><p style="margin-top:30px"><b>Designed by Khalaf-DC</b><br><small>Mostanad Academy</small></p></div><div class="actions cert-actions"><button class="primary" onclick="gPrint()">🖨️ Print / Save PDF</button><button class="secondary" onclick="gMap()">🗺️ Map</button></div></section>`}
+function gPrint(){const el=document.getElementById('finalCertificate');const w=window.open('','_blank');w.document.write(`<html><head><title>Certificate - ${escapeHtml(G.playerName)}</title><style>body{margin:0;background:white;font-family:Arial;text-align:center;padding:40px}.certificate{border:12px double #b9973e;padding:50px;color:#15202b}.certname{font-size:42px;font-weight:900;color:#173b62;margin:25px}.id{font-family:monospace;font-weight:bold}</style></head><body>${el.outerHTML}</body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),400)}
+function gShop(){app.innerHTML=`<section class="screen"><h2>🛒 DC STORE</h2><p class="muted">اشترِ أدوات تساعدك في التحديات.</p><div class="shopitem"><div>💡 <b>Hint</b><br><span class="muted">مساعدة تعليمية</span></div><button class="primary" onclick="gBuy('hint',100)">🪙 100</button></div><div class="shopitem"><div>⏱️ <b>Extra Time</b><br><span class="muted">وقت إضافي</span></div><button class="primary" onclick="gBuy('time',150)">🪙 150</button></div><div class="shopitem"><div>🛡️ <b>Second Chance</b><br><span class="muted">فرصة ثانية</span></div><button class="primary" onclick="gBuy('second',300)">🪙 300</button></div><div class="actions"><button class="secondary" onclick="gMap()">🗺️ Back</button></div></section>`}
+function gBuy(k,c){if(G.coins<c)return alert('Coins غير كافية.');G.coins-=c;G.inventory[k]=(G.inventory[k]||0)+1;gsave();gShop()}
+function gAchievements(){const a=[['first','📄 First Decision'],['master','🎓 Certified DC'],...levels.map((x,i)=>['level'+i,'🏆 Level '+(i+1)])];app.innerHTML=`<section class="screen"><h2>🏆 ACHIEVEMENTS</h2><div class="grid">${a.map(x=>`<div class="achievement ${G.completedLevels.includes(Number(x[0].replace('level','')))||G.ach.includes(x[0])?'unlocked':''}">${G.completedLevels.includes(Number(x[0].replace('level','')))||G.ach.includes(x[0])?'🏆':'🔒'} <b>${x[1]}</b></div>`).join('')}</div><div class="actions"><button class="secondary" onclick="gMap()">🗺️ Back</button></div></section>`}
+function gReset(){if(confirm('مسح التقدم الجديد؟')){localStorage.removeItem('dcGameStateV6');location.reload()}}
+// Start the expanded version.
+G.completedLevels=Array.isArray(G.completedLevels)?G.completedLevels:[];G.inventory=G.inventory||{hint:0,time:0,second:0};gsave();gHome();
+
+</script>
+
+<script>
+/* =========================================================
+   MOSTANAD ACADEMY - INTERACTIVE EXPANSION V5
+   +5 new challenges per level = 15 challenges x 15 levels = 225
+   + interactive visual scenes (inline SVG, no external files)
+   + lighter coin economy
+   ========================================================= */
+
+const extraRaw = [
+[0,"Basics","استلمت مستندًا جديدًا والـDocument Number موجود لكن الـDescription غير واضح. ما التصرف الأفضل؟",["أخمن الوصف من اسم الملف","أرجع للمصدر الرسمي وأتحقق من البيانات قبل التسجيل","أضع وصفًا عامًا وأكمل","أحذف المستند"],1,15,"لا تخمن Metadata؛ التحقق من المصدر يحافظ على دقة السجل."],
+[0,"Register","وجدت Register يحتوي على مستندين بنفس الرقم لكن Discipline مختلفة. ماذا تفعل؟",["أختار أول سجل","أتحقق من المصدر والترقيم وأعالج التعارض وفق الإجراء","أحذف السجلين","أغير الرقم عشوائيًا"],1,15,"التعارض يحتاج reconciliation موثقًا وليس اختيارًا عشوائيًا."],
+[0,"Filing","أين تضع نسخة عمل غير مكتملة أثناء إعدادها؟",["في مجلد Approved","في مكان/حالة Draft المعتمدة مع صلاحيات مناسبة","في Handover","في مجلد Superseded"],1,15,"فصل Draft عن النسخ الصالحة يقلل خطر الاستخدام الخاطئ."],
+[0,"Access","طلب منك شخص خارج قائمة التوزيع مستندًا مقيدًا. ما التصرف؟",["أرسله فورًا","أتحقق من صلاحية الوصول وأتبع إجراء التوزيع المعتمد","أرسله من بريدي الشخصي","أضعه على رابط عام"],1,20,"الوصول يجب أن يخضع للصلاحيات وقواعد المشروع."],
+[0,"Traceability","ما المعلومة التي تساعدك أكثر في إعادة بناء تاريخ مستند؟",["لون الملف","Revision + Status + dates + issue/receipt history","حجم الشاشة","اسم الكمبيوتر"],1,20,"مجموعة بيانات التتبع تكشف مسار المستند عبر دورة حياته."],
+[1,"Detective","وجدت ملفًا باسم صحيح لكن محتواه لا يطابق الـDescription. ماذا تفعل؟",["أعتمده لأن الاسم صحيح","أتحقق من المصدر والـmetadata وأوثق التصحيح إذا لزم","أعيد تسمية الملف فقط","أرسله للموقع"],1,20,"الاسم وحده لا يثبت صحة المحتوى."],
+[1,"Tracking","أرسلت Transmittal ولم تجد Record للاستلام. ما الخطوة الأفضل؟",["أفترض أنه استُلم","أتحقق من سجل النظام وأطلب acknowledgement حسب الإجراء","أرسل نسخة عشوائية","أحذف Transmittal"],1,20,"عدم وجود دليل استلام يعني ضرورة المتابعة والتوثيق."],
+[1,"Quality","لاحظت أن بعض السجلات تستخدم أسماء Departments مختلفة لنفس الجهة. ما الحل؟",["تركها كما هي","توحيد القيم وفق Master Data/Convention المعتمد","حذف السجلات القديمة","اختيار اسم من الذاكرة"],1,20,"توحيد القيم يحسن البحث والتقارير ويمنع تعدد الأسماء."],
+[1,"Archive","طلب منك مدير الاحتفاظ بنسخة تاريخية مهمة. ماذا تفعل؟",["أضعها على Desktop","أحفظها في archive المعتمد مع metadata وretention المناسبين","أغير اسمها فقط","أرسلها على WhatsApp"],1,25,"الأرشفة الرسمية تحافظ على السجل وتجعله قابلًا للاسترجاع."],
+[1,"Validation","قبل إصدار تقرير من Register، ما الفحص المهم؟",["شكل الجدول فقط","مراجعة completeness وstatus وdates والبيانات الحرجة","حذف كل Drafts","تغيير الألوان"],1,25,"التقرير الجيد يبدأ ببيانات صحيحة ومتحقق منها."],
+[2,"Drawings","وجدت Drawing لها Revision صحيحة لكن Stamp غير واضح في النسخة المطبوعة. ماذا تفعل؟",["أعتبرها Approved","أتحقق من النسخة الرسمية وحالتها قبل الاستخدام","أضيف Stamp بنفسي","أحذف النسخة"],1,20,"الـRevision لا تعوض غياب دليل الحالة الرسمي."],
+[2,"Drawing Register","ما أفضل طريقة لاكتشاف Drawing مفقودة من سجل المشروع؟",["الذاكرة","مقارنة transmittals/source lists مع Drawing Register","تصفح WhatsApp","تغيير أسماء الملفات"],1,20,"المقارنة بين مصادر مستقلة تكشف الفجوات بشكل أفضل."],
+[2,"Issued For","إذا كانت Drawing Approved لغرض معين، هل يجوز افتراض صلاحيتها لكل استخدام؟",["نعم دائمًا","لا، تحقق من Issue Purpose ومتطلبات المشروع","نعم إذا PDF","نعم إذا كانت أحدث Revision"],1,25,"الغرض من الإصدار جزء أساسي من قرار الاستخدام."],
+[2,"As-Built","طلب منك إضافة As-Built status لأن التنفيذ انتهى. ما التصرف؟",["أغيره فورًا","أتبع متطلبات إعداد واعتماد As-Built الرسمية","أضيفه من رأيي","أحذف Revision history"],1,25,"As-Built يحتاج أساسًا رسميًا واعتمادًا وفق متطلبات المشروع."],
+[2,"Field Control","وجدت نسختين مطبوعتين في الموقع بإصدارات مختلفة. ماذا تفعل؟",["أتركهما","أحدد النسخة الصالحة وأبلغ/أسيطر على النسخة غير الصالحة وفق الإجراء","أمزق الاثنين","أختار الأكبر رقمًا فقط"],1,30,"الهدف منع استخدام النسخة غير الصالحة مع الحفاظ على traceability."],
+[3,"RFI","RFI يحتوي سؤالًا غامضًا وقد يؤثر على التنفيذ. ما الأفضل؟",["أغلقه","أطلب توضيحًا أو استكمالًا للبيانات قبل إرساله حسب workflow","أخمن المقصود","أغير السؤال"],1,20,"جودة السؤال تؤثر في جودة الرد وقابلية التتبع."],
+[3,"RFI","ما الذي يساعدك في ترتيب أولويات RFIs؟",["رقم الملف فقط","Impact + priority + due date + aging","لون المجلد","عدد الصفحات"],1,25,"الأولوية يجب أن تعكس تأثير السؤال وموعده ومخاطره."],
+[3,"RFI","وجدت RFI مغلقًا لكن الرد غير مرفق بالسجل. ماذا تفعل؟",["أتجاهله","أتحقق من المصدر وأستكمل evidence أو أصحح السجل وفق الإجراء","أخمن الرد","أحذف RFI"],1,25,"الإغلاق يجب أن يكون مدعومًا بالأدلة المطلوبة."],
+[3,"Escalation","RFI حرج وتأخر الرد يومين. ما التصرف؟",["الانتظار فقط","متابعة المسؤول وتصعيد التأخير وفق priority وprocedure مع توثيق ذلك","تغيير due date","إغلاقه"],1,30,"التصعيد المنضبط يمنع تحول التأخير إلى مشكلة تنفيذية."],
+[3,"Reporting","أي مؤشر يعطي صورة أفضل عن RFI performance؟",["عدد RFIs فقط","Aging + overdue rate + response turnaround + open/closed","عدد الصفحات","عدد المرفقات"],1,30,"هذه المؤشرات تقيس السرعة والحالة والتراكم."],
+[4,"Transmittal","قبل إرسال Transmittal كبير، اكتشفت ملفًا لا يطابق الـRevision في القائمة. ماذا تفعل؟",["أرسله كما هو","توقف وتحقق من الملف والقائمة قبل الإصدار","احذف القائمة","غيّر Revision يدويًا"],1,20,"المطابقة قبل الإرسال تمنع خطأ توزيع جماعي."],
+[4,"Distribution","لماذا نحتفظ بتاريخ ووقت الإرسال؟",["للشكل فقط","لإثبات التسلسل وقياس turnaround time عند الحاجة","لزيادة حجم السجل","لا فائدة"],1,20,"التاريخ والوقت جزء من document trail."],
+[4,"Receipt","Recipient يقول إنه لم يستلم الملف رغم وجود Transmittal. ما أول شيء تتحقق منه؟",["حذف Transmittal","سجل الإرسال والاستلام وحالة التوزيع والبيانات المرفقة","إرسال من بريد شخصي","تغيير التاريخ"],1,25,"ابدأ بالدليل الرسمي قبل إعادة الإرسال."],
+[4,"Bulk Issue","لديك 100 ملف في إصدار واحد. أي فحص يقلل المخاطر أكثر؟",["فتح أول ملف فقط","Validation للعدد والرقم والوصف والRevision والRecipient","عدم الفحص","تغيير كل الأسماء"],1,30,"التحقق المنهجي مهم جدًا في الإصدارات الجماعية."],
+[4,"Correction","إذا تم اكتشاف خطأ بعد الإرسال، ما المبدأ الأساسي؟",["إخفاء الخطأ","تصحيح رسمي يحافظ على أثر الإرسال السابق","حذف السجل","تعديل التاريخ"],1,30,"التصحيح يجب أن يحافظ على traceability."],
+[5,"Revision","Rev08 موجودة في النظام لكن Rev07 هي آخر Approved. ماذا ترسل إذا طُلبت نسخة Approved؟",["Rev08 لأنها أعلى","Rev07 إذا كانت آخر نسخة صالحة وفق workflow","الاثنتين دون توضيح","أي نسخة"],1,25,"الـStatus والغرض يحددان الصلاحية، وليس الرقم وحده."],
+[5,"Superseded","ما الخطر من ترك نسخة Superseded في مجلد Current؟",["لا خطر","احتمال استخدامها بالخطأ وخلق تضارب في التنفيذ","توفير مساحة","تحسين البحث"],1,25,"مكان النسخة وحالتها يجب أن يمنعا الاستخدام غير المقصود."],
+[5,"Revision History","وجدت Rev06 بلا Change Description. ما الأفضل؟",["أخترع وصفًا","أرجع للمصدر وأستكمل البيانات وفق الإجراء","أحذف Rev06","أغير رقمها"],1,25,"لا تُنشئ تاريخًا غير مستند إلى دليل."],
+[5,"Current Status","هل يمكن أن تكون Rev09 أحدث رقم لكنها ليست Current for Construction؟",["لا","نعم، إذا كانت حالتها أو غرضها لا يسمح بالاستخدام","لا إذا PDF","لا إذا أُرسلت"],1,30,"الصلاحية تعتمد على الحالة والغرض والـworkflow."],
+[5,"Control","ما أفضل وسيلة لمنع إصدار Draft كنسخة تنفيذ؟",["الاعتماد على ذاكرة الفريق","Status + permissions + workflow + clear labeling","تغيير اللون","إخفاء الملف"],1,30,"الضوابط النظامية أقوى من الاعتماد على الذاكرة."],
+[6,"Emergency","الموقع على وشك بدء عمل والنسخة المتاحة حالتها غير واضحة. ما الأولوية؟",["بدء العمل","إيقاف قرار الإصدار حتى يتم التحقق من النسخة الصالحة واتباع emergency procedure","تغيير اسم الملف","حذف السجل"],1,30,"عند وجود خطر على التنفيذ، التحقق والتصعيد أولًا."],
+[6,"Escalation","طلب منك شخص تجاوز workflow لأن العمل عاجل. ماذا تفعل؟",["تتجاوز النظام","تتبع emergency/exception procedure المعتمدة وتوثق القرار","تغير status","تحذف التاريخ"],1,30,"الاستثناء إن وجد يجب أن يكون رسميًا وموثقًا."],
+[6,"Incident","حدث إرسال خاطئ لنسخة غير صالحة. ما أهم شيء بعد اكتشافه؟",["إخفاء الخطأ","احتواء الاستخدام، إخطار الأطراف، إصدار التصحيح وتوثيق الأثر","حذف Transmittal","إعادة تسمية الملف"],1,35,"الاستجابة يجب أن تقلل الضرر وتحافظ على السجل."],
+[6,"Site Control","اكتشفت نسخة قديمة معلقة على لوحة بالموقع. ماذا تفعل؟",["تتجاهلها","تبلغ الجهة المسؤولة وتسيطر على النسخة القديمة وفق site document procedure","تصورها فقط","تكتب Approved عليها"],1,35,"النسخ المعلقة في الموقع تحتاج سيطرة واضحة لتجنب الاستخدام الخاطئ."],
+[6,"Pressure","مدير الموقع يطلب منك قرارًا فوريًا دون دليل. ما أفضل رد مهني؟",["الموافقة لتجنب التأخير","توضح الحاجة للتحقق وتقدم مسارًا سريعًا رسميًا بدل التخمين","تغادر","تغير السجل"],1,35,"الاحتراف هو السرعة المنضبطة لا السرعة بلا دليل."],
+[7,"Audit","Auditor طلب نسخة من سجل تغييرات Document Register. أين تبدأ؟",["ذاكرتك","Audit trail/version history أو سجل التعديل المعتمد","WhatsApp","ملف شخصي"],1,25,"سجل التعديل الرسمي هو أفضل evidence."],
+[7,"Evidence","ما الذي يجعل evidence قويًا في التدقيق؟",["أن يكون شفهيًا","أن يكون رسميًا وقابلًا للتتبع ومربوطًا بالمستند أو الحدث","أن يكون ملونًا","أن يكون قديمًا"],1,25,"قوة الدليل تأتي من أصله وتتبعه وارتباطه بالحدث."],
+[7,"Audit Prep","وجدت 12 سجلًا بلا due date قبل Audit. ماذا تفعل؟",["تضع تواريخ من عندك","تحدد المصدر وتصحح وفق الإجراء وتوثق الفجوة","تحذفها","تغلقها"],1,30,"التصحيح يحتاج دليلًا، والفجوة نفسها قد تكون audit finding."],
+[7,"Audit","كيف تفرق بين Missing Evidence وWrong Evidence؟",["لا فرق","الأول غياب الدليل، والثاني وجود دليل لكنه لا يثبت الحدث أو لا يطابق السجل","كلاهما نفس الشيء","باللون"],1,30,"تمييز نوع الفجوة يساعد في تحديد الإجراء التصحيحي."],
+[7,"KPI","أي KPI أقرب لقياس سرعة استرجاع المستند؟",["عدد الملفات","Average retrieval time مع دقة نتائج البحث","عدد الموظفين","حجم السيرفر"],1,30,"زمن الاسترجاع يقيس كفاءة الوصول إلى السجل المطلوب."],
+[8,"Handover","وجدت Handover checklist مكتملة لكن 5 documents ما زالت غير مقبولة. ماذا تفعل؟",["تعلن الجاهزية","تسجل gaps وتتابع القبول قبل اعتبار التسليم مكتملًا","تحذفها","تغير status"],1,30,"وجود checklist لا يكفي إذا كانت deliverables غير مقبولة."],
+[8,"Closeout","ما الأفضل لإدارة Missing As-Built قبل التسليم؟",["الانتظار","تحديد owner وdue date وpriority ومتابعة يومية","إخفاء الفجوة","حذفها"],1,30,"الـowner والموعد يحولان الفجوة إلى action قابل للإدارة."],
+[8,"Handover","O&M package يحتوي ملفات Draft فقط. ما المشكلة؟",["لا مشكلة","الـdeliverable قد لا يحقق متطلبات التسليم إذا كانت الحالة المطلوبة Approved/Accepted","الملفات كثيرة","الاسم طويل"],1,35,"الاكتمال الوثائقي يشمل الحالة والقبول، لا مجرد وجود ملفات."],
+[8,"Archive","بعد Handover، من يحدد retention period؟",["أي موظف","العقد وسياسة المشروع/المنظمة والمتطلبات المعتمدة","Document Controller وحده","اسم الملف"],1,25,"فترة الاحتفاظ يجب أن تستند إلى المتطلبات الرسمية."],
+[8,"Closeout","ما أفضل طريقة لاكتشاف deliverable ناقص؟",["الذاكرة","مقارنة العقد/Employer requirements مع MDR وhandover checklist","WhatsApp","تصفح عشوائي"],1,35,"المقارنة المنهجية تمنع السهو في التسليم."],
+[9,"Manager","ما أول وثيقة تساعدك في تنظيم مسؤوليات Document Control؟",["قائمة أسماء فقط","Procedure/Plan يحدد roles, workflow, coding, distribution وrecords","صورة المشروع","WhatsApp"],1,30,"الخطة والإجراء يحددان طريقة العمل والمسؤوليات."],
+[9,"Manager","إذا كانت ثلاثة أنظمة تحتوي نسخًا مختلفة من نفس السجل، ما الخطر؟",["لا خطر","تعدد مصادر الحقيقة واحتمال اتخاذ قرار على بيانات غير متزامنة","توفير مساحة","تحسين الأمان"],1,30,"غياب System of Record واضح يخلق تضاربًا."],
+[9,"KPI","لو تحسن عدد الملفات لكن زاد overdue rate، ماذا تستنتج؟",["الأداء ممتاز تلقائيًا","زيادة حجم العمل لا تعني تحسن السيطرة؛ يجب قراءة KPIs معًا","يجب حذف المتأخر","لا أهمية للـoverdue"],1,35,"الـKPI يجب أن يعكس الجودة والسرعة وليس الحجم فقط."],
+[9,"Data Quality","كيف تعالج مشكلة متكررة في Metadata؟",["تصحيحها يوميًا فقط","Root cause + standard values + validation rules + training","تجاهلها","حذف السجلات"],1,35,"منع تكرار الخطأ أهم من تصحيح نتائجه فقط."],
+[9,"Leadership","ما أفضل أسلوب عند اختلاف فريقين حول Status مستند؟",["اختيار الفريق الأقرب","الرجوع للمصدر والworkflow وتحديد authority ثم توثيق القرار","التصويت","تغيير Status"],1,35,"القرار المهني يعتمد على authority والأدلة." ]
+];
+
+extraRaw.forEach(r=>raw.push(r));
+// Rebuild only the new question objects using the same answer-randomization logic.
+extraRaw.forEach((r,offset)=>{let arr=r[3].map((text,i)=>({text:smartAnswer(text,i===r[4]),correct:i===r[4]}));for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}questions.push({l:r[0],t:r[1],q:r[2],a:arr.map(x=>x.text),c:arr.findIndex(x=>x.correct),e:r[5],x:r[6],id:questions.length})});
+
+const extraTF=[
+["إذا كانت النسخة أحدث رقمًا لكنها Draft، يجوز استخدامها للتنفيذ لمجرد أنها أحدث.",false,"الحالة والغرض أهم من الرقم."],["يجب الاحتفاظ بأثر التصحيح في السجل الرسمي.",true,"الـtraceability لا يجب أن يختفي بسبب التصحيح."],["يمكن اعتبار وجود الملف دليلًا كافيًا على قبوله في Handover.",false,"القبول والحالة جزء من متطلبات التسليم."],["System of Record يساعد في تحديد المصدر الرسمي للسجل.",true,"وجود مصدر رسمي يقلل تضارب البيانات."],["تغيير Metadata تاريخية بالتخمين ممارسة سليمة عند ضغط الوقت.",false,"التخمين يخلق سجلًا غير موثوق."]
+];
+extraTF.forEach(x=>tf.push(x));
+const extraPuzzles=[
+["رتّب معالجة نسخة غير صالحة بالموقع",["Identify Issue","Verify Current Version","Notify Stakeholders","Document Action"],"التحقق والتصعيد والتوثيق تأتي ضمن مسار السيطرة."],
+["رتّب إعداد سجل جديد",["Receive Source","Validate Metadata","Create Record","Quality Check"],"التحقق من المصدر والبيانات يسبق اعتماد السجل."],
+["رتّب التعامل مع Gap في Handover",["Identify Gap","Assign Owner","Set Due Date","Follow Up"],"إدارة الفجوة تحتاج مسؤولًا وموعدًا ومتابعة."],
+["رتّب تصحيح Transmittal خاطئ",["Detect Error","Assess Impact","Issue Correction","Retain History"],"التصحيح الجيد لا يمحو الأثر السابق."],
+["رتّب مراجعة KPI",["Collect Data","Validate Data","Calculate KPI","Review Trend"],"لا تبنِ قرارًا على KPI قبل التأكد من جودة البيانات."]
+];
+extraPuzzles.forEach(x=>puzzles.push(x));
+const extraMatches=[["Metadata","بيانات تصف المستند وتساعد في تصنيفه والبحث عنه"],["System of Record","المصدر الرسمي المعتمد للسجل"],["Closeout Gap","متطلب لم يكتمل ويحتاج owner وdue date"],["Receipt","دليل استلام أو acknowledgement حسب النظام"],["Current for Construction","النسخة المسموح باستخدامها للتنفيذ حسب الحالة والغرض"]];
+extraMatches.forEach(x=>matches.push(x));
+const extraSpeed=[
+["وجدت نسخة Approved ونسخة Draft أحدث. أيهما صالح للتنفيذ؟",["Draft الأحدث","Approved حسب الغرض والـworkflow","الاثنتان"],1],
+["ما أول شيء عند اكتشاف مستند غير قابل للفتح؟",["إصداره","التحقق وإعادة الإرسال من المصدر الرسمي","حذف السجل"],1],
+["ما أفضل دليل للاستلام؟",["Acknowledgement/Receipt","اسم الملف","لون المجلد"],0],
+["ما الذي يساعد في إدارة Handover gap؟",["Owner + Due Date + Tracker","الانتظار","حذف gap"],0],
+["ما الخطر الأكبر عند تعدد مصادر السجل؟",["تعدد الحقائق وعدم التزامن","سرعة البحث","تحسن الأمان"],0]
+];
+extraSpeed.forEach(x=>speed.push(x));
+const extraBoss=[
+["الموقع يستخدم نسخة Draft لأن Rev11 أحدث من Rev10 Approved. ما قرارك؟",["أوقف الاستخدام وأتحقق من النسخة الصالحة حسب workflow","أوافق لأنها أحدث","أغير status"],0,"الرقم الأعلى لا يجعل Draft صالحة للتنفيذ."],
+["قبل Handover اكتشفت 8 gaps غير مملوكة لأي شخص.",["أنشئ tracker مع owners وdue dates وأولويات","أتجاهلها","أحذفها"],0,"الفجوات غير المملوكة لن تُغلق بكفاءة."],
+["Auditor وجد Metadata تاريخية ناقصة.",["أرجع للمصدر وأصحح وفق الإجراء مع الحفاظ على الأثر","أخمنها","أحذف السجل"],0,"البيانات التاريخية تحتاج evidence."],
+["Transmittal كبير يحتوي ملفًا بRevision غير مطابقة للقائمة.",["أوقف الإصدار وأتحقق من القائمة والملف قبل الإرسال","أرسله ثم أصلحه","أحذف الملف"],0,"التحقق قبل الإرسال يمنع خطأ جماعيًا."],
+["ثلاثة أنظمة تحتوي حالات مختلفة لنفس المستند.",["حدد System of Record وreconcile البيانات وفق governance","اختر الأحدث زمنيًا فقط","استخدم أي نظام"],0,"الحوكمة ومصدر الحقيقة يحسمان التعارض."]
+];
+extraBoss.forEach(x=>boss.push(x));
+
+const levelQuestionCounts=[15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
+const coinPerQuestion=[0,0,0,0,10,12,14,16,18,20,22,24,26,28,30];
+const levelCompletionCoins=[100,180,230,280,0,120,150,180,210,240,270,300,330,360,400];
+
+function challengeReward(){return coinPerQuestion[G.level]||0}
+function gMap(){stopGTimer();setGbg(G.level);let cards=levels.map((x,i)=>{let open=G.developer||(i===0||G.completedLevels.includes(i-1));let done=G.completedLevels.includes(i);let count=levelQuestionCounts[i];let pct=done?100:(G.level===i?G.q/count*100:0);let action=open?`gStart(${i})`:`gLock(${i})`;return `<div class="level ${open?'':'locked'}" onclick="${action}"><div class="num">LEVEL ${i+1}</div><h3>${x[2]} ${x[0]}</h3><p>${x[1]}</p><div class="bar"><span style="width:${pct}%"></span></div><div class="unlock">${done?'🏆 COMPLETED':open?'▶ 15 CHALLENGES':'🔒 أكمل Level '+i+' أولًا'}</div></div>`}).join('');app.innerHTML=`<section class="screen"><div class="gamehead"><div><h2>🗺️ PROJECT MAP</h2><p class="muted">كل Level يحتوي الآن على 15 تحديًا • إجمالي 225 تحديًا. يجب إكمال المرحلة الحالية بالكامل لفتح التالية.</p></div><button class="secondary" onclick="gHome()">⌂ Home</button></div><div class="grid">${cards}</div><div class="actions"><button class="secondary" onclick="gShop()">🛒 Store</button><button class="secondary" onclick="gAchievements()">🏆 Achievements</button></div></section>`}
+
+function visualScene(level,mode,idx){
+ const names=['REGISTER CONTROL','DOCUMENT HUNT','DRAWING CONTROL','RFI DESK','TRANSMITTAL HUB','REVISION ALERT','SITE EMERGENCY','AUDIT ROOM','HANDOVER CONTROL','DC COMMAND','TRUTH PROTOCOL','DOCUMENT PUZZLE','MATCH MASTER','SPEED DC','FINAL BOSS'];
+ const icons=['📋','🔎','📐','❓','📨','🔄','🚨','🔍','🏗️','👑','✅','🧩','🔗','⚡','👑'];
+ const accent=getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||'#28a9ff';
+ return `<div class="interactive-visual" onclick="toggleVisualInfo(this)" title="اضغط لتحليل المشهد"><svg viewBox="0 0 900 190" role="img" aria-label="${names[level]}"><defs><linearGradient id="vg${level}" x1="0" x2="1"><stop offset="0" stop-color="${accent}" stop-opacity=".35"/><stop offset="1" stop-color="#07111f" stop-opacity=".2"/></linearGradient></defs><rect x="4" y="4" width="892" height="182" rx="24" fill="url(#vg${level})" stroke="${accent}" stroke-opacity=".55"/><g class="floatdoc"><rect x="80" y="42" width="150" height="105" rx="12" fill="#eef5ff" opacity=".95"/><line x1="105" y1="72" x2="205" y2="72" stroke="#789" stroke-width="7"/><line x1="105" y1="94" x2="190" y2="94" stroke="#789" stroke-width="7"/><line x1="105" y1="116" x2="175" y2="116" stroke="#789" stroke-width="7"/></g><g class="pulse"><circle cx="450" cy="95" r="58" fill="#07111f" stroke="${accent}" stroke-width="4"/><text x="450" y="113" text-anchor="middle" font-size="58">${icons[level]}</text></g><g><rect x="620" y="50" width="190" height="90" rx="16" fill="#07111f" stroke="${accent}" opacity=".92"/><text x="715" y="84" text-anchor="middle" fill="white" font-size="17" font-weight="700">${names[level]}</text><text x="715" y="112" text-anchor="middle" fill="${accent}" font-size="13">CHALLENGE ${idx+1} / 15</text></g></svg><div class="visual-caption">🖱️ اضغط على الصورة لعرض <b>Visual Brief</b> للموقف الحالي</div><div class="visual-info">${mode==='quiz'?'راقب عناصر المستند والحالة قبل اختيار القرار.':'حلّل الرموز والاتجاهات ثم اتخذ القرار وفق الـworkflow.'}</div></div>`;
+}
+function toggleVisualInfo(el){el.classList.toggle('open')}
+
+function gQuiz(){const qs=questions.filter(q=>q.l===G.level),cur=qs[G.q];app.innerHTML=`<section class="screen"><div class="gamehead"><div><span class="tag">LEVEL ${G.level+1} • ${G.q+1}/15</span><h2>${levels[G.level][2]} ${levels[G.level][0]}</h2></div><div class="timer" id="gt">30</div></div><div class="progress"><span style="width:${G.q/15*100}%"></span></div>${visualScene(G.level,'quiz',G.q)}<div class="scenario"><b>🎯 PROJECT SCENARIO</b><br><br>${cur.q}</div><div class="answers">${cur.a.map((a,i)=>`<button class="answer" onclick="gQuizAnswer(${i})">${String.fromCharCode(65+i)}) ${a}</button>`).join('')}</div><div id="gf"></div>${gNav()}</section>`;let t=30;window.gameTimer=setInterval(()=>{t--;const e=document.getElementById('gt');if(e)e.textContent='⏱️ '+t;if(t<=0){stopGTimer();gQuizAnswer(-1)}},1000)}
+function gTF(){const d=tf[G.q];app.innerHTML=`<section class="screen center"><span class="tag">LEVEL 11 • TRUE / FALSE • ${G.q+1}/15</span><h1 style="color:var(--gold)">TRUTH PROTOCOL</h1>${visualScene(10,'tf',G.q)}<div class="scenario" style="font-size:24px">${d[0]}</div><p class="muted">اضغط على الإجابة ثم راجع التفسير.</p><div class="actions" style="justify-content:center"><button id="tfTrue" class="primary" style="font-size:22px;min-width:180px" onclick="gTFAnswer(true)">🟢 TRUE</button><button id="tfFalse" class="secondary" style="font-size:22px;min-width:180px" onclick="gTFAnswer(false)">🔴 FALSE</button></div><div id="gf"></div>${gNav()}</section>`}
+function gPuzzle(){const d=puzzles[G.q],items=[...d[1]].sort(()=>Math.random()-.5);app.innerHTML=`<section class="screen"><span class="tag">LEVEL 12 • PUZZLE • ${G.q+1}/15</span><h2>🧩 ${d[0]}</h2>${visualScene(11,'puzzle',G.q)}<p class="muted">اضغط على العناصر بالترتيب الصحيح.</p><div id="pSlots" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:18px 0">${d[1].map((_,i)=>`<div class="achievement" id="ps${i}">⬜ ${i+1}</div>`).join('')}</div><div id="pBtns" class="answers">${items.map(x=>`<button class="answer" onclick="gPickPuzzle(this,'${x.replace(/'/g,"\\'")}')">${x}</button>`).join('')}</div><div id="gf"></div>${gNav()}</section>`;window.pChosen=[];window.pTarget=d[1]}
+function gMatch(){const pair=matches[G.q],rights=matches.map(x=>x[1]).sort(()=>Math.random()-.5);app.innerHTML=`<section class="screen center"><span class="tag">LEVEL 13 • MATCH • ${G.q+1}/15</span><h1>🔗 MATCH IT!</h1>${visualScene(12,'match',G.q)}<div class="scenario"><b>${pair[0]}</b><br><br>اختر التعريف المطابق:</div><div class="answers">${rights.map((r,i)=>`<button class="answer" onclick="gMatchAnswer(${i})">${r}</button>`).join('')}</div>${gNav()}</section>`;window.matchRight=pair[1];window.matchRights=rights}
+function gSpeed(){const d=speed[G.q];app.innerHTML=`<section class="screen center"><span class="tag">LEVEL 14 • SPEED • ${G.q+1}/15</span><div class="big">⚡</div><h1>SPEED DC</h1>${visualScene(13,'speed',G.q)}<div class="timer" id="st" style="font-size:34px">10</div><div class="scenario">${d[0]}</div><div class="answers">${d[1].map((x,i)=>`<button class="answer" onclick="gSpeedAnswer(${i})">${x}</button>`).join('')}</div></section>`;let t=10;window.gameTimer=setInterval(()=>{t--;const e=document.getElementById('st');if(e)e.textContent='⏱️ '+t;if(t<=0){stopGTimer();gSpeedAnswer(-1)}},1000)}
+function gBoss(){const d=boss[G.q];app.innerHTML=`<section class="screen"><div class="gamehead"><div><span class="tag" style="background:#4b1d6b">LEVEL 15 • FINAL BOSS • ${G.q+1}/15</span><h2>👑 FINAL PROJECT</h2></div><div class="timer" id="bt">20</div></div>${visualScene(14,'boss',G.q)}<div class="scenario" style="border-right-color:var(--gold)"><b>🚨 MANAGEMENT DECISION</b><br><br>${d[0]}</div><div class="answers">${d[1].map((x,i)=>`<button class="answer" onclick="gBossAnswer(${i})">${String.fromCharCode(65+i)}) ${x}</button>`).join('')}</div>${gNav()}</section>`;let t=20;window.gameTimer=setInterval(()=>{t--;const e=document.getElementById('bt');if(e)e.textContent='⏱️ '+t;if(t<=0){stopGTimer();gBossAnswer(-1)}},1000)}
+
+function gQuestion(){stopGTimer();setGbg(G.level);if(G.q>=15){gComplete();return}const m=levelMode(G.level);if(m==='quiz')return gQuiz();if(m==='tf')return gTF();if(m==='puzzle')return gPuzzle();if(m==='match')return gMatch();if(m==='speed')return gSpeed();return gBoss()}
+function gQuizAnswer(i){stopGTimer();const qs=questions.filter(q=>q.l===G.level),cur=qs[G.q],good=i===cur.c;document.querySelectorAll('.answer').forEach((b,j)=>{b.disabled=true;b.classList.add(j===cur.c?'correct':'disabled');if(j===i&&!good)b.classList.add('wrong')});gResolve(good,good?challengeReward():0,good?'Correct!':'Not the best decision.',good?cur.x:`الإجابة الصحيحة: ${cur.a[cur.c]}<br><br>${cur.x}`)}
+function gTFAnswer(v){const d=tf[G.q],good=v===d[1];document.getElementById('tfTrue').disabled=true;document.getElementById('tfFalse').disabled=true;const selected=document.getElementById(v?'tfTrue':'tfFalse');selected.classList.add(good?'correct':'wrong');gResolve(good,good?challengeReward():0,good?'✅ إجابة صحيحة':'❌ إجابة خاطئة',`إجابتك: <b>${v?'TRUE':'FALSE'}</b><br>الإجابة الصحيحة: <b>${d[1]?'TRUE':'FALSE'}</b><br><br>${d[2]}`)}
+function gSpeedAnswer(i){stopGTimer();const d=speed[G.q],good=i===d[2];gResolve(good,good?challengeReward():0,good?'Lightning Fast!':'Time/Decision Failed.','الإجابة الأفضل: '+d[1][d[2]])}
+function gBossAnswer(i){stopGTimer();const d=boss[G.q],good=i===d[2];gResolve(good,good?challengeReward():0,good?'BOSS DECISION APPROVED':'PROJECT RISK',d[3]+'<br><br>الإجابة الصحيحة: '+d[1][d[2]])}
+function gResolve(good,reward,title,explain){gTone(good);if(good){G.coins+=reward;G.correct++;G.streak++;if(G.streak>=3)G.coins+=10}else{G.lives--;G.streak=0}G.answered++;gsave();const f=document.getElementById('gf');if(f){f.innerHTML=`<div class="feedback ${good?'good':'bad'}"><b>${good?'✅':'❌'} ${title}</b><br>${good?'+'+reward+' 🪙':'Life lost ❤️'}<br><br>${explain}<div class="actions"><button class="primary" onclick="gNext()">التالي →</button></div></div>`}else setTimeout(gNext,700);}
+function gNext(){if(G.lives<=0)return gGameOver();G.q++;gsave();gQuestion()}
+function gComplete(){stopGTimer();const reward=levelCompletionCoins[G.level]||0;G.coins+=reward;if(!G.completedLevels.includes(G.level))G.completedLevels.push(G.level);G.q=15;G.streak=0;gsave();if(G.level===14)return gName();app.innerHTML=`<section class="screen center hero"><div class="big">🏆</div><h1>LEVEL ${G.level+1} COMPLETE!</h1><p>أنهيت <b>${levels[G.level][0]}</b> بنجاح.</p>${reward?`<p class="gold">+${reward} 🪙 Completion Bonus</p>`:`<p class="gold">🎯 مكافأة المستوى الخامس تعتمد على إجاباتك: 10 🪙 لكل إجابة صحيحة.</p>`}<p class="muted">تم فتح المرحلة التالية. لديك الآن 15 تحديًا في كل مستوى.</p><div class="actions" style="justify-content:center"><button class="primary" onclick="gStart(${G.level+1})">🚀 LEVEL ${G.level+2}</button><button class="secondary" onclick="gMap()">🗺️ MAP</button></div></section>`}
+
+// Add visual styling once.
+(function(){const st=document.createElement('style');st.textContent=`
+.interactive-visual{margin:16px 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(5,12,22,.55);cursor:pointer;position:relative;transition:.25s}.interactive-visual:hover{transform:translateY(-2px);box-shadow:0 12px 32px #0005}.interactive-visual svg{display:block;width:100%;height:auto;min-height:150px}.interactive-visual .visual-caption{padding:9px 14px;color:var(--muted);font-size:12px;text-align:center;background:#07111f99}.interactive-visual .visual-info{max-height:0;overflow:hidden;opacity:0;padding:0 16px;transition:.3s;color:#fff;text-align:center}.interactive-visual.open .visual-info{max-height:80px;opacity:1;padding:12px 16px}.floatdoc{animation:floatDoc 2.8s ease-in-out infinite}.pulse{animation:pulseScene 1.8s ease-in-out infinite}@keyframes floatDoc{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes pulseScene{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+`;document.head.appendChild(st)})();
+
+// Ensure the home screen advertises the expanded challenge count.
+const _oldHome=gHome;
+gHome=function(){stopGTimer();setGbg(0);app.innerHTML=`<section class="screen hero"><div class="logo">📁</div><h1>DOCUMENT CONTROL<br><span style="color:var(--blue)">THE PROJECT</span></h1><p>لعبة تفاعلية صُممت لتنمية مهاراتك كمنسق مستندات من خلال مواقف عملية، صور تفاعلية، قرارات سريعة و225 تحديًا عبر 15 Level.<br><br>تعلّم، قرر، اختبر نفسك، وتقدّم خطوة بخطوة نحو الاحتراف في Document Control.<br><br><b style="color:var(--gold)">مقدمة إليكم من أكاديمية مستند أكاديمي 🎓</b></p><button class="primary" onclick="gMap()">🎮 ابدأ المغامرة</button><div class="actions" style="justify-content:center"><button class="secondary" onclick="gHow()">ℹ️ كيف تلعب؟</button><button class="secondary" onclick="developerLogin()">🛠️ وضع المطور</button></div>${G.developer?'<div class="dev-panel" style="margin-top:16px"><span class="dev-badge">DEVELOPER MODE ACTIVE</span><p class="muted">جميع المستويات الـ15 مفتوحة للمراجعة والاختبار فقط.</p><button class="secondary" onclick="toggleDeveloper(false)">إيقاف وضع المطور</button></div>':''}</section>`}
+
+// Update the help screen to reflect 15x15.
+const _oldHow=gHow;
+gHow=function(){app.innerHTML=`<section class="screen"><h2>🎮 كيف تلعب؟</h2><div class="grid"><div class="achievement">📝 <b>Levels 1–10</b><br><span class="muted">15 سؤالًا في كل مستوى بمواقف عملية وإجابات مقنعة.</span></div><div class="achievement">🎯 <b>Levels 11–15</b><br><span class="muted">15 تحديًا متنوعًا لكل مستوى: True/False, Puzzle, Match, Speed, Final Boss.</span></div><div class="achievement">🖼️ <b>Interactive Visuals</b><br><span class="muted">صور ومشاهد تفاعلية؛ اضغط عليها لعرض Visual Brief.</span></div><div class="achievement">🪙 <b>Coins</b><br><span class="muted">المستويات الأولى تبدأ بمكافآت أقل، وLevel 5 يعطي 10 Coins لكل إجابة صحيحة.</span></div><div class="achievement">🏆 <b>15 × 15</b><br><span class="muted">إجمالي 225 تحديًا قبل الشهادة النهائية.</span></div></div><div class="actions"><button class="primary" onclick="gMap()">🗺️ Project Map</button></div></section>`}
+
+gsave();gHome();
+</script>
+<!-- ===== SUPER DC PRO ENHANCEMENT LAYER — Ahmed Khalaf Morsy / Mostanad Academy ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--wa:#25d366}
+body{font-family:'Cairo',Arial,Tahoma,sans-serif!important;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1px 1px at 20% 30%,#ffffff55,transparent),
+    radial-gradient(1px 1px at 70% 20%,#ffffff44,transparent),
+    radial-gradient(2px 2px at 45% 70%,#28a9ff44,transparent),
+    radial-gradient(1px 1px at 85% 65%,#f5c45144,transparent);
+  animation:skyDrift 18s ease-in-out infinite alternate;opacity:.8}
+@keyframes skyDrift{to{transform:translate3d(0,-18px,0) scale(1.04)}}
+.app{position:relative;z-index:1}
+.screen{backdrop-filter:blur(10px);border-radius:26px!important;
+  background:linear-gradient(160deg,rgba(19,38,62,.92),rgba(9,19,32,.94))!important;
+  box-shadow:0 26px 70px #0009, inset 0 1px 0 #ffffff12!important;
+  animation:screenIn .38s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.top{position:sticky;top:0;z-index:30;padding:10px 14px;border-radius:18px;margin-bottom:16px;
+  background:linear-gradient(120deg,rgba(10,22,38,.86),rgba(14,30,50,.7));
+  border:1px solid #24405f;backdrop-filter:blur(12px)}
+.brand{font-size:18px;background:linear-gradient(90deg,#28a9ff,#a98bff 55%,#f5c451);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{color:#f5c451!important;-webkit-text-fill-color:#f5c451}
+.pill{background:linear-gradient(145deg,#12263e,#0b1828)!important;transition:.2s}
+.pill.bump{transform:scale(1.14);box-shadow:0 0 0 3px #f5c45133}
+.primary{background:linear-gradient(135deg,#18a4ff,#5b4bff)!important;letter-spacing:.3px;
+  box-shadow:0 12px 28px #1b7fe055, inset 0 1px 0 #ffffff44!important;transition:.18s}
+.primary:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08)}
+.primary:active{transform:scale(.97)}
+.secondary{transition:.18s}
+.secondary:hover{background:#1a3252!important}
+.level{overflow:hidden}
+.level::after{content:"";position:absolute;top:-60%;inset-inline-start:-60%;width:60%;height:220%;
+  background:linear-gradient(90deg,transparent,#ffffff18,transparent);transform:rotate(18deg);transition:.6s}
+.level:not(.locked):hover::after{inset-inline-start:120%}
+.level:not(.locked):hover{box-shadow:0 18px 40px #0009}
+.answer{position:relative;overflow:hidden}
+.answer:hover{box-shadow:0 10px 24px #0007}
+.answer.correct{animation:popGood .45s ease}
+.answer.wrong{animation:shakeBad .42s ease}
+@keyframes popGood{0%{transform:scale(1)}45%{transform:scale(1.035)}100%{transform:scale(1)}}
+@keyframes shakeBad{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.key-hint{position:absolute;inset-inline-start:10px;top:50%;transform:translateY(-50%);
+  font-size:10px;color:#8fb2d6;border:1px solid #2e4c6d;border-radius:6px;padding:1px 6px;background:#0b1b2c}
+.timer{transition:.2s}
+.timer.low{animation:tick .8s ease-in-out infinite}
+@keyframes tick{50%{transform:scale(1.12)}}
+.progress span,.bar span{transition:width .45s cubic-bezier(.2,.9,.3,1)}
+.feedback{animation:screenIn .3s ease}
+/* streak + toast */
+#dcToast{position:fixed;top:14px;left:50%;transform:translateX(-50%) translateY(-140%);z-index:9999;
+  padding:12px 20px;border-radius:999px;font-weight:900;color:#07111f;
+  background:linear-gradient(135deg,#f5c451,#ffe9a8);box-shadow:0 14px 34px #0008;transition:.35s cubic-bezier(.2,.9,.3,1.4)}
+#dcToast.show{transform:translateX(-50%) translateY(0)}
+/* WhatsApp */
+#waBtn{position:fixed;inset-inline-end:16px;bottom:18px;z-index:9998;display:flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:0;cursor:pointer;
+  padding:13px 18px;border-radius:999px;font-family:'Cairo',sans-serif;font-weight:900;font-size:14px;
+  box-shadow:0 14px 34px #0b8f4d55, 0 0 0 0 #25d36699;animation:waPulse 2.6s infinite}
+#waBtn:hover{transform:translateY(-3px) scale(1.03)}
+@keyframes waPulse{0%{box-shadow:0 14px 34px #0b8f4d55,0 0 0 0 #25d36666}70%{box-shadow:0 14px 34px #0b8f4d55,0 0 0 16px #25d36600}100%{box-shadow:0 14px 34px #0b8f4d55,0 0 0 0 #25d36600}}
+#soundBtn{background:#12263e;border:1px solid #24405f;color:#eef5ff;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer;font-family:'Cairo',sans-serif}
+canvas#dcFx{position:fixed;inset:0;pointer-events:none;z-index:9997}
+@media(max-width:650px){#waBtn{padding:11px 14px;font-size:12px}.brand{font-size:15px}}
+@media print{#waBtn,#soundBtn,#dcToast,body::before{display:none!important}}
+</style>
+<script>
+(function(){
+  /* ---------- Branding: SUPER DC ---------- */
+  document.title = "SUPER DC";
+  var brand = document.querySelector(".brand");
+  if(brand) brand.innerHTML = '🚀 SUPER DC<small>مستند أكاديمي • أحمد خلف مرسي</small>';
+
+  var WA = "https://wa.me/201156286464?text=" + encodeURIComponent("مرحباً أستاذ أحمد خلف مرسي 👋 أتواصل معك بخصوص لعبة SUPER DC (Document Control).");
+  window.contactDeveloper = function(){ window.open(WA, "_blank", "noopener"); };
+
+  /* ---------- WhatsApp floating button ---------- */
+  var wa = document.createElement("button");
+  wa.id = "waBtn"; wa.type = "button";
+  wa.innerHTML = '<span style="font-size:18px">💬</span> تواصل مع المطور';
+  wa.title = "واتساب: +20 115 628 6464";
+  wa.onclick = window.contactDeveloper;
+  document.body.appendChild(wa);
+
+  /* ---------- Sound toggle ---------- */
+  var stats = document.querySelector(".stats");
+  var muted = localStorage.getItem("dcMuted") === "1";
+  if(stats){
+    var sb = document.createElement("button");
+    sb.id = "soundBtn"; sb.type = "button";
+    var paint = function(){ sb.textContent = muted ? "🔇 الصوت" : "🔊 الصوت"; };
+    paint();
+    sb.onclick = function(){ muted = !muted; localStorage.setItem("dcMuted", muted ? "1" : "0"); paint(); };
+    stats.appendChild(sb);
+  }
+
+  /* ---------- FX canvas (confetti / sparks) ---------- */
+  var cv = document.createElement("canvas"); cv.id = "dcFx"; document.body.appendChild(cv);
+  var ctx = cv.getContext("2d"), parts = [], raf = null;
+  function size(){ cv.width = innerWidth; cv.height = innerHeight; }
+  size(); addEventListener("resize", size);
+  function burst(n, colors, power){
+    for(var i=0;i<n;i++){
+      parts.push({x:innerWidth/2,y:innerHeight*0.32,
+        vx:(Math.random()-.5)*power, vy:(Math.random()-1)*power,
+        s:4+Math.random()*6, c:colors[(Math.random()*colors.length)|0], a:1, r:Math.random()*6});
+    }
+    if(!raf) raf = requestAnimationFrame(loop);
+  }
+  function loop(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    for(var i=parts.length-1;i>=0;i--){
+      var p = parts[i]; p.vy += .32; p.x += p.vx; p.y += p.vy; p.a -= .012; p.r += .12;
+      if(p.a <= 0){ parts.splice(i,1); continue; }
+      ctx.save(); ctx.globalAlpha = Math.max(0,p.a); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*1.6); ctx.restore();
+    }
+    if(parts.length) raf = requestAnimationFrame(loop); else { raf = null; ctx.clearRect(0,0,cv.width,cv.height); }
+  }
+  window.dcConfetti = function(big){ burst(big?150:45, ["#28a9ff","#f5c451","#32d583","#a98bff","#ffffff"], big?16:11); };
+
+  /* ---------- Toast ---------- */
+  var toast = document.createElement("div"); toast.id = "dcToast"; document.body.appendChild(toast);
+  var tHide = null;
+  window.dcToast = function(msg){
+    toast.textContent = msg; toast.classList.add("show");
+    clearTimeout(tHide); tHide = setTimeout(function(){ toast.classList.remove("show"); }, 1900);
+  };
+
+  /* ---------- Richer sound + effects (wraps original gTone) ---------- */
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var actx = null;
+  function beep(freqs, type, dur){
+    if(muted || !AC) return;
+    try{
+      actx = actx || new AC();
+      if(actx.state === "suspended") actx.resume();
+      var t0 = actx.currentTime;
+      freqs.forEach(function(f,i){
+        var o = actx.createOscillator(), g = actx.createGain();
+        o.type = type; o.frequency.setValueAtTime(f, t0 + i*0.08);
+        g.gain.setValueAtTime(.0001, t0 + i*0.08);
+        g.gain.exponentialRampToValueAtTime(.14, t0 + i*0.08 + .02);
+        g.gain.exponentialRampToValueAtTime(.0001, t0 + i*0.08 + dur);
+        o.connect(g); g.connect(actx.destination);
+        o.start(t0 + i*0.08); o.stop(t0 + i*0.08 + dur + .05);
+      });
+    }catch(e){}
+  }
+  window.dcSound = function(kind){
+    if(kind === "good") beep([660,880,1180], "triangle", .22);
+    else if(kind === "bad") beep([240,170], "sawtooth", .3);
+    else if(kind === "win") beep([523,659,784,1047], "triangle", .28);
+    else beep([880], "sine", .1);
+  };
+
+  var streak = 0;
+  var praises = ["ممتاز! 💪","إجابة محترف 🔥","دقة عالية 🎯","Document Controller حقيقي 📁"];
+  if(typeof window.gTone === "function"){
+    var _tone = window.gTone;
+    window.gTone = function(t){
+      if(t === "good"){
+        streak++;
+        window.dcSound("good");
+        window.dcConfetti(streak >= 3);
+        window.dcToast(streak >= 3 ? ("🔥 سلسلة " + streak + " إجابات صحيحة!") : praises[(Math.random()*praises.length)|0]);
+        var coins = document.getElementById("coins");
+        if(coins && coins.parentElement){ coins.parentElement.classList.add("bump"); setTimeout(function(){ coins.parentElement.classList.remove("bump"); }, 260); }
+      }else{
+        streak = 0;
+        window.dcSound("bad");
+        //window.dcToast("راجع الشرح جيدًا 📘");
+      }
+      return;
+    };
+  }
+
+  /* ---------- Level complete / certificate celebration ---------- */
+  ["gComplete","gCertificate"].forEach(function(fn){
+    if(typeof window[fn] === "function"){
+      var orig = window[fn];
+      window[fn] = function(){
+        var r = orig.apply(this, arguments);
+        window.dcSound("win"); window.dcConfetti(true);
+        setTimeout(function(){ window.dcConfetti(true); }, 450);
+        return r;
+      };
+    }
+  });
+
+  /* ---------- Keyboard shortcuts + answer number hints ---------- */
+  document.addEventListener("keydown", function(e){
+    if(/^[1-6]$/.test(e.key)){
+      var btns = document.querySelectorAll(".answers .answer:not(.disabled)");
+      var b = btns[parseInt(e.key,10) - 1];
+      if(b) b.click();
+    }
+  });
+  var mo = new MutationObserver(function(){
+    document.querySelectorAll(".answers .answer").forEach(function(b,i){
+      if(!b.querySelector(".key-hint") && i < 6){
+        var k = document.createElement("span");
+        k.className = "key-hint"; k.textContent = i + 1;
+        b.appendChild(k);
+      }
+    });
+    // rebrand hero title to SUPER DC
+    var h1 = document.querySelector(".hero h1");
+    if(h1 && !h1.dataset.superdc && /DOCUMENT CONTROL/i.test(h1.textContent)){
+      h1.dataset.superdc = "1";
+      h1.innerHTML = 'SUPER <span style="color:var(--blue)">DC</span><br><span style="font-size:.42em;color:var(--gold);letter-spacing:1px">DOCUMENT CONTROL: THE PROJECT</span>';
+    }
+    // developer contact button inside home screen
+    var hero = document.querySelector(".hero .actions");
+    if(hero && !hero.querySelector("[data-wa]")){
+      var b = document.createElement("button");
+      b.className = "secondary"; b.type = "button"; b.setAttribute("data-wa","1");
+      b.textContent = "💬 تواصل مع المطور (واتساب)";
+      b.onclick = window.contactDeveloper;
+      hero.appendChild(b);
+    }
+  });
+  var appEl = document.getElementById("app");
+  if(appEl) mo.observe(appEl, {childList:true, subtree:true});
+
+  // trigger once for the already-rendered home screen
+  if(typeof window.gHome === "function") window.gHome();
+})();
+</script>
+
+</body>
+</html>
