@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mostanad Academy | مستند أكاديمي — مكتبة مستندات ودروس Document Control.">
+  <title>
+   Document Control Knowledge
+  </title>
+
+  <!-- نفس CSS الخاص بالهيدر والفوتر -->
+  <link rel="stylesheet" href="mostanad-academy-header-footer.css">
+
+  <!-- Bootstrap / Icons: احتفظ بها إذا كان ملف CSS المستخدم يعتمد على Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* Header layout: Academy name on the left, navigation on the right */
+    .navbar > .container-fluid {
+      direction: ltr;
+    }
+    .navbar .navbar-brand {
+      margin-right: auto;
+      margin-left: 0;
+    }
+    .navbar .navbar-collapse {
+      flex-grow: 0;
+    }
+    .navbar .navbar-nav {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      direction: rtl;
+    }
+    @media (max-width: 991.98px) {
+      .navbar .navbar-collapse {
+        width: 100%;
+      }
+      .navbar .navbar-nav {
+        align-items: flex-start !important;
+      }
+    }
+
+    /* منطقة المحتوى متروكة فارغة لتقوم Nada بإضافة المقالات هنا */
+    .academy-content {
+      min-height: 55vh;
+      padding: 150px 20px 60px;
+    }
+
+    /* البحث عن المستندات والاختصارات */
+    .document-search {
+      max-width: 850px;
+      margin: 0 auto 40px;
+    }
+
+    .document-search-box {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .document-search input {
+      flex: 1;
+      min-height: 52px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 0 18px;
+      font-size: 16px;
+      background: var(--bg, #fff);
+      color: var(--text, #0f172a);
+      outline: none;
+    }
+
+    .document-search input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .document-search button {
+      min-width: 120px;
+      border: 0;
+      border-radius: 14px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 700;
+      padding: 0 22px;
+      cursor: pointer;
+    }
+
+    .document-search button:hover {
+      background: #1d4ed8;
+    }
+
+    #searchResults {
+      margin-top: 18px;
+    }
+
+    .search-result {
+      display: block;
+      padding: 18px;
+      margin-bottom: 12px;
+      border-radius: 14px;
+      background: var(--card, #f1f5f9);
+      color: var(--text, #0f172a);
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .search-result:hover {
+      border-color: #2563eb;
+    }
+
+    .search-result .code {
+      font-weight: 800;
+      color: #2563eb;
+      margin-left: 8px;
+    }
+
+    .search-empty {
+      text-align: center;
+      padding: 20px;
+      border-radius: 14px;
+      background: var(--card, #f1f5f9);
+    }
+
+    @media (max-width: 768px) {
+      .academy-content {
+        padding-top: 125px;
+      }
+
+      .document-search-box {
+        flex-direction: column;
+      }
+
+      .document-search button {
+        min-height: 50px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER / NAVBAR -->
+
+
+        <nav class="navbar navbar-expand-lg px-3 shadow-sm">
+   <div class="container-fluid">
+     <!-- LEFT: Logo + مستند أكاديمي -->
+     <div class="d-flex align-items-center">
+       <a class="navbar-brand d-flex align-items-center" href="https://ahmedkhalaf477.github.io/Mostanad-Academy/">
+         <img src="logo.png" width="90" height="90" class="rounded-circle" alt="Mostanad Academy">
+       </a>
+       <a class="navbar-brand fw-bold" href="https://ahmedkhalaf477.github.io/Mostanad-Academy/">
+         <h4>
+          Mostanad Academy |  مستند أكاديمي 
+
+         </h4>
+       </a>
+     </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#academyNavbar" aria-controls="academyNavbar" aria-expanded="false" aria-label="فتح القائمة">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="academyNavbar">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link" target="_blank" href="../index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank" href="../HTML/Mostanad Academy Library.html">Document</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="mailto:aragad477@gmail.com"target="_blank" ">Emial</a>
+               </li><li>
+                <a href="https://web.facebook.com/ahmedkhkh47" target="_blank">facebook</a>
+               </li>
+               <li>
+                <a href="https://wa.me/201064270227" target="_blank">whatsApp</a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/ahmed-khalaf-dc/" target="_blank">Linkedin</a>
+              </li>
+              <li>
+                <a href="https://ahmed-khalaf-dc.lovable.app/#contact" target="_blank">portfolio</a>
+              </li>
+            </ul>
+
+          </li>
+         
+       <li class="nav-item">
+  <a class="nav-link" href="#" onclick="toggleTheme(this)">Dark Mode</a>
+</li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =========================
+       CONTENT / NADA PUBLISH AREA
+       ========================= -->
+  <main class="academy-content" id="documents">
+
+    <!-- Nada يمكنها نشر المقالات داخل هذا العنصر -->
+    <section id="nadaArticles" aria-label="مقالات مستند أكاديمي">
+      <!-- فارغ عمدًا: Nada تضيف المقالات هنا عند النشر -->
+    </section>
+
+    <!-- البحث عن المستندات بالاختصار أو الاسم -->
+    <section class="document-search" aria-label="البحث عن المستندات">
+      <div class="document-search-box">
+        <input
+          id="documentSearch"
+          type="search"
+          placeholder="ابحث عن المستند بالاختصار أو الاسم... مثال: RFI أو NCR أو MIR"
+          autocomplete="off"
+        >
+        <button type="button" onclick="searchDocuments()">بحث</button>
+      </div>
+      <div id="searchResults" aria-live="polite"></div>
+    </section>
+
+  </main>
+
+  <!-- =========================
+       FOOTER
+       ========================= -->
+  <footer class="modern-footer" id="contact">
+    <div class="footer-content">
+      <h2>Contact Me</h2>
+      <p>
+        Document Control • Aconex Support • Archiving Systems • Training Courses
+      </p>
+
+      <div class="social-icons">
+        <a href="https://web.facebook.com/ahmedkhkh47" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me/201064270227" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="mailto:mostanadacademy@gmail.com" aria-label="Gmail">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/ahmed-khalaf-dc/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+
+      <div class="footer-line"></div>
+      <span>Ahmed Khalaf © Khalaf_DC | Mostanad Academy</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /* ==========================================================
+       NADA DOCUMENT SEARCH
+       ----------------------------------------------------------
+       Nada تضيف المستندات الجديدة داخل هذه القائمة أو تستبدلها
+       ببيانات يتم توليدها تلقائيًا من قاعدة بيانات الموقع.
+       ========================================================== */
+
+    const DOCUMENTS = [
+      // مثال على شكل البيانات — يمكن لـ Nada إضافة/تعديل العناصر:
+      // {
+      //   code: "RFI",
+      //   name: "Request for Information",
+      //   description: "شرح مستند RFI واستخدامه في المشروع.",
+      //   url: "articles/rfi.html"
+      // }
+    ];
+
+    const LINKEDIN_PROFILE = "https://www.linkedin.com/in/ahmed-khalaf-dc/";
+
+    function normalizeSearch(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[أإآ]/g, "ا")
+        .replace(/ى/g, "ي")
+        .replace(/ة/g, "ه");
+    }
+
+    function searchDocuments() {
+      const input = document.getElementById("documentSearch");
+      const results = document.getElementById("searchResults");
+      const query = normalizeSearch(input.value);
+
+      if (!query) {
+        results.innerHTML = "";
+        return;
+      }
+
+      const matches = DOCUMENTS.filter(doc => {
+        const code = normalizeSearch(doc.code);
+        const name = normalizeSearch(doc.name);
+        const aliases = (doc.aliases || []).map(normalizeSearch);
+        return code.includes(query) || name.includes(query) || aliases.some(a => a.includes(query));
+      });
+
+      if (matches.length > 0) {
+        results.innerHTML = matches.map(doc => `
+          <a class="search-result" href="${escapeHtml(doc.url || '#')}">
+            <span class="code">${escapeHtml(doc.code || '')}</span>
+            <strong>${escapeHtml(doc.name || '')}</strong>
+            ${doc.description ? `<div>${escapeHtml(doc.description)}</div>` : ''}
+          </a>
+        `).join("");
+        return;
+      }
+
+      /*
+         لا يوجد شرح/بوست للمستند:
+         يتم توجيه الباحث إلى LinkedIn الشخصي لأحمد خالد.
+      */
+      results.innerHTML = `
+        <div class="search-empty">
+          <p>المستند المطلوب غير متاح حاليًا في مكتبة Mostanad Academy.</p>
+          <p>يمكنك البحث عنه في منشورات LinkedIn الشخصية.</p>
+          <a class="btn btn-primary" href="${LINKEDIN_PROFILE}" target="_blank" rel="noopener">
+            الانتقال إلى LinkedIn
+          </a>
+        </div>
+      `;
+    }
+
+    document.getElementById("documentSearch").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        searchDocuments();
+      }
+    });
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+      
+function toggleTheme(btn){
+
+
+  document.body.classList.toggle("dark");
+
+
+  // لو في دارك مود
+  if(document.body.classList.contains("dark")){
+    btn.innerText = "Light Mode";
+    localStorage.setItem("theme","dark");
+  } 
+  else {
+    btn.innerText = "Dark Mode";
+    localStorage.setItem("theme","light");
+  }
+}
+
+
+// تشغيل الحالة عند فتح الصفحة + تحديث النص
+window.onload = function(){
+
+
+  const btn = document.querySelector(".nav-link[onclick]");
+
+
+  if(localStorage.getItem("theme") === "dark"){
+    document.body.classList.add("dark");
+    if(btn) btn.innerText = "Light Mode";
+  } 
+  else {
+    if(btn) btn.innerText = "Dark Mode";
+      localStorage.setItem("theme","light");
+  }
+}
+
+
+  </script>
+</body>
+</html>
