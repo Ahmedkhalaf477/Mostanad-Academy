@@ -42,78 +42,101 @@
       }
     }
 
-    /* منطقة المحتوى متروكة فارغة لتقوم Nada بإضافة المقالات هنا */
-    .academy-content {
-      min-height: 55vh;
-      padding: 150px 20px 60px;
+    /* ==========================================================
+       MOSTANAD ACADEMY - DOCUMENT CONTROL POST FEED
+       ========================================================== */
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* البحث عن المستندات والاختصارات */
+    body {
+      font-family: Tahoma, Arial, "Segoe UI", sans-serif;
+      background: #f3f5f7;
+      color: #172033;
+    }
+
+    .academy-content {
+      min-height: 60vh;
+      padding: 120px 22px 70px;
+    }
+
+    /* Search is intentionally ABOVE the posts */
     .document-search {
-      max-width: 850px;
-      margin: 0 auto 40px;
+      width: min(980px, 100%);
+      margin: 0 auto 34px;
+      position: relative;
+      z-index: 5;
     }
 
     .document-search-box {
       display: flex;
       gap: 10px;
       align-items: stretch;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #e3e8ef;
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.07);
     }
 
     .document-search input {
       flex: 1;
       min-height: 52px;
-      border: 1px solid #cbd5e1;
-      border-radius: 14px;
+      border: 0;
+      border-radius: 12px;
       padding: 0 18px;
       font-size: 16px;
-      background: var(--bg, #fff);
-      color: var(--text, #0f172a);
+      background: #f8fafc;
+      color: #172033;
       outline: none;
+      direction: rtl;
     }
 
     .document-search input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
     }
 
     .document-search button {
-      min-width: 120px;
+      min-width: 110px;
+      min-height: 52px;
       border: 0;
-      border-radius: 14px;
-      background: #2563eb;
+      border-radius: 12px;
+      background: #0a66c2;
       color: #fff;
       font-weight: 700;
       padding: 0 22px;
       cursor: pointer;
+      transition: .2s ease;
     }
 
     .document-search button:hover {
-      background: #1d4ed8;
+      background: #004182;
+      transform: translateY(-1px);
     }
 
     #searchResults {
-      margin-top: 18px;
+      margin-top: 14px;
     }
 
     .search-result {
       display: block;
-      padding: 18px;
-      margin-bottom: 12px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
       border-radius: 14px;
-      background: var(--card, #f1f5f9);
-      color: var(--text, #0f172a);
+      background: #fff;
+      color: #172033;
       text-decoration: none;
-      border: 1px solid transparent;
+      border: 1px solid #e3e8ef;
     }
 
     .search-result:hover {
-      border-color: #2563eb;
+      border-color: #0a66c2;
     }
 
     .search-result .code {
       font-weight: 800;
-      color: #2563eb;
+      color: #0a66c2;
       margin-left: 8px;
     }
 
@@ -121,12 +144,178 @@
       text-align: center;
       padding: 20px;
       border-radius: 14px;
-      background: var(--card, #f1f5f9);
+      background: #fff;
+      border: 1px solid #e3e8ef;
     }
 
-    @media (max-width: 768px) {
+    /* Four cards per row on normal desktop screens */
+    #nadaArticles {
+      width: min(1500px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+
+    .article {
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      box-shadow: 0 7px 24px rgba(15, 23, 42, 0.08);
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .article:hover {
+      transform: translateY(-5px);
+      border-color: rgba(10, 102, 194, .35);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.13);
+    }
+
+    .article-image {
+      width: 100%;
+      height: 205px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8eef6, #f8fafc);
+      flex: 0 0 auto;
+    }
+
+    .article-image img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+      display: block !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      transition: transform .35s ease;
+    }
+
+    .article:hover .article-image img {
+      transform: scale(1.04);
+    }
+
+    .article:not(:has(.article-image))::before {
+      content: "Document Control";
+      height: 205px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e8eef6, #f8fafc);
+      color: #0a66c2;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .article h2 {
+      font-size: 18px;
+      line-height: 1.45;
+      margin: 17px 18px 8px;
+      color: #172033;
+      font-weight: 800;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-content {
+      margin: 0 18px 18px;
+      color: #526071;
+      font-size: 14px;
+      line-height: 1.75;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 122px;
+    }
+
+    .article::after {
+      content: "اقرأ المنشور";
+      display: block;
+      margin: 0 18px 18px;
+      padding-top: 12px;
+      border-top: 1px solid #edf0f4;
+      color: #0a66c2;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    /* LinkedIn-like full post modal */
+    .post-modal .modal-dialog {
+      max-width: 760px;
+    }
+
+    .post-modal .modal-content {
+      border: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 22px 60px rgba(15, 23, 42, .25);
+    }
+
+    .post-modal .modal-header {
+      background: #fff;
+      border-bottom: 1px solid #edf0f4;
+      padding: 16px 20px;
+    }
+
+    .post-modal .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #172033;
+    }
+
+    .post-modal .modal-body {
+      padding: 0;
+      background: #fff;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .modal-post-image {
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      display: block;
+      background: #f4f6f8;
+    }
+
+    .modal-post-content {
+      padding: 22px 24px 28px;
+      color: #263244;
+      font-size: 16px;
+      line-height: 1.95;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .modal-post-content a {
+      color: #0a66c2;
+    }
+
+    .post-modal .modal-footer {
+      border-top: 1px solid #edf0f4;
+      background: #fff;
+      justify-content: flex-start;
+    }
+
+    @media (max-width: 1199.98px) {
+      #nadaArticles {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 767.98px) {
       .academy-content {
-        padding-top: 125px;
+        padding: 110px 14px 55px;
       }
 
       .document-search-box {
@@ -134,7 +323,46 @@
       }
 
       .document-search button {
-        min-height: 50px;
+        width: 100%;
+      }
+
+      #nadaArticles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .article-image,
+      .article:not(:has(.article-image))::before {
+        height: 165px;
+      }
+
+      .article h2 {
+        font-size: 16px;
+        margin-left: 13px;
+        margin-right: 13px;
+      }
+
+      .article-content {
+        margin-left: 13px;
+        margin-right: 13px;
+        font-size: 13px;
+        min-height: 105px;
+      }
+
+      .article::after {
+        margin-left: 13px;
+        margin-right: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #nadaArticles {
+        grid-template-columns: 1fr;
+      }
+
+      .article-image,
+      .article:not(:has(.article-image))::before {
+        height: 210px;
       }
     }
   </style>
@@ -208,17 +436,6 @@
   <main class="academy-content" id="documents">
 
     <!-- Nada يمكنها نشر المقالات داخل هذا العنصر -->
-    <section id="nadaArticles" aria-label="مقالات مستند أكاديمي">
-
-
-
-<article class="article" data-nada-id="e3b853d3173c9bca">
-<div class="article-image"><img data-nada-image="images/e3b853d3173c9bca.webp" src="images/e3b853d3173c9bca.webp" alt="أخطاء شائعة في Document Control" style="max-width:100%;height:auto;display:block;margin:0 0 18px 0;border-radius:12px;"></div>
-<h2>أخطاء شائعة في Document Control</h2>
-<div class="article-content">هل تساءلت يومًا عن الأخطاء الشائعة التي قد تقع عند التعامل مع مستندات المشروعات الإنشائية؟ اليوم، نستكشف بعض الأمور التي قد تؤدي إلى أخطاء في إدارة المستندات، أو ما يعرف بـ &quot;Document Control&quot;.<br><br>في مشاريع الإنشاءات، من الضروري أن يكون لديك نظام واضح ودقيق لتنظيم ورقابتك على المستندات. ومع ذلك، قد يقع البعض في أخطاء سهلة الوقوع، مثل عدم استخدام كود المستندات بشكل صحيح، أو عدم التحقق من المستندات الواردة، أو عدم الالتزام بالمواعيد المحددة لرد المستندات.<br><br>أخطاء مثل هذه قد تؤدي إلى تأخيرات في المشروع، أو فقدان للمعلومات الهامة، أو حتى مشاكل قانونية. لذا، إذا كنت مهندسًا أو مشروع قيد التنفيذ، أو تعمل في مجال Document Control، فهذا المقال هو بداية رحلة جديدة مع Mostanad Academy، حيث نقدم لك الدعم والتعليمات اللازمة لتجنب هذه الأخطاء وضمان أن كل المستندات تتم معالجتها بشكل صحيح ودقيق.<br><br>دعونا نستكشف بعض الأخطاء الشائعة ونقترح بعض الحلول لتجنبها. هل نبدأ؟<br>هل تساءلت يومًا عن الأخطاء الشائعة التي قد تقع عند التعامل مع مستندات المشروعات الإنشائية؟ اليوم، نستكشف بعض الأمور التي قد تؤدي إلى أخطاء في إدارة المستندات، أو ما يعرف بـ &quot;Document Control&quot;.<br>في مشاريع الإنشاءات، من الضروري أن يكون لديك نظام واضح ودقيق لتنظيم ورقابتك على المستندات. ومع ذلك، قد يقع البعض في أخطاء سهلة الوقوع، مثل عدم استخدام كود المستندات بشكل صحيح، أو عدم التحقق من المستندات الواردة، أو عدم الالتزام بالمواعيد المحددة لرد المستندات.<br>أخطاء مثل هذه قد تؤدي إلى تأخيرات في المشروع، أو فقدان للمعلومات الهامة، أو حتى مشاكل قانونية. لذا، إذا كنت مهندسًا أو مشروع قيد التنفيذ، أو تعمل في مجال Document Control، فهذا المقال هو بداية رحلة جديدة مع Mostanad Academy، حيث نقدم لك الدعم والتعليمات اللازمة لتجنب هذه الأخطاء وضمان أن كل المستندات تتم معالجتها بشكل صحيح ودقيق.<br><br>Mostanad Academy | مستند أكاديمي<br>فيسبوك:<br>https://lnkd.in/eXgFaUNj<br>لينكدان الشخصي:<br>https://lnkd.in/enC2jxKj<br>الموقع الرسمي لمستند أكاديمي:<br>https://lnkd.in/dWDHFw25<br>قناة اليوتيوب للشروحات والكورسات:<br>https://lnkd.in/dWp4JYdE<br>صفحة مستند أكاديمي على لينكدان:<br>https://lnkd.in/d6JZ_3DR<br>جروب الفيسبوك الخاص بمجال منسق المستندات (DC):<br>https://lnkd.in/dcfmuxAC<br>قناة الواتساب للشروحات والكورسات:<br>https://lnkd.in/dJmGJnxs</div>
-</article>
-</section>
-
     <!-- البحث عن المستندات بالاختصار أو الاسم -->
     <section class="document-search" aria-label="البحث عن المستندات">
       <div class="document-search-box">
@@ -233,7 +450,38 @@
       <div id="searchResults" aria-live="polite"></div>
     </section>
 
+    <section id="nadaArticles" aria-label="مقالات مستند أكاديمي">
+
+
+
+<article class="article" data-nada-id="e3b853d3173c9bca">
+<div class="article-image"><img data-nada-image="images/e3b853d3173c9bca.webp" src="images/e3b853d3173c9bca.webp" alt="أخطاء شائعة في Document Control" style="max-width:100%;height:auto;display:block;margin:0 0 18px 0;border-radius:12px;"></div>
+<h2>أخطاء شائعة في Document Control</h2>
+<div class="article-content">هل تساءلت يومًا عن الأخطاء الشائعة التي قد تقع عند التعامل مع مستندات المشروعات الإنشائية؟ اليوم، نستكشف بعض الأمور التي قد تؤدي إلى أخطاء في إدارة المستندات، أو ما يعرف بـ &quot;Document Control&quot;.<br><br>في مشاريع الإنشاءات، من الضروري أن يكون لديك نظام واضح ودقيق لتنظيم ورقابتك على المستندات. ومع ذلك، قد يقع البعض في أخطاء سهلة الوقوع، مثل عدم استخدام كود المستندات بشكل صحيح، أو عدم التحقق من المستندات الواردة، أو عدم الالتزام بالمواعيد المحددة لرد المستندات.<br><br>أخطاء مثل هذه قد تؤدي إلى تأخيرات في المشروع، أو فقدان للمعلومات الهامة، أو حتى مشاكل قانونية. لذا، إذا كنت مهندسًا أو مشروع قيد التنفيذ، أو تعمل في مجال Document Control، فهذا المقال هو بداية رحلة جديدة مع Mostanad Academy، حيث نقدم لك الدعم والتعليمات اللازمة لتجنب هذه الأخطاء وضمان أن كل المستندات تتم معالجتها بشكل صحيح ودقيق.<br><br>دعونا نستكشف بعض الأخطاء الشائعة ونقترح بعض الحلول لتجنبها. هل نبدأ؟<br>هل تساءلت يومًا عن الأخطاء الشائعة التي قد تقع عند التعامل مع مستندات المشروعات الإنشائية؟ اليوم، نستكشف بعض الأمور التي قد تؤدي إلى أخطاء في إدارة المستندات، أو ما يعرف بـ &quot;Document Control&quot;.<br>في مشاريع الإنشاءات، من الضروري أن يكون لديك نظام واضح ودقيق لتنظيم ورقابتك على المستندات. ومع ذلك، قد يقع البعض في أخطاء سهلة الوقوع، مثل عدم استخدام كود المستندات بشكل صحيح، أو عدم التحقق من المستندات الواردة، أو عدم الالتزام بالمواعيد المحددة لرد المستندات.<br>أخطاء مثل هذه قد تؤدي إلى تأخيرات في المشروع، أو فقدان للمعلومات الهامة، أو حتى مشاكل قانونية. لذا، إذا كنت مهندسًا أو مشروع قيد التنفيذ، أو تعمل في مجال Document Control، فهذا المقال هو بداية رحلة جديدة مع Mostanad Academy، حيث نقدم لك الدعم والتعليمات اللازمة لتجنب هذه الأخطاء وضمان أن كل المستندات تتم معالجتها بشكل صحيح ودقيق.<br><br>Mostanad Academy | مستند أكاديمي<br>فيسبوك:<br>https://lnkd.in/eXgFaUNj<br>لينكدان الشخصي:<br>https://lnkd.in/enC2jxKj<br>الموقع الرسمي لمستند أكاديمي:<br>https://lnkd.in/dWDHFw25<br>قناة اليوتيوب للشروحات والكورسات:<br>https://lnkd.in/dWp4JYdE<br>صفحة مستند أكاديمي على لينكدان:<br>https://lnkd.in/d6JZ_3DR<br>جروب الفيسبوك الخاص بمجال منسق المستندات (DC):<br>https://lnkd.in/dcfmuxAC<br>قناة الواتساب للشروحات والكورسات:<br>https://lnkd.in/dJmGJnxs</div>
+</article>
+</section>
+
   </main>
+
+
+  <!-- LinkedIn-style post viewer -->
+  <div class="modal fade post-modal" id="postViewer" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="postViewerTitle"></h2>
+          <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+        </div>
+        <div class="modal-body">
+          <img id="postViewerImage" class="modal-post-image" alt="" style="display:none;">
+          <div id="postViewerContent" class="modal-post-content"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">إغلاق</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- =========================
        FOOTER
@@ -353,6 +601,82 @@
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
     }
+
+
+    /* ==========================================================
+       POST CARD / LINKEDIN-STYLE VIEWER
+       ========================================================== */
+    function preparePostCards() {
+      const container = document.getElementById("nadaArticles");
+      if (!container) return;
+
+      const posts = container.querySelectorAll(".article");
+
+      posts.forEach(function(post) {
+        if (post.dataset.viewerReady === "1") return;
+        post.dataset.viewerReady = "1";
+        post.setAttribute("role", "button");
+        post.setAttribute("tabindex", "0");
+
+        post.addEventListener("click", function(event) {
+          if (event.target.closest("a, button, input, textarea, select")) return;
+          openPostViewer(post);
+        });
+
+        post.addEventListener("keydown", function(event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openPostViewer(post);
+          }
+        });
+      });
+    }
+
+    function openPostViewer(post) {
+      const title = post.querySelector("h2");
+      const content = post.querySelector(".article-content");
+      const image = post.querySelector(".article-image img");
+      const viewerTitle = document.getElementById("postViewerTitle");
+      const viewerContent = document.getElementById("postViewerContent");
+      const viewerImage = document.getElementById("postViewerImage");
+
+      viewerTitle.textContent = title ? title.textContent.trim() : "Mostanad Academy";
+      viewerContent.innerHTML = content ? content.innerHTML : "";
+
+      if (image && image.getAttribute("src")) {
+        viewerImage.src = image.getAttribute("src");
+        viewerImage.alt = image.getAttribute("alt") || "";
+        viewerImage.style.display = "block";
+      } else {
+        viewerImage.removeAttribute("src");
+        viewerImage.alt = "";
+        viewerImage.style.display = "none";
+      }
+
+      const modal = bootstrap.Modal.getOrCreateInstance(
+        document.getElementById("postViewer")
+      );
+      modal.show();
+    }
+
+    function watchNewPosts() {
+      preparePostCards();
+
+      const container = document.getElementById("nadaArticles");
+      if (!container || container.dataset.observerReady === "1") return;
+
+      container.dataset.observerReady = "1";
+
+      const observer = new MutationObserver(function() {
+        preparePostCards();
+      });
+
+      observer.observe(container, { childList: true, subtree: true });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      watchNewPosts();
+    });
 
       
 function toggleTheme(btn){
