@@ -554,31 +554,89 @@
         return;
       }
 
-      const matches = DOCUMENTS.filter(doc => {
-        const code = normalizeSearch(doc.code);
-        const name = normalizeSearch(doc.name);
-        const aliases = (doc.aliases || []).map(normalizeSearch);
-        return code.includes(query) || name.includes(query) || aliases.some(a => a.includes(query));
+      const posts = Array.from(
+        document.querySelectorAll("#nadaArticles .article")
+      );
+
+      const matches = posts.filter(function(post) {
+        const title = normalizeSearch(
+          post.querySelector("h2") ? post.querySelector("h2").textContent : ""
+        );
+        const content = normalizeSearch(
+          post.querySelector(".article-content")
+            ? post.querySelector(".article-content").textContent
+            : ""
+        );
+
+        return title.includes(query) || content.includes(query);
       });
 
       if (matches.length > 0) {
-        results.innerHTML = matches.map(doc => `
-          <a class="search-result" href="${escapeHtml(doc.url || '#')}">
-            <span class="code">${escapeHtml(doc.code || '')}</span>
-            <strong>${escapeHtml(doc.name || '')}</strong>
-            ${doc.description ? `<div>${escapeHtml(doc.description)}</div>` : ''}
-          </a>
-        `).join("");
+        results.innerHTML = matches.map(function(post, index) {
+          const titleElement = post.querySelector("h2");
+          const contentElement = post.querySelector(".article-content");
+          const title = titleElement ? titleElement.textContent.trim() : "منشور";
+          const content = contentElement ? contentElement.textContent.trim() : "";
+          const excerpt = content.length > 180
+            ? content.substring(0, 180) + "..."
+            : content;
+
+          return `
+            <a
+              class="search-result"
+              href="#"
+              data-post-index="${index}"
+              aria-label="فتح منشور ${escapeHtml(title)}"
+            >
+              <strong>${escapeHtml(title)}</strong>
+              <div>${escapeHtml(excerpt)}</div>
+              <small style="display:block;margin-top:8px;color:#0a66c2;font-weight:700;">
+                فتح المنشور
+              </small>
+            </a>
+          `;
+        }).join("");
+
+        results.querySelectorAll(".search-result").forEach(function(link, index) {
+          link.addEventListener("click", function(event) {
+            event.preventDefault();
+
+            const post = matches[index];
+            if (!post) return;
+
+            results.innerHTML = "";
+            input.value = "";
+
+            post.scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+
+            post.animate(
+              [
+                { transform: "scale(1)" },
+                { transform: "scale(1.025)" },
+                { transform: "scale(1)" }
+              ],
+              { duration: 500, easing: "ease-out" }
+            );
+
+            setTimeout(function() {
+              openPostViewer(post);
+            }, 450);
+          });
+        });
+
         return;
       }
 
       /*
-         لا يوجد شرح/بوست للمستند:
-         يتم توجيه الباحث إلى LinkedIn الشخصي لأحمد خالد.
+        إذا لم يوجد أي منشور مطابق:
+        يتم توجيه المستخدم إلى LinkedIn الشخصي.
       */
       results.innerHTML = `
         <div class="search-empty">
-          <p>المستند المطلوب غير متاح حاليًا في مكتبة Mostanad Academy.</p>
+          <p>المنشور المطلوب غير موجود حاليًا في مكتبة Mostanad Academy.</p>
           <p>يمكنك البحث عنه في منشورات LinkedIn الشخصية.</p>
           <a class="btn btn-primary" href="${LINKEDIN_PROFILE}" target="_blank" rel="noopener">
             الانتقال إلى LinkedIn
